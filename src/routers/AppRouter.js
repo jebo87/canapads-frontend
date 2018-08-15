@@ -1,16 +1,15 @@
 import React from 'react';
 import {BrowserRouter, Switch,Route} from 'react-router-dom';
-import LoginPage from '../components/LoginPage';
-import Header from '../components/Header'
+
 import HomePage from '../components/HomePage';
-import AdminPage from '../components/AdminPage';
-import LeaderBoardPage from '../components/LeaderBoardPage';
-import MatchScores from '../components/MatchScores';
+import Ads from '../components/Ads';
+
 
 const AppRouter = ()=>(
     <BrowserRouter>
         <Switch>
                 <Route path="/" component={HomePage} exact={true} />
+                <Route path="/ads" component={Ads}  />
                
             </Switch>
     </BrowserRouter>

@@ -1,4 +1,5 @@
 const path = require('path');
+var webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -6,6 +7,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = (env) => {
     const isProduction = env === 'production';
     const CSSExtract = new ExtractTextPlugin('styles.[hash].css');
+
+
     return {
         entry: './src/app.js',
         output: {
@@ -53,11 +56,15 @@ module.exports = (env) => {
         plugins: [
             CSSExtract,
             new HtmlWebpackPlugin({
-                filename: path.join(__dirname, 'public','index.html'),
+                filename: path.join(__dirname, 'public', 'index.html'),
                 title: 'My app',
-                template: path.join(__dirname, 'src','index.html')
+                template: path.join(__dirname, 'src', 'index.html')
             }),
             new CleanWebpackPlugin(['public']),
+            new webpack.DefinePlugin({
+                '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://localhost:8081')))
+            })
+
 
         ],
         devtool: isProduction ? 'source-map' : 'inline-source-map',
@@ -66,7 +73,7 @@ module.exports = (env) => {
             disableHostCheck: true,
             historyApiFallback: true,
             contentBase: path.join(__dirname, 'public'),
-            
+
         }
     }
 }
