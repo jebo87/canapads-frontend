@@ -1,26 +1,12 @@
 import React from 'react'
-import {getAds} from '../backend_interface/api_if'
-
+import Ads from "./Ads"
 class HomePage extends React.Component {
-    state = {
-        ads:[]
-    }
    
-    async componentDidMount(){
-        let ads = await getAds();
-        this.setState({ads});
-        
-        
-    }
+    
     render() {
         return (
             <React.Fragment>
-                {
-                    
-                    this.state.ads.map((ad)=>{
-                        return (<p key={ad.id}>{ad.title}</p>)
-                    })
-                }
+                <Ads />
                
                 
             </React.Fragment> 

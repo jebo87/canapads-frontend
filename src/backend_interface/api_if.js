@@ -4,24 +4,25 @@ const  getAds =async ()=>{
     const data = await fetch(url);
     const adsArray = await data.json();
     let ads=[];
-    console.log(adsArray)
-    adsArray.map((ad)=>{
-        console.log(ad['Title']);
-        const adNew=new HomeAd(ad['ID'],
-            ad['Title'],
-            ad['Description'],
-            ad['City'],
-            ad['Country'],
-            [],
-            ad['Price'],
-            ad['PublishedDate'],
-            ad['UserAdId'],
-            ad['PropertyType'],
-            ad['Rooms'],
-            ad['Garages'],
-            ad['RentByOwner'],
-            ad['Furnished'],
-            ad['Pets']
+    console.log(adsArray.ads)
+    adsArray.ads.map((ad)=>{
+        console.log(ad['title']);
+        const adNew=new HomeAd(
+            ad['id'],
+            ad['title'],
+            ad['description'],
+            ad['city'],
+            ad['country'],
+            ad['images'],
+            ad['price'],
+            ad['publishedDate'],
+            ad['userAdId'],
+            ad['propertyType'],
+            ad['rooms'],
+            ad['garages'],
+            ad['rentByOwner'],
+            ad['furnished'],
+            ad['pets']
             );
         
         ads.push(adNew)
