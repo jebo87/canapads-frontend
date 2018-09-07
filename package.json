@@ -7,19 +7,24 @@
   "scripts": {
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --env production",
-    "dev-server": "webpack-dev-server --mode=development"
+    "dev-server": "webpack-dev-server --mode=development --port 8000",
+    "prod-server": "webpack-dev-server --mode=production --port 8000"
   },
   "dependencies": {
+    "deck.gl": "6.0.0",
     "mapbox-gl": "^0.48.0",
     "normalize.css": "^8.0.0",
+    "rbush": "^2.0.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-map-gl": "^3.3.4",
     "react-modal": "^3.4.4",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.3.1",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "styled-components": "^3.4.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

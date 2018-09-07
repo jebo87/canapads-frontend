@@ -3,6 +3,7 @@ var webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const resolve = require('path').resolve;
 
 module.exports = (env) => {
     const isProduction = env === 'production';
@@ -19,6 +20,7 @@ module.exports = (env) => {
             rules: [
                 {
                     loader: 'babel-loader',
+                    include: [resolve('.')],
                     test: /\.js$/,
                     exclude: /node_modules/
                 },
@@ -52,6 +54,12 @@ module.exports = (env) => {
                 }
             ]
         },
+        resolve: {
+            alias: {
+              // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):
+              'mapbox-gl$': resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js')
+            }
+          },
         // devtool: 'source-map',
         plugins: [
             CSSExtract,
@@ -62,7 +70,7 @@ module.exports = (env) => {
             }),
             new CleanWebpackPlugin(['public']),
             new webpack.DefinePlugin({
-                '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://localhost:8081')))
+                '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://localhost:8087')))
             })
 
 
