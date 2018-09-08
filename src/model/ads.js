@@ -21,6 +21,7 @@ export class BaseAd {
         this.published = published;
 
     }
+
 }
 
 export default class HomeAd extends BaseAd {
@@ -36,19 +37,55 @@ export default class HomeAd extends BaseAd {
         price,
         published,
         user,
-        type,
         rooms,
+        type,
+        pets,
+        furnished,
         garages,
         rentOwner,
-        furnished,
-        pets) {
-        super(id, title, description, city, country, images, price, published, user);
-        type = type;
-        rooms = rooms;
-        garages = garages;
-        rentOwner = rentOwner;
-        furnished = furnished;
-        pets = pets;
+        last_updated,
+        featured,
+        lat,
+        lon,
+        bathrooms,
+        view_count,
+        street,
+        postal_code,
+        state_province,
+        neighborhood,
+        house_number,
+        published_date
+    ) {
+        super( id,
+            title,
+            description,
+            city,
+            country,
+            images,
+            price,
+            published,
+            user);
+        this.type = type;
+        this.rooms = rooms;
+        this.garages = garages;
+        this.rentOwner = rentOwner;
+        this.pets = pets;
+        this.furnished = furnished;
+        this.garages = garages;
+        this.rentOwner = rentOwner;
+        this.last_updated = last_updated;
+        this.featured = featured;
+        this.lat = lat;
+        this.lon = lon;
+        this.coordinates = [lon,lat];
+        this.bathrooms = bathrooms;
+        this.view_count = view_count;
+        this.street = street;
+        this.postal_code = postal_code;
+        this.state_province = state_province;
+        this.neighborhood = neighborhood;
+        this.house_number = house_number;
+        this.published_date = published_date
     }
 
     toJSON() {

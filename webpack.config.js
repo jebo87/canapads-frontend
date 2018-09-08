@@ -71,7 +71,8 @@ module.exports = (env) => {
             new CleanWebpackPlugin(['public']),
             new webpack.DefinePlugin({
                 '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://localhost:8087')))
-            })
+            }),
+            new webpack.EnvironmentPlugin(['MapboxAccessToken'])
 
 
         ],
