@@ -57,7 +57,13 @@ const convertToGeoJSON = (ads) => {
         let myAd = {
             "type": "Feature",
             "properties": {
-                "title": ad['title']
+                "id": ad['id'],
+                "title": ad['title'],
+                "description": ad['description'],
+                "price": ad['price'],
+                "image": ad['images'][0],
+                "bedrooms": ad['rooms'],
+                "neighborhood": ad['neighborhood']
 
             },
             "geometry": {

@@ -1,0 +1,26 @@
+.home_page {
+    .search_box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .left_box {
+        width: 50%;
+        background:#333;
+        float:left;
+        height: 100vh;
+        flex:1;
+        overflow-y:scroll;
+    }
+
+    .right_box {
+        background: aqua;
+        width: 50%;
+        top: 0;
+        bottom: 0;
+        float:right;
+        flex:1
+    }
+}

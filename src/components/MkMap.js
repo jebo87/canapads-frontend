@@ -28,17 +28,24 @@ export default class MkMap extends React.Component {
     }
 
     componentDidMount = () => {
-
+        this.popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+    
         this.map = new mapboxgl.Map({
             container: this.mapContainer,
             center: [this.props.lon, this.props.lat],
             zoom: 10,
+            maxZoom:16,
+            minZoom:10,
+            // style: 'mapbox://styles/jebo87/cjlpc2y7q5q982rtbah0skhnf'
             style: 'mapbox://styles/jebo87/cjlqq3orh50px2rph1d2vnbqd'
         });
         if(this.state.ads)
-        this.map.on('load', () => { this.load(this.map, this.state.ads) });
+        this.map.on('load', () => { this.load(this.map, this.state.ads,this.popup) });
     }
-    load = (map, ads) => {
+    load = (map, ads,popup) => {
 
         console.log(ads);
         // Add a new source from our GeoJSON data and set the
@@ -97,16 +104,27 @@ export default class MkMap extends React.Component {
 
         map.addLayer({
             id: "unclustered-point",
-            type: "circle",
+            type: "symbol",
             source: "listings",
             filter: ["!", ["has", "point_count"]],
-            paint: {
-                "circle-color": "#11b4da",
-                "circle-radius": 4,
-                "circle-stroke-width": 1,
-                "circle-stroke-color": "#fff"
+            layout:{
+                "icon-image":"canapad",
+                "icon-size":1
             }
+            
         });
+        // map.addLayer({
+        //     id: "unclustered-point",
+        //     type: "circle",
+        //     source: "listings",
+        //     filter: ["!", ["has", "point_count"]],
+        //     paint: {
+        //         "circle-color": "#11b4da",
+        //         "circle-radius": 4,
+        //         "circle-stroke-width": 1,
+        //         "circle-stroke-color": "#fff"
+        //     }
+        // });
 
         // inspect a cluster on click
         map.on('click', 'clusters', function (e) {
@@ -130,6 +148,36 @@ export default class MkMap extends React.Component {
             map.getCanvas().style.cursor = '';
         });
 
+        map.on('click', 'unclustered-point', function (e) {
+            var features = map.queryRenderedFeatures(e.point, { layers: ['unclustered-point'] });
+             var win = window.open('http://localhost:8087/ads/'+features[0].properties.id)
+             win.focus();
+            
+        });
+        
+
+        map.on('mouseenter', 'unclustered-point', function (e) {
+            map.getCanvas().style.cursor = 'pointer';
+            popup.setLngLat(e.features[0].geometry.coordinates.slice()).
+                setHTML(e.features[0].properties.title).
+                addTo(map)
+
+        });
+        map.on('mouseleave', 'unclustered-point', function () {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
+        // //in case we need coordinates to debug
+        // map.on('mousemove', function (e) {
+            
+        //         // // e.point is the x, y coordinates of the mousemove event relative
+        //         // // to the top-left corner of the map
+        //         // JSON.stringify(e.point) 
+        //         // e.lngLat is the longitude, latitude geographical position of the event
+        //         console.log(JSON.stringify(e.lngLat));
+        // });
+
+
     }
     componentWillUnmount = () => {
         this.map.remove();
@@ -138,7 +186,7 @@ export default class MkMap extends React.Component {
     render = () => {
 
 
-        return <div id="map" ref={el => this.mapContainer = el} />;
+        return <div id="map" className="map" ref={el => this.mapContainer = el} />;
     }
 
 

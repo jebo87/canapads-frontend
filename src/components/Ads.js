@@ -1,32 +1,30 @@
 import React from 'react'
-import {getAds} from '../backend_interface/api_if'
+import AdBox from './AdBox'
 
 
-class  Ads extends React.Component{
-    state = {
-        ads:[]
-    }
-   
-    async componentDidMount(){
-        let ads = await getAds();
-        this.setState({ads});
-        console.log(ads)
-        
-        
+export default class Ads extends React.Component {
+    constructor(props) {
+        super(props)
     }
     render() {
+        console.log(this.props.ads)
         return (
-            <React.Fragment>
+            <div className="box_ads">
                 {
-                    
-                    this.state.ads.map((ad)=>{
-                        return (<p key={ad.id}>{ad.title}</p>)
+
+                    this.props.ads.features && this.props.ads.features.map(feature => {
+                        console.log('addking');
+                        return (<AdBox key={feature.properties.id} feature={feature} />)
+
                     })
+
+
+
                 }
-               
-                
-            </React.Fragment> 
+
+            </div>
         )
+
+
     }
 }
-export default Ads;

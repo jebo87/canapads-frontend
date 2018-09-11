@@ -18,7 +18,9 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ads: []
+            ads: {
+                features: []
+            }
         }
     }
 
@@ -31,9 +33,18 @@ class HomePage extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
-                <MkMap ads={this.state.ads} lat={45.429811} lon={-73.598260} />
-            </React.Fragment>
+            <div className="home_page">
+                <div className="map_search">
+                    <div className="left_box">
+                        <Ads ads={this.state.ads} />
+
+                    </div>
+                    <div className="right_box">
+                    
+                        <MkMap ads={this.state.ads} lat={45.527065} lon={-73.653534} />
+                    </div>
+                </div>
+            </div>
         );
     }
 }
