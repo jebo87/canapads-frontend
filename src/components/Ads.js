@@ -1,5 +1,6 @@
 import React from 'react'
 import AdBox from './AdBox'
+import Header from './Header';
 
 
 export default class Ads extends React.Component {
@@ -7,22 +8,24 @@ export default class Ads extends React.Component {
         super(props)
     }
     render() {
-        console.log(this.props.ads)
         return (
-            <div className="box_ads">
-                {
+            <React.Fragment >
+                <Header />
 
-                    this.props.ads.features && this.props.ads.features.map(feature => {
-                        console.log('addking');
-                        return (<AdBox key={feature.properties.id} feature={feature} />)
+                <div className="box_ads">
+                    {
 
-                    })
+                        this.props.ads.features && this.props.ads.features.map(feature => {
+                            return (<AdBox key={feature.properties.id} feature={feature} />)
+
+                        })
 
 
 
-                }
+                    }
 
-            </div>
+                </div>
+            </React.Fragment>
         )
 
 

@@ -1,0 +1,9 @@
+we have to launch:
+
+1. Docker for the postgres database for IDSV
+2. IDSV
+3. go-postgres-monitor
+4. ssh to elastic.makakolabs.ca to launch the elastic search
+5. makako-api
+6. makako-gateway
+7. yarn run dev-server react-ads

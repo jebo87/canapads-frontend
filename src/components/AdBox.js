@@ -5,7 +5,7 @@ const AdListMap = (props) => {
         replace(/\d(?=(\d{3}))/g, '$&,') + " / Month"
     return (
         <div className="box">
-            <a href={'http://localhost:8087/ads/'+props.feature.properties.id} target="_blank">
+            <a href={'/ad-detail/'+props.feature.properties.id} target="_blank">
                 <div className="info_box">
                     <div className="info_box_top">
                         <span className="neighborhood">{props.feature.properties.neighborhood}</span>

@@ -1,4 +1,43 @@
 import HomeAd from '../model/ads'
+const getAd = async (id) => {
+    const url = `${_API_}/ads/${id}`
+    const data = await fetch(url);
+    const ad = await data.json();
+    const adNew = new HomeAd(
+        ad['id'],
+        ad['title'],
+        ad['description'],
+        ad['city'],
+        ad['country'],
+        ad['images'],
+        ad['price'],
+        ad['published'],
+        ad['userad_id'],
+        ad['rooms'],
+        ad['propertyType'],
+        ad['pets'],
+        ad['furnished'],
+        ad['garages'],
+        ad['rentByOwner'],
+        ad['last_updated'],
+        ad['featured'],
+        ad['lat'],
+        ad['lon'],
+        ad['bathrooms'],
+        ad['view_count'],
+        ad['street'],
+        ad['postal_code'],
+        ad['state_province'],
+        ad['neighborhood'],
+        ad['house_number'],
+        ad['published_date'],
+        ad['gym'],
+        ad['pool'],
+    );
+    console.log(adNew)
+    return adNew;
+
+}
 const getAds = async () => {
     const url = `${_API_}/ads`
     const data = await fetch(url);
@@ -33,8 +72,10 @@ const getAds = async () => {
             ad['neighborhood'],
             ad['house_number'],
             ad['published_date'],
+            ad['gym'],
+            ad['pool'],
         );
-
+        // console.log(adNew);
         ads.push(adNew)
     });
     const geoJson = convertToGeoJSON(ads);
@@ -79,4 +120,4 @@ const convertToGeoJSON = (ads) => {
 
 }
 
-export { getAds }
+export { getAds, getAd }

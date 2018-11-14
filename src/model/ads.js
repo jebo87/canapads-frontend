@@ -54,7 +54,9 @@ export default class HomeAd extends BaseAd {
         state_province,
         neighborhood,
         house_number,
-        published_date
+        published_date,
+        pool,
+        gym
     ) {
         super( id,
             title,
@@ -85,7 +87,9 @@ export default class HomeAd extends BaseAd {
         this.state_province = state_province;
         this.neighborhood = neighborhood;
         this.house_number = house_number;
-        this.published_date = published_date
+        this.published_date = published_date;
+        this.pool = pool;
+        this.gym = gym;
     }
 
     toJSON() {

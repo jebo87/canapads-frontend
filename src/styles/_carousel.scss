@@ -1,0 +1,118 @@
+.carousel {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    z-index: 10;
+    .showcase {
+      position: relative;
+      overflow-x: hidden;
+      width: 800px;
+      margin: 5rem auto 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      img {
+        margin: 0 auto;
+        max-height: 600px;
+      }
+      .prev,
+      .next,
+      .close {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 32px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+      /* Position the "next button" to the right */
+      .next {
+        right: 0;
+        margin-right: 10px;
+        border-radius: 3px 0 0 3px;
+      }
+      .prev {
+        left: 0;
+        margin-left: 10px;
+        border-radius: 3px 0 0 3px;
+      }
+      .close {
+        top: 3rem;
+        right: 0;
+        margin-right: 0;
+        border-radius: 3px 0 0 3px;
+        background-color: rgba(0, 0, 0, 0.8);
+        font-weight: normal;
+        font-size: 15px;
+      }
+      /* On hover, add a black background color with a little bit see-through */
+      .prev:hover,
+      .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    }
+    .thumbnails {
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      -webkit-flex-flow: row;
+      flex-flow: row;
+      justify-content: center;
+      width: auto;
+      .small-image {
+        max-width: 100px;
+        height: 70px;
+        cursor: pointer;
+      }
+      img {
+        width: 100px;
+        height: 70px;
+        margin: 0 0.3rem;
+        z-index: 20;
+        opacity: 0.3;
+      }
+      .selected {
+        opacity: 1;
+      }
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .carousel .showcase {
+      .prev,
+      .next,
+      .close {
+        font-size: 14px;
+      }
+    }
+    .carousel .showcase {
+      .close {
+        top: 3rem;
+      }
+    }
+  }
+  
+  @media only screen and (max-height:600px) {
+    .carousel .showcase {
+      margin-top: 1rem;
+      img {
+        max-height: 250px;
+      }
+    }
+  }
+  
