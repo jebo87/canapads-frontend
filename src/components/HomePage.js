@@ -23,10 +23,19 @@ class HomePage extends React.Component {
             }
         }
     }
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+    componentDidMount() {
+        this.loadAds();
+    }
 
-    async componentDidMount() {
+    loadAds = async () => {
         let ads = await getAds();
+        var i;
+        await getAds();
         // this.setState({ads});
+        console.log("ads received.");
         this.setState(() => ({ ads }));
     }
 
@@ -40,7 +49,7 @@ class HomePage extends React.Component {
 
                     </div>
                     <div className="right_box">
-                    
+
                         <MkMap ads={this.state.ads} lat={45.527065} lon={-73.653534} />
                     </div>
                 </div>

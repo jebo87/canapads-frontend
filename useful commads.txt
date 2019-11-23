@@ -7,3 +7,13 @@ we have to launch:
 5. makako-api
 6. makako-gateway
 7. yarn run dev-server react-ads
+
+
+#polygons for mapbox
+1. You can get polygon coordenates in json for using with googlemaps using openstreetmap. Go to http://nominatim.openstreetmap.org/ search a place like "laval"
+click on "details"
+
+Look for OSM ID and copy it (control+c), example: 3532125
+
+paste the ID in http://polygons.openstreetmap.fr/index.py and download the polygon or https://global.mapit.mysociety.org/#api-by_area_id
+

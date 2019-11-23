@@ -21,14 +21,18 @@ export default class AdDetail extends React.Component {
         super(props)
         this.state = {
             ad: undefined,
-            carouselVisibility: false
+            carouselVisibility: true,
+            images: []
         }
     }
     async componentDidMount() {
         let ad = await getAd(this.props.match.params.id);
-        console.log('Ad', ad.title);
-        this.setState({ ad });
-        console.log({ ...this.state })
+        this.setState(() => (
+            {
+                ad,
+                images: ad.images
+            }
+        ));
 
     }
 
@@ -51,7 +55,7 @@ export default class AdDetail extends React.Component {
 
                 <div className="ad-detail" >
                     {
-                        this.state.carouselVisibility && <Carousel images={this.state.ad.images} toggleCarousel={this.toggleCarousel} ></Carousel>
+                        this.state.carouselVisibility && <Carousel images={this.state.images} toggleCarousel={this.toggleCarousel} ></Carousel>
 
                     }
                     <div className="image-container" >

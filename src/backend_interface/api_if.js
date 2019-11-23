@@ -39,10 +39,23 @@ const getAd = async (id) => {
 
 }
 const getAds = async () => {
-    const url = `${_API_}/ads`
-    const data = await fetch(url);
+    const url = `${_API_}/ads`;
+    console.log(localStorage.getItem("makako_token"));
+    const data = await fetch(url, {
+        mode: 'cors',
+        headers: {
+            'Access-Control-Request-Method': 'GET',
+            'Access-Control-Request-Headers': 'Authorization',
+            Authorization: 'Bearer ' + localStorage.getItem("makako_token")
+        },
+    });
+
     const adsArray = await data.json();
     let ads = [];
+    console.log(adsArray);
+    if (adsArray.message) {
+        return {}
+    }
     adsArray.ads.map((ad) => {
         const adNew = new HomeAd(
             ad['id'],
@@ -87,9 +100,9 @@ const getAds = async () => {
 
 const convertToGeoJSON = (ads) => {
     let data = {
-       
-            "type": "FeatureCollection",
-            "features": []
+
+        "type": "FeatureCollection",
+        "features": []
     }
 
 

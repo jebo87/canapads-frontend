@@ -9,8 +9,8 @@ export default class MkMap extends React.Component {
         super(props);
         this.state = {
             ads: [],
-            lat:0,
-            lon:0
+            lat: 0,
+            lon: 0
         }
 
 
@@ -21,8 +21,8 @@ export default class MkMap extends React.Component {
         return false;
     }
 
-    componentWillReceiveProps(nextProps) {
-       
+    UNSAFE_componentWillReceiveProps(nextProps) {
+
         this.setState({ ...nextProps })
 
     }
@@ -32,20 +32,20 @@ export default class MkMap extends React.Component {
             closeButton: false,
             closeOnClick: false
         });
-    
+
         this.map = new mapboxgl.Map({
             container: this.mapContainer,
             center: [this.props.lon, this.props.lat],
             zoom: 10,
-            maxZoom:16,
-            minZoom:10,
+            maxZoom: 16,
+            minZoom: 10,
             // style: 'mapbox://styles/jebo87/cjlpc2y7q5q982rtbah0skhnf'
             style: 'mapbox://styles/jebo87/cjlqq3orh50px2rph1d2vnbqd'
         });
-        if(this.state.ads)
-        this.map.on('load', () => { this.load(this.map, this.state.ads,this.popup) });
+        if (this.state.ads)
+            this.map.on('load', () => { this.load(this.map, this.state.ads, this.popup) });
     }
-    load = (map, ads,popup) => {
+    load = (map, ads, popup) => {
 
         // Add a new source from our GeoJSON data and set the
         // 'cluster' option to true. GL-JS will add the point_count property to your source data.
@@ -106,11 +106,11 @@ export default class MkMap extends React.Component {
             type: "symbol",
             source: "listings",
             filter: ["!", ["has", "point_count"]],
-            layout:{
-                "icon-image":"canapad",
-                "icon-size":1
+            layout: {
+                "icon-image": "canapad",
+                "icon-size": 1
             }
-            
+
         });
         // map.addLayer({
         //     id: "unclustered-point",
@@ -149,11 +149,11 @@ export default class MkMap extends React.Component {
 
         map.on('click', 'unclustered-point', function (e) {
             var features = map.queryRenderedFeatures(e.point, { layers: ['unclustered-point'] });
-             var win = window.open('http://localhost:8087/ads/'+features[0].properties.id)
-             win.focus();
-            
+            var win = window.open('http://localhost:8087/ads/' + features[0].properties.id)
+            win.focus();
+
         });
-        
+
 
         map.on('mouseenter', 'unclustered-point', function (e) {
             map.getCanvas().style.cursor = 'pointer';
@@ -168,7 +168,7 @@ export default class MkMap extends React.Component {
         });
         // //in case we need coordinates to debug
         // map.on('mousemove', function (e) {
-            
+
         //         // // e.point is the x, y coordinates of the mousemove event relative
         //         // // to the top-left corner of the map
         //         // JSON.stringify(e.point) 
