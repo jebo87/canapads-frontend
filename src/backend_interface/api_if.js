@@ -46,7 +46,7 @@ const getAds = async () => {
         headers: {
             'Access-Control-Request-Method': 'GET',
             'Access-Control-Request-Headers': 'Authorization',
-            Authorization: 'Bearer ' + localStorage.getItem("makako_token")
+            Authorization: 'Bearer ' + sessionStorage.getItem("makako_token")
         },
     });
 
@@ -117,6 +117,7 @@ const convertToGeoJSON = (ads) => {
                 "price": ad['price'],
                 "image": ad['images'][0],
                 "bedrooms": ad['rooms'],
+                "bathrooms": ad['bathrooms'],
                 "neighborhood": ad['neighborhood']
 
             },

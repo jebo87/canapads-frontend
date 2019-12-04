@@ -56,10 +56,10 @@ module.exports = (env) => {
         },
         resolve: {
             alias: {
-              // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):
-              'mapbox-gl$': resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js')
+                // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):
+                'mapbox-gl$': resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js')
             }
-          },
+        },
         // devtool: 'source-map',
         plugins: [
             CSSExtract,
@@ -70,7 +70,7 @@ module.exports = (env) => {
             }),
             new CleanWebpackPlugin(['public']),
             new webpack.DefinePlugin({
-                '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://localhost:8087')))
+                '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://gw.canapads.ca')))
             }),
             new webpack.EnvironmentPlugin(['MapboxAccessToken'])
 

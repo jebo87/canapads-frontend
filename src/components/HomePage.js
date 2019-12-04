@@ -2,7 +2,7 @@ import React from 'react'
 import Ads from "./Ads"
 import MkMap from './MkMap';
 import { getAds } from './../backend_interface/api_if'
-
+import Header from "./Header";
 
 
 
@@ -43,15 +43,18 @@ class HomePage extends React.Component {
     render() {
         return (
             <div className="home_page">
+
+                <Header />
+
                 <div className="map_search">
                     <div className="left_box">
                         <Ads ads={this.state.ads} />
 
                     </div>
-                    <div className="right_box">
 
-                        <MkMap ads={this.state.ads} lat={45.527065} lon={-73.653534} />
-                    </div>
+
+                    <MkMap ads={this.state.ads} lat={45.527065} lon={-73.653534} />
+
                 </div>
             </div>
         );

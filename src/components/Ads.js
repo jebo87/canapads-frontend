@@ -10,7 +10,6 @@ export default class Ads extends React.Component {
     render() {
         return (
             <React.Fragment >
-                <Header />
 
                 <div className="box_ads">
                     {

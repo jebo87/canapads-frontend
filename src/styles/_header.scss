@@ -1,0 +1,78 @@
+.header {
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    height: 8rem;
+
+    background: #fff;
+    padding: 1.5rem 3rem 0 3rem;
+    box-sizing: border-box;
+    box-shadow: $l2_shadow;
+    z-index: 1000;
+
+    .header_logo {}
+
+    .header_title {
+        font-family: $font_ruda;
+        font-size: 36pt;
+        color: $main_color;
+
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0 0 0 3rem;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    li {
+        float: left;
+        height: 100%;
+    }
+
+    li a {
+        font-family: $font_roboto;
+        font-style: normal;
+        display: block;
+        color: $main_color;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        height: 3.2rem;
+        text-transform: capitalize;
+        font-size: 12pt;
+
+
+
+    }
+
+    .active {
+        border-bottom: 0.5rem solid $main_color;
+    }
+
+    .search_area {
+        width: 35rem;
+        height: 4rem;
+        margin: 0 3rem 0 3rem;
+
+        .search_box {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.5rem;
+            background: #fff;
+            border: 0.1rem solid #e6e6e6;
+        }
+
+
+        input:focus {
+            outline: none;
+            border: 0.1rem solid$main_color;
+        }
+    }
+
+
+}

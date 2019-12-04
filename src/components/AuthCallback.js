@@ -15,8 +15,8 @@ export default class AuthCallback extends React.Component {
         });
         mgr.signinRedirectCallback().then(function (user) {
             console.log(user);
-            localStorage.setItem('makako_token', user.access_token);
-            window.location = "http://localhost:5000";
+            sessionStorage.setItem('makako_token', user.access_token);
+            window.location = "http://www.canapads.ca";
         })
             .catch(function (e) {
                 console.error(e);

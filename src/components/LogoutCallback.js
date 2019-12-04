@@ -8,8 +8,8 @@ export default class LogoutCallback extends React.Component {
     }
     componentDidMount() {
         console.log("entro al call back de logout");
-        localStorage.removeItem('makako_token');
-        window.location = 'http://localhost:5000'
+        sessionStorage.removeItem('makako_token');
+        window.location = 'http://www.canapads.ca'
 
     }
 

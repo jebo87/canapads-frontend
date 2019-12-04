@@ -9,45 +9,35 @@ export default class Header extends React.Component {
             user: null
         }
         this.config = {
-            authority: "http://localhost:4444",
+            authority: "http://bouncer.canapads.ca",
             client_id: "MakakoWeb",
-            redirect_uri: "http://localhost:5000/auth",
+            redirect_uri: "http://www.canapads.ca/auth",
             response_type: "code",
             scope: "openid profile",
-            post_logout_redirect_uri: "http://localhost:5000/logout",
+            post_logout_redirect_uri: "http://www.canapads.ca/logout",
             automaticSilentRenew: false,
             DefaultStaleStateAge: 5
         };
 
     }
     componentWillMount() {
+        //If there is a logged in user we set it in state
         this.mgr = new Oidc.UserManager(this.config);
-        console.log(this.mgr.settings.max_age);
-
         this.mgr.getUser().then((user) => {
-            console.log(user);
             if (user && !user.expired) {
-
-
-
                 this.setState({ user: user });
-
                 console.log("User logged in", user.profile);
-            }
-            else {
-
+            } else {
                 console.log("User not logged in");
-
-
-                // this.login();
-
             }
         });
     }
     login = () => {
+        //start the OIDC login process.
         this.mgr.signinRedirect();
     }
     logout = () => {
+        //start the OIDC logout process
         this.mgr.signoutRedirect();
     }
 
@@ -56,10 +46,23 @@ export default class Header extends React.Component {
     render() {
 
         return (
-            <div >
-                Header
+            <div className="header">
+                <div className="header_logo"></div>
+                <div className="header_title">
+                    CANAPADS
+                </div>
+                <div className="menu">
+                    <ul>
+                        <li>   <a className="active" href="">apartments</a> </li>
+                        <li>  <a href="">houses</a> </li>
+                    </ul>
+                </div>
+                <div className="search_area">
+                    <input placeholder="Search..." type="text" className="search_box" />
+                </div>
+
                 {
-                    this.state.user === null ? <button onClick={this.login}>Login</button> : <button onClick={this.logout}>logout</button>
+                    this.state.user === null ? <button className="blue_button" onClick={this.login}>Login</button> : <button className="blue_button" onClick={this.logout}>logout</button>
 
                 }
             </div>

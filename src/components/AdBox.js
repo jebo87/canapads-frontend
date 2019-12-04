@@ -1,21 +1,23 @@
 import React from 'react';
 
 const AdListMap = (props) => {
+    console.log('logging in AdBox', props.feature);
     const cost = "$" + (props.feature.properties.price).toFixed().
-        replace(/\d(?=(\d{3}))/g, '$&,') + " / Month"
+        replace(/\d(?=(\d{3}))/g, '$&,');
     return (
         <div className="box">
-            <a href={'/ad-detail/'+props.feature.properties.id} target="_blank">
+            <div className="price_tag">
+                <span className="cost">{cost}</span>
+            </div>
+            <a href={'/ad-detail/' + props.feature.properties.id} target="_blank">
                 <div className="info_box">
-                    <div className="info_box_top">
-                        <span className="neighborhood">{props.feature.properties.neighborhood}</span>
-                        <span className="bedrooms">{props.feature.properties.bedrooms} bedrooms</span>
 
-                    </div>
                     <div className="info_box_bottom">
-                        <span className="cost">{cost}</span>
+                        <span className="bedrooms">{props.feature.properties.bedrooms} bedrooms</span>
+                        <span className="bathrooms">{props.feature.properties.bathrooms} bathrooms</span>
 
                     </div>
+
 
 
                 </div>
