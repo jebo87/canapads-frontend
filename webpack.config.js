@@ -70,7 +70,7 @@ module.exports = (env) => {
             }),
             new CleanWebpackPlugin(['public']),
             new webpack.DefinePlugin({
-                '_API_': (isProduction ? (JSON.stringify('https://api.makakolabs.ca')) : (JSON.stringify('http://gw.canapads.ca')))
+                '_API_': (isProduction ? (JSON.stringify('https://gw.canapads.ca')) : (JSON.stringify('https://gw.canapads.ca')))
             }),
             new webpack.EnvironmentPlugin(['MapboxAccessToken'])
 
