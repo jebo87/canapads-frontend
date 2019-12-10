@@ -1,4 +1,6 @@
 import HomeAd from '../model/ads'
+// const _API_ = process.env.REACT_APP_API_URL
+const _API_ = 'https://gw.canapads.ca';
 const getAd = async (id) => {
     const url = `${_API_}/ads/${id}`
     const data = await fetch(url);
@@ -34,13 +36,12 @@ const getAd = async (id) => {
         ad['gym'],
         ad['pool'],
     );
-    console.log(adNew)
+
     return adNew;
 
 }
 const getAds = async () => {
     const url = `${_API_}/ads`;
-    console.log(localStorage.getItem("makako_token"));
     const data = await fetch(url, {
         mode: 'cors',
         headers: {
@@ -52,7 +53,6 @@ const getAds = async () => {
 
     const adsArray = await data.json();
     let ads = [];
-    console.log(adsArray);
     if (adsArray.message) {
         return {}
     }
@@ -130,6 +130,7 @@ const convertToGeoJSON = (ads) => {
         data.features.push(myAd)
 
     });
+
     return data
 
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const AdListMap = (props) => {
-    console.log('logging in AdBox', props.feature);
     const cost = "$" + (props.feature.properties.price).toFixed().
         replace(/\d(?=(\d{3}))/g, '$&,');
     return (
