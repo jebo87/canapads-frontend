@@ -9,6 +9,7 @@ import Header from '../components/Header';
 const MapNoSSR = dynamic(() => import('../components/MkMap'), {
   ssr: false
 });
+
 const Home = () => {
 
   const [ads, setAds] = useState('')

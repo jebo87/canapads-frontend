@@ -58,7 +58,6 @@ const MkMap = (props) => {
         const feature = event.features.find(f => f.layer.id === 'clusters' || f.layer.id === 'unclustered-point');
 
         if (feature) {
-            console.log(feature);
             if (feature.layer.id === 'clusters') {
 
                 setViewPort({

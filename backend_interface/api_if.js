@@ -1,9 +1,21 @@
-import HomeAd from '../model/ads'
+import HomeAd from '../model/ads';
+import fetch from 'isomorphic-unfetch';
+const https = require("https");
 // const _API_ = process.env.REACT_APP_API_URL
 const _API_ = 'https://gw.canapads.ca';
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
 const getAd = async (id) => {
     const url = `${_API_}/ads/${id}`
-    const data = await fetch(url);
+    const data = await fetch(url, {
+        agent,
+        mode: 'cors',
+        headers: {
+            'Access-Control-Request-Method': 'GET',
+
+        },
+    });
     const ad = await data.json();
     const adNew = new HomeAd(
         ad['id'],
@@ -40,61 +52,88 @@ const getAd = async (id) => {
     return adNew;
 
 }
-const getAds = async () => {
-    const url = `${_API_}/ads`;
-    const data = await fetch(url, {
+const isUserLoggedIn = async () => {
+    const url = `https://bouncer.canapads.ca/userinfo`;
+    const status = await fetch(url, {
         mode: 'cors',
         headers: {
             'Access-Control-Request-Method': 'GET',
             'Access-Control-Request-Headers': 'Authorization',
-            Authorization: 'Bearer ' + sessionStorage.getItem("makako_token")
+            Authorization: 'Bearer ' + localStorage.getItem("makako_token")
         },
     });
+    const data = await status.json();
+    if (data.error) {
+        console.log('token_expired', data);
+        return false;
+    } else {
+        console.log('token_active', data);
 
-    const adsArray = await data.json();
-    let ads = [];
-    if (adsArray.message) {
-        return {}
+        return true;
     }
-    adsArray.ads.map((ad) => {
-        const adNew = new HomeAd(
-            ad['id'],
-            ad['title'],
-            ad['description'],
-            ad['city'],
-            ad['country'],
-            ad['images'],
-            ad['price'],
-            ad['published'],
-            ad['userad_id'],
-            ad['rooms'],
-            ad['propertyType'],
-            ad['pets'],
-            ad['furnished'],
-            ad['garages'],
-            ad['rentByOwner'],
-            ad['last_updated'],
-            ad['featured'],
-            ad['lat'],
-            ad['lon'],
-            ad['bathrooms'],
-            ad['view_count'],
-            ad['street'],
-            ad['postal_code'],
-            ad['state_province'],
-            ad['neighborhood'],
-            ad['house_number'],
-            ad['published_date'],
-            ad['gym'],
-            ad['pool'],
-        );
-        // console.log(adNew);
-        ads.push(adNew)
-    });
-    const geoJson = convertToGeoJSON(ads);
 
 
-    return geoJson
+}
+const getAds = async () => {
+
+    if (await isUserLoggedIn()) {
+        const url = `${_API_}/ads`;
+        const data = await fetch(url, {
+            mode: 'cors',
+            headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Access-Control-Request-Headers': 'Authorization',
+                Authorization: 'Bearer ' + localStorage.getItem("makako_token")
+            },
+        });
+
+        const adsArray = await data.json();
+        let ads = [];
+        if (adsArray.message) {
+            return {}
+        }
+        adsArray.ads.map((ad) => {
+            const adNew = new HomeAd(
+                ad['id'],
+                ad['title'],
+                ad['description'],
+                ad['city'],
+                ad['country'],
+                ad['images'],
+                ad['price'],
+                ad['published'],
+                ad['userad_id'],
+                ad['rooms'],
+                ad['propertyType'],
+                ad['pets'],
+                ad['furnished'],
+                ad['garages'],
+                ad['rentByOwner'],
+                ad['last_updated'],
+                ad['featured'],
+                ad['lat'],
+                ad['lon'],
+                ad['bathrooms'],
+                ad['view_count'],
+                ad['street'],
+                ad['postal_code'],
+                ad['state_province'],
+                ad['neighborhood'],
+                ad['house_number'],
+                ad['published_date'],
+                ad['gym'],
+                ad['pool'],
+            );
+            // console.log(adNew);
+            ads.push(adNew)
+        });
+        const geoJson = convertToGeoJSON(ads);
+
+
+        return geoJson
+    } else {
+        return ''
+    }
 
 }
 

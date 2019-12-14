@@ -11,12 +11,19 @@
     box-shadow: $l2_shadow;
     z-index: 1000;
 
+
+
     .header_logo {}
 
     .header_title {
-        font-family: $font_ruda;
-        font-size: 36pt;
-        color: $main_color;
+
+        a {
+            text-decoration: none;
+            font-family: $font_ruda;
+            font-size: 36pt;
+            color: $main_color;
+
+        }
 
     }
 
