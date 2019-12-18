@@ -25,6 +25,7 @@ const LoginLogoutButton = () => {
             window.location = "https://www.canapads.ca";
         } else {
             //if not, initiate logout process
+            sessionStorage.removeItem('makako_token');
             manager.signoutRedirect();
         }
 
@@ -57,9 +58,11 @@ const LoginLogoutButton = () => {
         });
         mgr.events.addAccessTokenExpired(function () {
             console.log("token expired");
-            localStorage.removeItem('makako_token');
-            localStorage.removeItem(`oidc.user:${config.authority}:${config.client_id}`);
-            window.location = 'https://www.canapads.ca';
+            //TODO: implement logic for silent renew
+
+            // localStorage.removeItem('makako_token');
+            // localStorage.removeItem(`oidc.user:${config.authority}:${config.client_id}`);
+            // window.location = 'https://www.canapads.ca';
         });
     }, []);
 
@@ -70,7 +73,7 @@ const LoginLogoutButton = () => {
                 user === null ? <button className="blue_button" onClick={login}>Login</button> : <button className="blue_button" onClick={logout}>logout</button>
 
             }
-            <button className="blue_button" onClick={logout}>logout</button>
+
         </React.Fragment>
     );
 

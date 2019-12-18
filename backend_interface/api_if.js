@@ -53,30 +53,34 @@ const getAd = async (id) => {
 
 }
 const isUserLoggedIn = async () => {
-    const url = `https://bouncer.canapads.ca/userinfo`;
-    const status = await fetch(url, {
-        mode: 'cors',
-        headers: {
-            'Access-Control-Request-Method': 'GET',
-            'Access-Control-Request-Headers': 'Authorization',
-            Authorization: 'Bearer ' + localStorage.getItem("makako_token")
-        },
-    });
-    const data = await status.json();
-    if (data.error) {
-        console.log('token_expired', data);
-        return false;
-    } else {
-        console.log('token_active', data);
+    if (localStorage.getItem("makako_token")) {
 
-        return true;
+        const url = `https://bouncer.canapads.ca/userinfo`;
+        return await fetch(url, {
+            mode: 'cors',
+            headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Access-Control-Request-Headers': 'Authorization',
+                Authorization: 'Bearer ' + localStorage.getItem("makako_token")
+            },
+        }).then(data => data.json()).then(data => {
+            if (data.error) {
+                // console.log('token_expired', data);
+                return false;
+            } else {
+                // console.log('token_active', data);
+
+                return true;
+            }
+        }).catch(err => false);
+
     }
-
 
 }
 const getAds = async () => {
-
-    if (await isUserLoggedIn()) {
+    var loggedIn = await isUserLoggedIn();
+    console.log(loggedIn, ' logged in status');
+    if (loggedIn) {
         const url = `${_API_}/ads`;
         const data = await fetch(url, {
             mode: 'cors',

@@ -15,8 +15,8 @@ const Auth = () => {
         //     .then((result) => result.json())
         //     .then(result => console.log(result))
         //     .catch(e => console.log(e));
-        mgr.getUser().then(myuser => { setUser(myuser); console.log('user:', myuser) });
-        console.log('finishing validation');
+        mgr.getUser().then(myuser => setUser(myuser));
+
         mgr.signinRedirectCallback().then(function (user) {
             console.log('singinRedirectCallback', user);
             localStorage.setItem('makako_token', user.access_token);

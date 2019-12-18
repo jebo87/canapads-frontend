@@ -1,4 +1,4 @@
-$carousel_width:80rem;
+$carousel_width:100vw;
 
 .carousel {
     top: 0;
@@ -10,7 +10,7 @@ $carousel_width:80rem;
     overflow-x: hidden;
     width: 100% !important;
     height: 100% !important;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: white;
     color: #fff;
     z-index: 10;
     display: flex;
@@ -25,9 +25,15 @@ $carousel_width:80rem;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      max-height: 70vh;
+      height:100%;
+      object-fit: cover;
+
       img {
         margin: 0 auto;
-        max-height: 600px;
+        height:100%;
+        border-radius: 1.4rem;
+
       }
       .prev,
       .next,
@@ -37,40 +43,84 @@ $carousel_width:80rem;
         top: 50%;
         width: auto;
         padding: 16px;
-        margin-top: -50px;
-        color: white;
+        top:0;
+        
+        color: #333;
         font-weight: bold;
         font-size: 32px;
         border-radius: 0 3px 3px 0;
         user-select: none;
         -webkit-user-select: none;
-        background-color: rgba(0, 0, 0, 0.4);
+        
       }
       /* Position the "next button" to the right */
       .next {
         right: 0;
-        margin-right: 10px;
+        margin-right: 5rem;
         border-radius: 3px 0 0 3px;
+        height:100%;
+        width:40%;
+        text-align: end;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
       }
       .prev {
         left: 0;
-        margin-left: 10px;
+        margin-left: 5rem;
         border-radius: 3px 0 0 3px;
+        height:100%;
+        width:50%;
+        text-align: end;
+        text-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
       }
       .close {
-        top: 3rem;
-        right: 0;
+        display: block;
+        width: 3rem;
+        height: 3rem;
+        top: 0rem;
+        right: 5rem;
         margin-right: 0;
         border-radius: 3px 0 0 3px;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: white;
         font-weight: normal;
         font-size: 15px;
+        z-index: 30;
       }
-      /* On hover, add a black background color with a little bit see-through */
-      .prev:hover,
-      .next:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+      .close::before{
+        content: "";
+        position: absolute;
+        margin: auto;
+        top:0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 3px;
+        background: #333;
+        transform: rotate(45deg);
+        
+        
+
       }
+      .close::after{
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 3px;
+        background: #333;
+        transform: rotate(-45deg);
+        
+      }
+      
     }
     .thumbnails {
       margin: 0 auto;
@@ -88,10 +138,11 @@ $carousel_width:80rem;
         height: 70px;
         cursor: pointer;
         opacity: 0.3;
+        margin: 0.1rem 0.3rem;
         img {
           width: 100px;
           height: 7rem;
-          margin: 0 0.3rem;
+          border-radius: 0.8rem;
           z-index: 20;
           
         }

@@ -11,8 +11,8 @@
 
 
     .left_box {
-        width: 67.9rem;
-        max-width: 67.9rem;
+        width: $left_panel_size;
+        max-width: $left_panel_size;
         background: $light_gray;
         float: left;
         height: 100vh;
