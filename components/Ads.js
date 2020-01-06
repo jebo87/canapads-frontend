@@ -1,15 +1,16 @@
-import React, { createContext, useState } from 'react';
+import React, { useEffect, createContext, useState } from 'react';
 import AdBox from './AdBox';
 import AdDetail from './AdDetail';
+import ListingDetail from './ListingDetail';
 
 const SelectedAdContext = createContext();
 const Ads = (props) => {
-	const [ selectedAd, setSelectedAd ] = useState(6);
-	const [ adDetailVisibility, setAdDetailVisibility ] = useState(false);
+	const [ selectedAd, setSelectedAd ] = useState(props.listing);
+	const [ adDetailVisibility, setAdDetailVisibility ] = useState(props.listing === undefined ? false : true);
 
 	const updateAd = (ad) => {
 		setSelectedAd(ad);
-		console.log('selected ad ', ad);
+
 		setAdDetailVisibility(true);
 	};
 
@@ -26,7 +27,10 @@ const Ads = (props) => {
 							return <AdBox setSelectedAd={updateAd} key={feature.properties.id} feature={feature} />;
 						})}
 				</div>
-				{adDetailVisibility && <AdDetail toggleVisibility={toggleDetailsVisibility} listingId={6} />}
+				{
+					//adDetailVisibility && <AdDetail toggleVisibility={toggleDetailsVisibility} listingId={6} />
+				}
+				{adDetailVisibility && <ListingDetail toggleVisibility={toggleDetailsVisibility} />}
 			</SelectedAdContext.Provider>
 		</React.Fragment>
 	);

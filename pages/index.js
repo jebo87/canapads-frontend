@@ -10,7 +10,7 @@ const MapNoSSR = dynamic(() => import('../components/MkMap'), {
 	ssr: false
 });
 
-const Home = () => {
+const Home = (props) => {
 	const [ ads, setAds ] = useState('');
 	const loadAds = async () => {
 		let ads = await getAds();
@@ -36,7 +36,7 @@ const Home = () => {
 
 				<div className="map_search">
 					<div className="left_box">
-						<Ads ads={ads} />
+						<Ads ads={ads} listing={props.listing} />
 					</div>
 
 					<MapNoSSR lat={45.527065} lon={-73.653534} ads={ads} />
@@ -45,5 +45,8 @@ const Home = () => {
 		</div>
 	);
 };
-
+Home.getInitialProps = async function({ query }) {
+	const id = query['listing'];
+	return { listing: id };
+};
 export default Home;
