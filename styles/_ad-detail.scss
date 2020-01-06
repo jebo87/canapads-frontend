@@ -1,16 +1,20 @@
 .ad-detail {
+	position: absolute;
+	top: 8rem;
+	left: 0;
 	padding-top: 3rem;
-	width: $left_panel_size;
+	width: $left_panel_size - 1rem;
+	max-width: $left_panel_size - 1rem;
 	background-color: $light_gray_nt;
 	font-family: $font_franklin;
 	color: #333;
 
 	height: 100%;
-	z-index: 6000;
+	z-index: 500;
 	display: flex;
 	flex-direction: column;
-	padding-left: 2rem;
-	padding-right: 2rem;
+	// padding-left: 2rem;
+	// padding-right: 2rem;
 	h2 {
 		text-transform: capitalize;
 	}

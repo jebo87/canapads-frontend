@@ -1,31 +1,40 @@
-import React, { useState } from 'react';
-import '../../styles/styles.scss';
-import 'normalize-scss/sass/_normalize.scss';
-import { getAd } from '../../backend_interface/api_if';
-import HomeAd from '../../model/ads';
-import Carousel from '../../components/Carousel';
-import img from '../../images/icons8-marker.png';
-import propertyType from '../../images/icons8-cottage.png';
-import animals from '../../images/icons8-cat_footprint.png';
-import bed from '../../images/icons8-bed.png';
-import SmallImage from '../../components/SmallImage';
-
+import React, { useState, useContext, useEffect } from 'react';
+import { getAd } from '../backend_interface/api_if';
+import HomeAd from '../model/ads';
+import Carousel from './Carousel';
+import img from '../images/icons8-marker.png';
+import propertyType from '../images/icons8-cottage.png';
+import animals from '../images/icons8-cat_footprint.png';
+import bed from '../images/icons8-bed.png';
+import SmallImage from './SmallImage';
+import { SelectedAdContext } from './Ads';
 // import '../../images/icons8-dumbbell.png';
 // import '../../images/icons8-no_animals.png';
-import parking from '../../images/icons8-parking.png';
+import parking from '../images/icons8-parking.png';
 // import '../../images/icons8-shield.png';
-import bathroom from '../../images/icons8-shower_and_tub.png';
-import laundry from '../../images/icons8-washing_machine.png';
+import bathroom from '../images/icons8-shower_and_tub.png';
+import laundry from '../images/icons8-washing_machine.png';
 // import '../../images/icons8-sofa.png';
 // import '../../images/icons8-swimming_pool.png';
 // import '../../images/icons8-year_of_dog.png';
 // import '../../images/loading.gif';
 
-const AdDetail = (ad) => {
-	// const [ad, setAd] = useState(undefined);
+const AdDetail = (props) => {
+	const [ ad, setAd ] = useState();
 	// const [images, setImages] = useState([]);
 	const [ carouselVisibility, setCarouselVisibility ] = useState(false);
 	const [ selectedImg, setSelectedImg ] = useState(0);
+	const { selectedAd } = useContext(SelectedAdContext);
+	useEffect(
+		() => {
+			async function loadAd(id) {
+				const loadedAd = await getAd(id);
+				setAd(loadedAd);
+			}
+			loadAd(selectedAd);
+		},
+		[ selectedAd ]
+	);
 
 	const toggleImages = () => {
 		setCarouselVisibility(!carouselVisibility);
@@ -36,17 +45,16 @@ const AdDetail = (ad) => {
 	};
 	const getThumbnails = () => {
 		ad.images.map((image) => {
-			console.log(image);
 			return <img src={image} alt="" />;
 		});
 	};
 
-	if (!ad) return <div className="loading">Loading...</div>;
+	if (ad == undefined || ad.id == undefined) return <div className="ad-detail">Loading listing details...</div>;
 	else {
-		// console.log(ad);
 		const cost = '$' + ad.price.toFixed().replace(/\d(?=(\d{3}))/g, '$&,') + ' /mo';
 		return (
 			<div className="ad-detail">
+				<button onClick={props.toggleVisibility}>close</button>
 				{carouselVisibility && (
 					<Carousel selected={selectedImg} images={ad.images} toggleCarousel={toggleImages} />
 				)}
@@ -138,13 +146,6 @@ const AdDetail = (ad) => {
 			</div>
 		);
 	}
-};
-
-AdDetail.getInitialProps = async function(context) {
-	const { id } = context.query;
-	let ad = await getAd(id);
-
-	return { ...ad };
 };
 
 export default AdDetail;

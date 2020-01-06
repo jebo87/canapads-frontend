@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallImage from '../components/SmallImage';
+import SmallImage from './SmallImage';
 
 export default class Carousel extends React.Component {
 	imageCount = 0;
