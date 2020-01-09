@@ -86,8 +86,8 @@ const getAds = async () => {
 		mode: 'cors',
 		headers: {
 			'Access-Control-Request-Method': 'GET'
-			//'Access-Control-Request-Headers': 'Authorization',
-			//Authorization: 'Bearer ' + localStorage.getItem("makako_token")
+			// 'Access-Control-Request-Headers': 'Authorization',
+			// Authorization: 'Bearer ' + localStorage.getItem('makako_token')
 		}
 	});
 

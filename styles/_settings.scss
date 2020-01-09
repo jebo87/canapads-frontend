@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Libre+Franklin|Ruda:900&display=swap');
-$dark_gray: rgba(#D1D1D1, 0.5);
+$dark_gray: rgba(#d1d1d1, 0.5);
 $light_gray: rgba(#e2e1e0, 0.4);
 $light_gray_nt: rgba(#f8f8f8, 1);
 // $salmon:#F75A6A; //salmon claro
@@ -7,36 +7,28 @@ $light_gray_nt: rgba(#f8f8f8, 1);
 // $salmon:#E65100; //naranja
 // $salmon:#FF5252; //salmon
 // $salmon:#C62828; //rojo vinotinto
-$salmon:#880E4F; //uva
+$salmon: #880e4f; //uva
 
-$main_color:#4692EE;
-$light_blue:#E7F1F9;
+$main_color: #4692ee;
+$light_blue: #e7f1f9;
 
-
-
-$lime_green:#79A70A;
-$lime_green_light:#9BC90D;
-$font_gray:#555555;
-$card_gray:rgba(#D8D8D8, 0.5);
-$price_tag :#EFCD7D;
+$lime_green: #79a70a;
+$lime_green_light: #9bc90d;
+$font_gray: #555555;
+$card_gray: rgba(#d8d8d8, 0.5);
+$price_tag: #efcd7d;
 
 //fonts
-$font_ruda: 'Ruda',
-sans-serif;
-$font_roboto: 'Roboto',
-sans-serif;
+$font_ruda: 'Ruda', sans-serif;
+$font_roboto: 'Roboto', sans-serif;
 $font_franklin: 'Libre Franklin', sans-serif;
 //shadows
-$l1_shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
-0 1px 2px rgba(0, 0, 0, 0.24);
-$l2_shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
-0 3px 6px rgba(0, 0, 0, 0.23);
-$l5_shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-0 6px 6px rgba(0, 0, 0, 0.23);
-
+$l1_shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$l2_shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$l5_shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
 //screen size
-$mobile:639px;
-$mobile_wide:475px;
+$mobile: 639px;
+$mobile_wide: 475px;
 
-$left_panel_size:67.9rem;
+$left_panel_size: 66.9rem;

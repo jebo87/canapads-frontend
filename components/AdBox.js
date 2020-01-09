@@ -2,10 +2,19 @@ import React from 'react';
 import Link from 'next/link';
 import external from '../images/icons8-external_link.png';
 const AdBox = (props) => {
+	//console.log(props);
 	const setSelectedAd = () => {
 		props.setSelectedAd(props.feature.properties.id);
 	};
-	const cost = '$' + props.feature.properties.price.toFixed().replace(/\d(?=(\d{3}))/g, '$&,');
+	var formatter = new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency: 'USD',
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0
+	});
+
+	//const cost = '$' + props.feature.properties.price.toFixed().replace(/\d(?=(\d{3}))/g, '$&,');
+	const cost = formatter.format(props.feature.properties.price);
 	return (
 		<div className="box">
 			<div className="price_tag">

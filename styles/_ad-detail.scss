@@ -2,9 +2,8 @@
 	position: absolute;
 	top: 8rem;
 	left: 0;
-	padding-top: 3rem;
-	width: $left_panel_size - 1rem;
-	max-width: $left_panel_size - 1rem;
+	width: $left_panel_size;
+	max-width: $left_panel_size;
 	background-color: $light_gray_nt;
 	font-family: $font_franklin;
 	color: #333;
@@ -17,6 +16,14 @@
 	// padding-right: 2rem;
 	h2 {
 		text-transform: capitalize;
+	}
+	.go_back {
+		margin: 1rem 1rem;
+		padding: 1rem 2rem;
+		a {
+			text-decoration: none;
+			color: $main_color;
+		}
 	}
 	.photos {
 		height: 44.2rem;

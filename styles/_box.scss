@@ -8,11 +8,13 @@ $box_height: 20.4rem;
 	box-sizing: border-box;
 	padding: 0.5rem 0.5rem 0 0;
 	border: 0;
+	margin-right: 0.4rem;
 	cursor: pointer;
 
 	.box_image {
 		height: $box_height;
 		width: $box_width;
+		min-width: $box_width;
 
 		img {
 			object-fit: cover;

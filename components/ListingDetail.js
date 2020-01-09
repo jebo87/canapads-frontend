@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { getAd } from '../backend_interface/api_if';
+import Link from 'next/link';
 import HomeAd from '../model/ads';
 import Carousel from './Carousel';
 import img from '../images/icons8-marker.png';
@@ -56,7 +57,11 @@ const ListingDetail = (props) => {
 		const cost = '$' + ad.price.toFixed().replace(/\d(?=(\d{3}))/g, '$&,') + ' /mo';
 		return (
 			<div className="ad-detail">
-				<button onClick={props.toggleVisibility}>close</button>
+				<div className="go_back">
+					<Link href="/" as={`/`}>
+						<a onClick={props.toggleVisibility}>⬅️Go back to search results</a>
+					</Link>
+				</div>
 				{carouselVisibility && (
 					<Carousel selected={selectedImg} images={ad.images} toggleCarousel={toggleImages} />
 				)}
