@@ -6,8 +6,10 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
+
+
 FROM node:alpine
 WORKDIR /
-COPY --from=builder . .
+COPY --from=builder .next .next
 EXPOSE 3000
 CMD ["node_modules/.bin/next", "start"]
