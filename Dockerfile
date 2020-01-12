@@ -8,7 +8,7 @@ RUN yarn build
 
 
 
-FROM mhart/alpine-node:latest
+FROM node:lts-alpine3.9
 WORKDIR /
 COPY --from=builder .next .next
 COPY --from=builder package.json package.json
