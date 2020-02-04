@@ -1,27 +1,44 @@
-import React, { useEffect, createContext, useState } from 'react';
+import React, { useEffect, createContext, useState, useRef } from 'react';
+import Router from 'next/router';
+import Link from 'next/link';
+import { getAds } from '../backend_interface/api_if';
+
 import AdBox from './AdBox';
-import AdDetail from './AdDetail';
 import ListingDetail from './ListingDetail';
 
 const SelectedAdContext = createContext();
 const Ads = (props) => {
 	const [ selectedAd, setSelectedAd ] = useState(props.listing);
 	const [ adDetailVisibility, setAdDetailVisibility ] = useState(props.listing === undefined ? false : true);
+	const [ count, setCount ] = useState(props.count);
 
 	const updateAd = (ad) => {
 		setSelectedAd(ad);
 
 		setAdDetailVisibility(true);
 	};
+	let resultsRef = useRef();
+
+	useEffect(
+		() => {
+			resultsRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+		},
+		[ props.ads ]
+	);
 
 	const toggleDetailsVisibility = () => {
+		if (adDetailVisibility) {
+			//clear the searchbar
+			history.pushState({ hola: 1 }, '', '/');
+		}
 		setAdDetailVisibility(!adDetailVisibility);
 	};
 
 	return (
 		<React.Fragment>
 			<SelectedAdContext.Provider value={{ selectedAd: selectedAd }}>
-				<div className="box_ads">
+				<div ref={resultsRef} className="box_ads">
+					<div className="results">Your search returned {props.count} results:</div>
 					{props.ads.features &&
 						props.ads.features.map((feature) => {
 							return <AdBox setSelectedAd={updateAd} key={feature.properties.id} feature={feature} />;

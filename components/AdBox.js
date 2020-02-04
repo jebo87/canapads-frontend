@@ -27,17 +27,15 @@ const AdBox = (props) => {
 					</a>
 				</Link>
 			</div>
-			<Link href={`/?listing=${props.feature.properties.id}`} as={`/?listing=${props.feature.properties.id}`}>
-				<a onClick={setSelectedAd}>
-					<div className="info_box">
-						<div className="info_box_bottom">
-							<span className="bedrooms">{props.feature.properties.bedrooms} bedrooms</span>
-							<span className="bathrooms">{props.feature.properties.bathrooms} bathrooms</span>
-						</div>
+			<a onClick={setSelectedAd}>
+				<div className="info_box">
+					<div className="info_box_bottom">
+						<span className="bedrooms">{props.feature.properties.bedrooms} bedrooms</span>
+						<span className="bathrooms">{props.feature.properties.bathrooms} bathrooms</span>
 					</div>
-					<img className="box_image" src={props.feature.properties.image} alt="" />
-				</a>
-			</Link>
+				</div>
+				<img className="box_image" src={props.feature.properties.image} alt="" />
+			</a>
 		</div>
 	);
 };

@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { getAd } from '../backend_interface/api_if';
 import Link from 'next/link';
+import Router from 'next/router';
+
 import HomeAd from '../model/ads';
 import Carousel from './Carousel';
 import img from '../images/icons8-marker.png';
@@ -34,6 +36,7 @@ const ListingDetail = (props) => {
 			}
 			if (selectedAd) {
 				loadAd(selectedAd);
+				Router.push(`/?listing=${selectedAd}`, `/?listing=${selectedAd}`, { shallow: true });
 			}
 		},
 		[ selectedAd ]
@@ -58,9 +61,7 @@ const ListingDetail = (props) => {
 		return (
 			<div className="ad-detail">
 				<div className="go_back">
-					<Link href="/" as={`/`}>
-						<a onClick={props.toggleVisibility}>⬅️Go back to search results</a>
-					</Link>
+					<a onClick={props.toggleVisibility}>⬅️Go back to search results</a>
 				</div>
 				{carouselVisibility && (
 					<Carousel selected={selectedImg} images={ad.images} toggleCarousel={toggleImages} />

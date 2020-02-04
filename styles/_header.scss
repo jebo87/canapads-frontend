@@ -18,6 +18,9 @@
 			font-size: 36pt;
 			color: $main_color;
 		}
+		display: block;
+		width: 30rem;
+		min-width: 30rem;
 	}
 
 	ul {
@@ -80,5 +83,10 @@
 		text-align: center;
 		border-radius: 0.3em;
 		color: #fff;
+	}
+	.header_name {
+		display: block;
+		width: 15rem;
+		text-transform: capitalize;
 	}
 }

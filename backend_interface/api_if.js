@@ -77,13 +77,63 @@ const isUserLoggedIn = async () => {
 		return false;
 	}
 };
-const getAds = async () => {
+
+const getLoggedInUser = async () => {
+	if (isUserLoggedIn) {
+		if (localStorage.getItem('makako_token')) {
+			const url = `https://bouncer.canapads.ca/userinfo`;
+			return await fetch(url, {
+				mode: 'cors',
+				headers: {
+					'Access-Control-Request-Method': 'GET',
+					'Access-Control-Request-Headers': 'Authorization',
+					Authorization: 'Bearer ' + localStorage.getItem('makako_token')
+				}
+			})
+				.then((data) => data.json())
+				.then((data) => {
+					if (data.error) {
+						return null;
+					} else {
+						// console.log('token_active', data);
+
+						return data;
+					}
+				})
+				.catch((err) => null);
+		} else {
+			return null;
+		}
+	}
+	return null;
+};
+
+const getCount = async () => {
+	const url = `${_API_}/ad_count`;
+	const data = await fetch(url, {
+		mode: 'cors',
+		agent,
+		headers: {
+			'Access-Control-Request-Method': 'GET'
+			// 'Access-Control-Request-Headers': 'Authorization',
+			// Authorization: 'Bearer ' + localStorage.getItem('makako_token')
+		}
+	});
+
+	const count = data.json();
+
+	return count;
+};
+
+const getAds = async (my_page) => {
 	//var loggedIn = await isUserLoggedIn();
 	//console.log(loggedIn, ' logged in status');
 	//if (loggedIn) {
-	const url = `${_API_}/ads`;
+	const page = my_page ? my_page : 1;
+	const url = `${_API_}/ads?page=${page}`;
 	const data = await fetch(url, {
 		mode: 'cors',
+		agent,
 		headers: {
 			'Access-Control-Request-Method': 'GET'
 			// 'Access-Control-Request-Headers': 'Authorization',
@@ -92,8 +142,9 @@ const getAds = async () => {
 	});
 
 	const adsArray = await data.json();
+
 	let ads = [];
-	if (adsArray.message) {
+	if (adsArray.message || adsArray.ads === undefined) {
 		return {};
 	}
 	adsArray.ads.map((ad) => {
@@ -169,4 +220,4 @@ const convertToGeoJSON = (ads) => {
 	return data;
 };
 
-export { getAds, getAd };
+export { getAds, getAd, getLoggedInUser, getCount };

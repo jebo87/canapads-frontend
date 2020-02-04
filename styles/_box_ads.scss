@@ -4,5 +4,14 @@
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	padding-left: 0.5rem;
-	//margin-top: 8rem;
+
+	margin-bottom: 5rem;
+	scroll-margin: 8rem;
+	.results {
+		padding-left: 2rem;
+		width: 100%;
+		line-height: 5rem;
+		display: block;
+		margin-top: 8rem;
+	}
 }

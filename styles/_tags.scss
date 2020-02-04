@@ -1,0 +1,17 @@
+.tag {
+	border-radius: 3rem;
+	display: block;
+	margin: 0 0.1rem;
+	font-size: x-small;
+	font-family: $font_roboto;
+	color: $font_dark;
+	padding: 0.4rem 1rem;
+
+	.green {
+		background-color: lightgreen;
+	}
+	.coral {
+		background-color: coral;
+		padding: 0.4rem 1rem;
+	}
+}
