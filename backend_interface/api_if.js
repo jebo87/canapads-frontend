@@ -1,5 +1,6 @@
 import HomeAd from '../model/ads';
 import fetch from 'isomorphic-unfetch';
+import Filter from '../model/filters';
 const https = require('https');
 // const _API_ = process.env.REACT_APP_API_URL
 const _API_ = 'https://gw.canapads.ca';
@@ -108,43 +109,53 @@ const getLoggedInUser = async () => {
 	return null;
 };
 
-const getCount = async () => {
-	const url = `${_API_}/ad_count`;
-	const data = await fetch(url, {
-		mode: 'cors',
-		agent,
-		headers: {
-			'Access-Control-Request-Method': 'GET'
-			// 'Access-Control-Request-Headers': 'Authorization',
-			// Authorization: 'Bearer ' + localStorage.getItem('makako_token')
-		}
-	});
+// const getCount = async () => {
+// 	const url = `${_API_}/ad_count`;
+// 	const data = await fetch(url, {
+// 		mode: 'cors',
+// 		agent,
+// 		headers: {
+// 			'Access-Control-Request-Method': 'GET'
+// 			// 'Access-Control-Request-Headers': 'Authorization',
+// 			// Authorization: 'Bearer ' + localStorage.getItem('makako_token')
+// 		}
+// 	});
 
-	const count = data.json();
+// 	const count = data.json();
 
-	return count;
-};
+// 	return count;
+// };
 
-const getAds = async (my_page) => {
+let count = 0;
+
+const getAds = async (filters) => {
 	//var loggedIn = await isUserLoggedIn();
 	//console.log(loggedIn, ' logged in status');
 	//if (loggedIn) {
-	const page = my_page ? my_page : 1;
-	const url = `${_API_}/ads?page=${page}`;
+
+	const url = `${_API_}/ads`;
+
+	var filter = new Filter({ ...filters });
 	const data = await fetch(url, {
 		mode: 'cors',
 		agent,
+		method: 'POST',
 		headers: {
-			'Access-Control-Request-Method': 'GET'
+			'Access-Control-Request-Method': 'POST',
+
+			'Content-Type': 'application/json'
 			// 'Access-Control-Request-Headers': 'Authorization',
 			// Authorization: 'Bearer ' + localStorage.getItem('makako_token')
-		}
+		},
+		body: JSON.stringify(filter.toJSON())
 	});
 
-	const adsArray = await data.json();
-
+	const searchResponse = await data.json();
+	const adsArray = searchResponse.list;
+	const count = searchResponse.count;
 	let ads = [];
-	if (adsArray.message || adsArray.ads === undefined) {
+	if (adsArray === undefined || adsArray.ads === undefined) {
+		console.log();
 		return {};
 	}
 	adsArray.ads.map((ad) => {
@@ -182,7 +193,7 @@ const getAds = async (my_page) => {
 		// console.log(adNew);
 		ads.push(adNew);
 	});
-	const geoJson = convertToGeoJSON(ads);
+	const geoJson = convertToGeoJSON(ads, count);
 
 	return geoJson;
 	// } else {
@@ -190,8 +201,9 @@ const getAds = async (my_page) => {
 	// }
 };
 
-const convertToGeoJSON = (ads) => {
+const convertToGeoJSON = (ads, count) => {
 	let data = {
+		count: count,
 		type: 'FeatureCollection',
 		features: []
 	};
@@ -220,4 +232,4 @@ const convertToGeoJSON = (ads) => {
 	return data;
 };
 
-export { getAds, getAd, getLoggedInUser, getCount };
+export { getAds, getAd, getLoggedInUser };

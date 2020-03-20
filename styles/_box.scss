@@ -58,7 +58,11 @@ $box_height: 20.4rem;
 		padding: 1.5rem 1.5rem 0.2rem 1.5rem;
 		flex-direction: row;
 		justify-content: space-around;
-		text-transform: capitalize;
+		.title {
+			text-transform: uppercase;
+			text-align: center;
+			font-size: smaller;
+		}
 	}
 
 	.price_tag {

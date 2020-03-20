@@ -30,8 +30,7 @@ const AdBox = (props) => {
 			<a onClick={setSelectedAd}>
 				<div className="info_box">
 					<div className="info_box_bottom">
-						<span className="bedrooms">{props.feature.properties.bedrooms} bedrooms</span>
-						<span className="bathrooms">{props.feature.properties.bathrooms} bathrooms</span>
+						<span className="title">{props.feature.properties.title.substring(0, 55)}</span>
 					</div>
 				</div>
 				<img className="box_image" src={props.feature.properties.image} alt="" />

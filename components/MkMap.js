@@ -72,6 +72,7 @@ const MkMap = (props) => {
 				// interactiveLayerIds={['unclustered - point']}
 			>
 				{_renderPopup()}
+
 				{props.ads && (
 					<Source
 						type="geojson"

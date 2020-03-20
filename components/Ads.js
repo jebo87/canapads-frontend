@@ -2,6 +2,7 @@ import React, { useEffect, createContext, useState, useRef } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
 import { getAds } from '../backend_interface/api_if';
+import filter from '../images/icons8-filter.png';
 
 import AdBox from './AdBox';
 import ListingDetail from './ListingDetail';
@@ -38,7 +39,12 @@ const Ads = (props) => {
 		<React.Fragment>
 			<SelectedAdContext.Provider value={{ selectedAd: selectedAd }}>
 				<div ref={resultsRef} className="box_ads">
-					<div className="results">Your search returned {props.count} results:</div>
+					<div className="results">
+						Your search returned {props.count} results:{' '}
+						<button className="filter_button" onClick={props.toggleFilter}>
+							<img src={filter} alt="" />
+						</button>
+					</div>
 					{props.ads.features &&
 						props.ads.features.map((feature) => {
 							return <AdBox setSelectedAd={updateAd} key={feature.properties.id} feature={feature} />;

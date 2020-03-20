@@ -4,13 +4,31 @@ import authConfig from '../backend_interface/auth_config';
 import dynamic from 'next/dynamic';
 import { getLoggedInUser } from '../backend_interface/api_if';
 import logo from '../images/logo.svg';
-
 const LoginLogoutButtonNoSSR = dynamic(() => import('./LoginLogoutButton'), { ssr: false });
-const Header = () => {
+const defaultSize = 20;
+const defaultFrom = 0;
+const Header = (props) => {
 	const [ username, setUsername ] = useState(null);
-	useEffect(() => {
-		getLoggedInUser().then((data) => setUsername(data));
-	}, []);
+	const [ filter, setFilter ] = useState(props.filter);
+
+	const handleSearchChanged = (e) => {
+		setFilter({
+			...filter,
+			searchParam: { value: e.target.value }
+		});
+	};
+
+	const handleKeyDown = (e) => {
+		if (e.key == 'Enter') {
+			props.updateFilter(filter);
+		}
+	};
+	useEffect(
+		() => {
+			getLoggedInUser().then((data) => setUsername(data));
+		},
+		[ filter ]
+	);
 
 	return (
 		<div className="header">
@@ -40,8 +58,22 @@ const Header = () => {
 				</ul>
 			</div>
 			<div className="search_area">
-				<input placeholder="Search..." type="text" className="search_box" />
+				<input
+					placeholder="Search..."
+					type="text"
+					className="search_box"
+					onKeyDown={handleKeyDown}
+					onChange={handleSearchChanged}
+					value={filter.searchParam.value}
+				/>
 			</div>
+			<button
+				onClick={() => {
+					props.updateFilter(filter);
+				}}
+			>
+				Search
+			</button>
 			<LoginLogoutButtonNoSSR />
 			<div className="header_name">
 				<img src="" alt="" />

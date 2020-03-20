@@ -4,7 +4,7 @@
 	display: flex;
 	flex-direction: row;
 	height: 8rem;
-
+	justify-content: flex-start;
 	background: #fff;
 	padding: 1.5rem 3rem 0 3rem;
 	box-sizing: border-box;
@@ -21,6 +21,7 @@
 		display: block;
 		width: 30rem;
 		min-width: 30rem;
+		justify-self: flex-start;
 	}
 
 	ul {
@@ -72,6 +73,12 @@
 			border: 0.1rem solid$main_color;
 		}
 	}
+
+	.header_name {
+		display: block;
+		width: 15rem;
+		text-transform: capitalize;
+	}
 	.blue_button {
 		box-shadow: $l1_shadow;
 		box-sizing: border-box;
@@ -83,10 +90,8 @@
 		text-align: center;
 		border-radius: 0.3em;
 		color: #fff;
-	}
-	.header_name {
-		display: block;
-		width: 15rem;
-		text-transform: capitalize;
+		float: right;
+		justify-self: flex-end;
+		margin-right: 0;
 	}
 }

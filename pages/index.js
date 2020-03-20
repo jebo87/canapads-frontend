@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import Head from 'next/head';
 import { Ads } from '../components/Ads';
-import { getAds, getCount } from '../backend_interface/api_if';
+import Filter from '../components/Filters';
+import { getAds } from '../backend_interface/api_if';
 import 'normalize-scss/sass/_normalize.scss';
 import '../styles/styles.scss';
 import dynamic from 'next/dynamic';
@@ -10,54 +12,129 @@ const MapNoSSR = dynamic(() => import('../components/MkMap'), {
 	ssr: false
 });
 
+const defaultSize = 20;
+const defaultFrom = 0;
+const defaultPriceLow = 0;
+const defaultPriceHigh = 1000000;
+
 const Home = (props) => {
 	const [ listings, setListings ] = useState(props.ads);
 	const [ selectedPage, setSelectedPage ] = useState(1);
+	const [ paginationDirection, setPaginationDirection ] = useState('');
+	const [ showFilters, setShowFilters ] = useState(false);
+	const [ count, setCount ] = useState(props.count);
+	const [ searchTerm, setSearchTerm ] = useState('');
+	const [ filter, setFilter ] = useState(props.filter);
+	const [ pages, setPages ] = useState([]);
+	const [ pagesVisible, setPagesVisible ] = useState([]);
 
-	const pages = Math.round(props.count / 20);
-	const pages_array = [];
-	var i;
-	for (i = 0; i < pages; i++) {
-		pages_array[i] = i + 1;
-	}
-
-	const [ pagesVisible, setPagesVisible ] = useState(pages_array.slice(0, 5));
-	const loadPage = async (page) => {
-		const loadedAds = await getAds(page);
-		const newListings = loadedAds;
-		setSelectedPage(page);
-		setListings(newListings);
+	const updateFilter = (newFilter) => {
+		setFilter(newFilter);
 	};
-	const goToFirst = async () => {
-		await loadPage(1);
+
+	useEffect(
+		() => {
+			updatePages(count);
+			search(filter);
+			updatePagination(paginationDirection);
+		},
+		[ count, filter, selectedPage ]
+	);
+	useEffect(
+		() => {
+			updatePagination(paginationDirection);
+		},
+		[ selectedPage ]
+	);
+
+	const updatePagination = (direction) => {
+		if (direction === 'right') {
+			if (selectedPage <= pages.length) {
+				//dont move the visible array if we are near the end of the page array
+				// or if we are in the first three items.
+				if (pages.length > 5) {
+					if (selectedPage < pages.length - 2 && selectedPage > 3) {
+						setPagesVisible(pages.slice(selectedPage - 3, selectedPage + 2));
+						//if we are in the last items we should not shrink the visible array
+					} else if (selectedPage >= pages.length - 2) {
+						setPagesVisible(pages.slice(pages.length - 5, pages.length));
+					}
+				}
+			}
+		} else {
+			if (selectedPage > 1) {
+				//we will keep moving back the visible array until we are in page 3
+				if (selectedPage - 1 > 2 && selectedPage < pages.length - 2) {
+					setPagesVisible(pages.slice(selectedPage - 3, selectedPage + 2));
+				} else if (selectedPage >= pages.length - 2) {
+					setPagesVisible(pages.slice(pages.length - 5, pages.length));
+				}
+			}
+		}
+	};
+
+	const updatePages = async (newCount) => {
+		const pages_array = [];
+		const pages = Math.ceil(newCount / filter.size.value);
+		for (i = 0; i < pages; i++) {
+			pages_array[i] = i + 1;
+		}
+		setPages(pages_array);
 		setPagesVisible(pages_array.slice(0, 5));
 	};
+
+	var i;
+
+	const toggleFilter = async () => {
+		await setShowFilters(!showFilters);
+	};
+	const search = async (search_filter) => {
+		const terms = search_filter.searchParam === undefined ? '' : search_filter.searchParam.value;
+		if (search_filter.size === undefined) {
+			search_filter.size.value = defaultSize;
+		}
+
+		if (search_filter.from === undefined) {
+			search_filter.from.value = defaultFrom;
+		}
+
+		const loadedAds = await getAds(search_filter);
+		const newListings = loadedAds;
+
+		setListings(newListings);
+		setSelectedPage((search_filter.from.value + search_filter.size.value) / search_filter.size.value);
+		setCount(newListings.count);
+		Router.push(`/?search_term=${terms}`, `/?search_term=${terms}`, { shallow: false });
+	};
+	const loadPage = async (old, page) => {
+		var filters = {
+			...filter,
+			from: { value: page * filter.size.value - filter.size.value }
+		};
+		setFilter(filters);
+		setSelectedPage(page);
+		setPaginationDirection(page - old > 0 ? 'right' : 'left');
+
+		// const loadedAds = await getAds(filters);
+		// const newListings = loadedAds;
+		// setSelectedPage(page);
+		// setListings(newListings);
+	};
+	const goToFirst = async () => {
+		loadPage(2, 1);
+	};
 	const goToLast = async () => {
-		await loadPage(pages_array.length);
-		setPagesVisible(pages_array.slice(pages_array.length - 5, pages_array.length));
+		loadPage(1, pages.length);
 	};
 	const nextPage = async () => {
-		if (selectedPage < pages_array.length) {
-			await loadPage(selectedPage + 1);
-			//dont move the visible array if we are near the end of the page array
-			// or if we are in the first two items.
-			if (selectedPage < pages_array.length - 2 && selectedPage > 2) {
-				console.log(selectedPage - 2, selectedPage + 3);
-				setPagesVisible(pages_array.slice(selectedPage - 2, selectedPage + 3));
-				//if we are in the last items we should not shrink the visible array
-			} else if (selectedPage >= pages_array.length - 2) {
-				setPagesVisible(pages_array.slice(pages_array.length - 5, pages_array.length));
-			}
+		if (selectedPage < pages.length) {
+			loadPage(selectedPage, selectedPage + 1);
 		}
 	};
 
 	const previousPage = async () => {
 		if (selectedPage > 1) {
-			await loadPage(selectedPage - 1);
-			//we will keep moving back the visible array until we are in page 3
-			if (selectedPage - 1 > 2 && selectedPage < pages_array.length - 2) {
-				setPagesVisible(pages_array.slice(selectedPage - 4, selectedPage + 1));
-			}
+			loadPage(selectedPage, selectedPage - 1);
 		}
 	};
 
@@ -71,36 +148,50 @@ const Home = (props) => {
 			</Head>
 
 			<div className="home_page">
-				<Header />
+				<Header updateFilter={updateFilter} filter={filter} />
 
 				<div className="map_search">
 					<div className="left_box">
-						<Ads ads={listings} listing={props.listing} count={props.count} />
-						<div className="pagination">
-							<button className="page" onClick={goToFirst}>
-								|&#60;
-							</button>
-							<button className="page text_button" onClick={previousPage}>
-								Prev
-							</button>
-							{pagesVisible.map((page, index) => {
-								return (
-									<button
-										className={selectedPage == page ? 'page selected' : 'page'}
-										key={index}
-										onClick={() => loadPage(page)}
-									>
-										{page}
-									</button>
-								);
-							})}
-							<button className="page text_button" onClick={nextPage}>
-								Next
-							</button>
-							<button className="page" onClick={goToLast}>
-								&#62;|
-							</button>
-						</div>
+						{!showFilters && (
+							<Ads ads={listings} listing={props.listing} count={count} toggleFilter={toggleFilter} />
+						)}
+						{showFilters && (
+							<Filter
+								updateFilter={updateFilter}
+								toggleFilter={toggleFilter}
+								search={search}
+								searchParam={searchTerm}
+								filter={filter}
+							/>
+						)}
+						{!showFilters && (
+							<div className="pagination">
+								<button className="page" onClick={goToFirst}>
+									|&#60;
+								</button>
+								<button className="page text_button" onClick={previousPage}>
+									Prev
+								</button>
+
+								{pagesVisible.map((page, index) => {
+									return (
+										<button
+											className={selectedPage == page ? 'page selected' : 'page'}
+											key={index}
+											onClick={() => loadPage(selectedPage, page)}
+										>
+											{page}
+										</button>
+									);
+								})}
+								<button className="page text_button" onClick={nextPage}>
+									Next
+								</button>
+								<button className="page" onClick={goToLast}>
+									&#62;|
+								</button>
+							</div>
+						)}
 					</div>
 
 					<MapNoSSR lat={45.527065} lon={-73.653534} ads={listings} />
@@ -111,21 +202,35 @@ const Home = (props) => {
 };
 Home.getInitialProps = async function({ query }) {
 	const id = query['listing'];
-	const page = query['page'];
+	const searchTerm = query['search_term'] === undefined ? '' : query['search_term'];
+	var filters = {
+		searchParam: {
+			value: searchTerm
+		},
+		from: {
+			value: defaultFrom
+		},
+		size: {
+			value: defaultSize
+		},
+		price_low: {
+			value: defaultPriceLow
+		},
+		price_high: {
+			value: defaultPriceHigh
+		}
+	};
 	const loadAds = async () => {
 		// console.log('loading ads');
-		return await getAds(page);
-	};
-	const adCount = async () => {
-		// console.log('loading ad count');
-		return await getCount();
-	};
 
+		return await getAds(filters);
+	};
 	if (typeof window === 'undefined') {
 		let ads = await loadAds();
-		let ad_count = { ...(await adCount()) };
-		return { listing: id, count: ad_count.count, ads: ads };
+		console.log(ads);
+		//const listingCount = async () => await getCount();
+		return { listing: id, count: ads.count, ads: ads, filter: filters };
 	}
-	return { listing: id, count: 0, ads: {} };
+	return { listing: id, count: 0, ads: {}, filter: filters };
 };
 export default Home;
