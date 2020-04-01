@@ -20,11 +20,18 @@ const Header = (props) => {
 
 	const handleKeyDown = (e) => {
 		if (e.key == 'Enter') {
-			props.updateFilter(filter);
+			var newFilter = {
+				...filter,
+				searchParam: { value: e.target.value }
+			};
+			console.log(newFilter);
+			props.updateFilter(newFilter);
 		}
 	};
+
 	useEffect(
 		() => {
+			console.log(filter);
 			getLoggedInUser().then((data) => setUsername(data));
 		},
 		[ filter ]

@@ -29,6 +29,8 @@ const Home = (props) => {
 	const [ pagesVisible, setPagesVisible ] = useState([]);
 
 	const updateFilter = (newFilter) => {
+		console.log('entro a updatefilter');
+		console.log(newFilter);
 		setFilter(newFilter);
 	};
 
@@ -36,9 +38,8 @@ const Home = (props) => {
 		() => {
 			updatePages(count);
 			search(filter);
-			updatePagination(paginationDirection);
 		},
-		[ count, filter, selectedPage ]
+		[ count, filter ]
 	);
 	useEffect(
 		() => {
@@ -104,7 +105,13 @@ const Home = (props) => {
 		setListings(newListings);
 		setSelectedPage((search_filter.from.value + search_filter.size.value) / search_filter.size.value);
 		setCount(newListings.count);
-		Router.push(`/?search_term=${terms}`, `/?search_term=${terms}`, { shallow: false });
+		if (terms != '') {
+			//lo ideal seria tener un map en el cual tengamos todos los filtros a aplicar en la URL y tener una funcion que
+			//se encargue de ponerlos en la barra de acuerdo a lo que seleccione el usuario
+			Router.push(`/?search_term=${terms}`, `/?search_term=${terms}`, { shallow: false });
+		} else {
+			Router.push(`/`, `/`, { shallow: false });
+		}
 	};
 	const loadPage = async (old, page) => {
 		var filters = {

@@ -3,4 +3,9 @@
 	scroll-margin-top: 9rem;
 	background-color: $light_gray;
 	height: 100vh;
+
+	.amenities {
+		display: flex;
+		flex-direction: row;
+	}
 }
