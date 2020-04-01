@@ -27,5 +27,5 @@ step-build:
     - docker build --build-arg DOCKER_GIT_CREDENTIALS --build-arg REACT_APP_API_URL -t registry.gitlab.com/jebo87/react-ads:0.1 .
     - docker push registry.gitlab.com/jebo87/react-ads:0.1
     - docker image prune -f
-    - docker rm react-ads
+    - docker rm react-ads -f
     - docker run -d --name react-ads -p 3000:3000 registry.gitlab.com/jebo87/react-ads:0.1
