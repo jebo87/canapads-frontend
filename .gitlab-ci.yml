@@ -23,5 +23,6 @@ step-build:
     - master
   script:
     - export DOCKER_GIT_CREDENTIALS="$(cat ~/.git-credentials)"
+    - export REACT_APP_API_URL="http://localhost:8087"
     - docker build --build-arg DOCKER_GIT_CREDENTIALS -t registry.gitlab.com/jebo87/react-ads:0.1 .
     - docker push registry.gitlab.com/jebo87/react-ads:0.1

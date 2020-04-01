@@ -16,4 +16,5 @@ COPY --from=builder node_modules node_modules
 
 EXPOSE 3000
 CMD ["node_modules/.bin/next", "start"]
+#export REACT_APP_API_URL="https://gw.canapads.ca"
 #docker run -d --name react-ads -p 3000:3000 registry.gitlab.com/jebo87/react-ads:0.1

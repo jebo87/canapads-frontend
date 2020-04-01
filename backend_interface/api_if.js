@@ -2,13 +2,14 @@ import HomeAd from '../model/ads';
 import fetch from 'isomorphic-unfetch';
 import Filter from '../model/filters';
 const https = require('https');
-// const _API_ = process.env.REACT_APP_API_URL
-const _API_ = 'https://gw.canapads.ca';
+const _API_ = process.env.REACT_APP_API_URL;
+//const _API_ = 'https://gw.canapads.ca';
 const agent = new https.Agent({
 	rejectUnauthorized: false
 });
 const getAd = async (id) => {
 	const url = `${_API_}/ads/${id}`;
+
 	const data = await fetch(url, {
 		agent,
 		mode: 'cors',
@@ -134,7 +135,7 @@ const getAds = async (filters) => {
 	//if (loggedIn) {
 
 	const url = `${_API_}/ads`;
-
+	console.log(url);
 	var filter = new Filter({ ...filters });
 	const data = await fetch(url, {
 		mode: 'cors',
