@@ -17,6 +17,7 @@
     "node-sass": "^4.13.0",
     "normalize-scss": "^7.0.1",
     "oidc-client": "^1.9.1",
+    "rc-slider": "^9.2.4",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-map-gl": "^5.1.3"

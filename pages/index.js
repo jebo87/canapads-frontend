@@ -8,6 +8,8 @@ import 'normalize-scss/sass/_normalize.scss';
 import '../styles/styles.scss';
 import dynamic from 'next/dynamic';
 import Header from '../components/Header';
+import filter from '../images/icons8-filter.png';
+
 const MapNoSSR = dynamic(() => import('../components/MkMap'), {
 	ssr: false
 });
@@ -29,8 +31,6 @@ const Home = (props) => {
 	const [ pagesVisible, setPagesVisible ] = useState([]);
 
 	const updateFilter = (newFilter) => {
-		console.log('entro a updatefilter');
-		console.log(newFilter);
 		setFilter(newFilter);
 	};
 
@@ -158,20 +158,10 @@ const Home = (props) => {
 				<Header updateFilter={updateFilter} filter={filter} />
 
 				<div className="map_search">
-					<div className="left_box">
-						{!showFilters && (
+					{!showFilters && (
+						<div className="left_box">
 							<Ads ads={listings} listing={props.listing} count={count} toggleFilter={toggleFilter} />
-						)}
-						{showFilters && (
-							<Filter
-								updateFilter={updateFilter}
-								toggleFilter={toggleFilter}
-								search={search}
-								searchParam={searchTerm}
-								filter={filter}
-							/>
-						)}
-						{!showFilters && (
+
 							<div className="pagination">
 								<button className="page" onClick={goToFirst}>
 									|&#60;
@@ -198,9 +188,20 @@ const Home = (props) => {
 									&#62;|
 								</button>
 							</div>
-						)}
-					</div>
+						</div>
+					)}
 
+					{showFilters && (
+						<div className="left_box">
+							<Filter
+								updateFilter={updateFilter}
+								toggleFilter={toggleFilter}
+								search={search}
+								searchParam={searchTerm}
+								filter={filter}
+							/>
+						</div>
+					)}
 					<MapNoSSR lat={45.527065} lon={-73.653534} ads={listings} />
 				</div>
 			</div>
@@ -234,7 +235,7 @@ Home.getInitialProps = async function({ query }) {
 	};
 	if (typeof window === 'undefined') {
 		let ads = await loadAds();
-		console.log(ads);
+		//console.log(ads);
 		//const listingCount = async () => await getCount();
 		return { listing: id, count: ads.count, ads: ads, filter: filters };
 	}

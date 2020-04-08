@@ -40,7 +40,7 @@ const Ads = (props) => {
 			<SelectedAdContext.Provider value={{ selectedAd: selectedAd }}>
 				<div ref={resultsRef} className="box_ads">
 					<div className="results">
-						Your search returned {props.count} results:{' '}
+						Your search returned {props.count} results:
 						<button className="filter_button" onClick={props.toggleFilter}>
 							<img src={filter} alt="" />
 						</button>

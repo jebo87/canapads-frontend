@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SelectableItem from './custom_filters/SelectableItem';
-import filterImage from '../images/icons8-filter.png';
+import PriceRange from './custom_filters/PriceRange';
 import gymSelected from '../images/selectable_items/icons8-dumbbell-selected.png';
 import gymUnset from '../images/selectable_items/icons8-dumbbell-unset.png';
 import parkingSelected from '../images/selectable_items/icons8-parking-selected.png';
@@ -23,7 +23,9 @@ const defaults = {
 	property_type: { states: [ `any`, 'house', 'apartment', 'multifamily' ] }
 };
 const Filter = (props) => {
+	console.log(props.filter.price_high.value);
 	const [ filter, setFilter ] = useState(props.filter);
+	const [ priceRange, setPriceRange ] = useState([ props.filter.price_low.value, props.filter.price_high.value ]);
 	const [ amenities, setAmenities ] = useState([
 		{
 			images: [ gymUnset, gymSelected ],
@@ -91,37 +93,19 @@ const Filter = (props) => {
 		setFilter(obj);
 	};
 
-	const handleSelect = (e) => {
+	const handlePriceRangeChange = (priceRange) => {
 		var obj = { ...filter };
-		obj[e.target.id] = { value: parseInt(e.target.value) };
+		obj['price_low'] = { value: priceRange[0] };
+		obj['price_high'] = { value: priceRange[1] };
 		setFilter(obj);
 	};
 
 	return (
 		<div className="filter">
-			<button className="filter_button" onClick={props.toggleFilter}>
-				<img src={filterImage} alt="" />
-			</button>
 			<form action="">
 				<h3>Price</h3>
 
-				<select name="price_low" id="price_low" onChange={handleSelect} value={'' + filter.price_low.value}>
-					<option value="0">0</option>
-					<option value="400">400</option>
-					<option value="600">600</option>
-					<option value="700">700</option>
-					<option value="800">800</option>
-					<option value="900">900</option>
-				</select>
-
-				<select name="price_high" id="price_high" onChange={handleSelect} value={'' + filter.price_high.value}>
-					<option value="400">500</option>
-					<option value="600">600</option>
-					<option value="700">700</option>
-					<option value="800">800</option>
-					<option value="900">900</option>
-					<option value="1000000">1000000</option>
-				</select>
+				<PriceRange onPriceChange={handlePriceRangeChange} priceFilters={priceRange} />
 
 				<br />
 
