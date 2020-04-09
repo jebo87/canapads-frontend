@@ -13,6 +13,9 @@ WORKDIR /
 COPY --from=builder .next .next
 COPY --from=builder package.json package.json
 COPY --from=builder node_modules node_modules
+COPY --from=builder next.config.js next.config.js
+RUN apk add net-tools
+RUN apk add curl
 
 EXPOSE 3000
 CMD ["node_modules/.bin/next", "start"]
