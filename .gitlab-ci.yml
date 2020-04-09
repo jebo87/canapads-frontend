@@ -31,5 +31,4 @@ step-build:
     - docker tag registry.gitlab.com/jebo87/react-ads:$VERSION registry.gitlab.com/jebo87/react-ads:latest
     - docker push registry.gitlab.com/jebo87/react-ads:latest
     - docker image prune -f
-    - docker rm react-ads -f
     - kubectl apply -f /mnt/linux/k8s/MakakoLabs/webapp-workloads.yaml
