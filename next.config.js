@@ -7,7 +7,11 @@ module.exports = withImages(
 			webpack(config, options) {
 				return config;
 			},
-			env: {
+			// env: {
+			// 	REACT_APP_API_URL: process.env.REACT_APP_API_URL
+			// }
+			publicRuntimeConfig: {
+				// Will be available on both server and client
 				REACT_APP_API_URL: process.env.REACT_APP_API_URL
 			}
 		})
