@@ -27,9 +27,7 @@ step-build:
     - echo 'Version '$VERSION ' was found'
     - export DOCKER_GIT_CREDENTIALS="$(cat ~/.git-credentials)"
     - docker build --build-arg DOCKER_GIT_CREDENTIALS -t registry.gitlab.com/jebo87/react-ads:$VERSION .
-    - docker push registry.gitlab.com/jebo87/react-ads:$VERSION
     - docker tag registry.gitlab.com/jebo87/react-ads:$VERSION registry.gitlab.com/jebo87/react-ads:latest
     - docker push registry.gitlab.com/jebo87/react-ads:latest
     - docker image prune -f
-    - docker rm react-ads -f
     - kubectl apply -f /mnt/linux/k8s/MakakoLabs/webapp-workloads.yaml
