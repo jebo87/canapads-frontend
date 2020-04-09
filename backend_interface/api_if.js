@@ -135,6 +135,7 @@ const getAds = async (filters) => {
 	//if (loggedIn) {
 
 	const url = `${_API_}/ads`;
+	console.log(url);
 	var filter = new Filter({ ...filters });
 	const data = await fetch(url, {
 		mode: 'cors',
