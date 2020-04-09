@@ -4,6 +4,8 @@ import Filter from '../model/filters';
 import getConfig from 'next/config';
 
 const https = require('https');
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
 const _API_ = publicRuntimeConfig.REACT_APP_API_URL;
 //const _API_ = 'https://gw.canapads.ca';
 const agent = new https.Agent({

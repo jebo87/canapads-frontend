@@ -10,6 +10,10 @@ module.exports = withImages(
 			// env: {
 			// 	REACT_APP_API_URL: process.env.REACT_APP_API_URL
 			// }
+			serverRuntimeConfig: {
+				// Will only be available on the server side
+				mySecret: 'secret'
+			},
 			publicRuntimeConfig: {
 				// Will be available on both server and client
 				REACT_APP_API_URL: process.env.REACT_APP_API_URL
