@@ -20,6 +20,8 @@ const PriceRange = (props) => {
 	const [ lowerBound, setLowerBound ] = useState(0);
 	const [ upperBound, setUpperBound ] = useState(maxValue);
 	const handleChange = (value) => {
+		value[1] == maxValue ? (value[1] = 1000000) : value[1];
+
 		setPriceValues(value);
 	};
 	const handleAfterChange = () => {
