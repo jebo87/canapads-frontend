@@ -14,7 +14,7 @@ const MapNoSSR = dynamic(() => import('../components/MkMap'), {
 	ssr: false
 });
 
-const defaultSize = 20;
+const defaultSize = 50;
 const defaultFrom = 0;
 const defaultPriceLow = 0;
 const defaultPriceHigh = 1000000;

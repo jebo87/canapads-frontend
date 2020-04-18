@@ -1,6 +1,5 @@
 import ReactMapGL, { Popup, FlyToInterpolator, Source, Layer } from 'react-map-gl';
 import { useState, useEffect, useRef } from 'react';
-import CityPin from './CityPin';
 import AdPopup from './AdPopup';
 import { dataLayerClusterCount, dataLayerClusters, dataLayerUnclustered } from './layer_data/layer_data';
 //mapboxgl.accessToken = "pk.eyJ1IjoiamVibzg3IiwiYSI6ImNqbG9tMHp1NDF2ZWszd29zcnE0NDJlbWUifQ.72FOq2s1Hw_u9fJ2EBzViA";
@@ -51,6 +50,19 @@ const MkMap = (props) => {
 					transitionDuration: 'auto'
 				});
 			} else {
+				setPopupInfo({
+					longitude: feature.geometry.coordinates[0],
+					latitude: feature.geometry.coordinates[1],
+					properties: feature.properties
+				});
+			}
+		}
+	};
+	const _onMouseOver = (event) => {
+		if (event.features != undefined && event.features.length > 0) {
+			const feature = event.features.find((f) => f.layer.id === 'unclustered-point');
+
+			if (feature) {
 				setPopupInfo({
 					longitude: feature.geometry.coordinates[0],
 					latitude: feature.geometry.coordinates[1],
