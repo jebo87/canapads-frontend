@@ -34,6 +34,13 @@ const Panel = () => {
 			<div className="panel_right">
 				<h1>My Listings</h1>
 				<AdRows />
+				<AdRows />
+				<AdRows />
+				<AdRows />
+				<AdRows />
+				<AdRows />
+				<AdRows />
+				<AdRows />
 			</div>
 		</div>
 	);

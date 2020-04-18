@@ -31,7 +31,6 @@ const Header = (props) => {
 
 	useEffect(
 		() => {
-			console.log(filter);
 			getLoggedInUser().then((data) => setUsername(data));
 		},
 		[ filter ]
