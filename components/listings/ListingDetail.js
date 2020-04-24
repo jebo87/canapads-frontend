@@ -1,33 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { getAd } from '../backend_interface/api_if';
+import { getAd } from '../../backend_interface/api_if';
 import Link from 'next/link';
 import Router from 'next/router';
 
-import HomeAd from '../model/ads';
-import Carousel from './Carousel';
-import img from '../images/icons8-marker.png';
-import propertyType from '../images/icons8-cottage.png';
-import animals from '../images/icons8-cat_footprint.png';
-import bed from '../images/icons8-bed.png';
-import SmallImage from './SmallImage';
-import { SelectedAdContext } from './Ads';
-// import '../../images/icons8-dumbbell.png';
-// import '../../images/icons8-no_animals.png';
-import parking from '../images/icons8-parking.png';
-// import '../../images/icons8-shield.png';
-import bathroom from '../images/icons8-shower_and_tub.png';
-import laundry from '../images/icons8-washing_machine.png';
-// import '../../images/icons8-sofa.png';
-// import '../../images/icons8-swimming_pool.png';
-// import '../../images/icons8-year_of_dog.png';
-// import '../../images/loading.gif';
+import HomeAd from '../../model/ads';
+import Carousel from './../carousel/Carousel';
+import marker from '../../images/listing_detail/icons8-marker.png';
+import SmallImage from './../carousel/SmallImage';
+import { SelectedListingContext } from './Listings';
+import Features from './Features';
 
 const ListingDetail = (props) => {
 	const [ ad, setAd ] = useState();
 	// const [images, setImages] = useState([]);
 	const [ carouselVisibility, setCarouselVisibility ] = useState(false);
 	const [ selectedImg, setSelectedImg ] = useState(0);
-	const { selectedAd } = useContext(SelectedAdContext);
+	const { selectedAd } = useContext(SelectedListingContext);
 	useEffect(
 		() => {
 			async function loadAd(id) {
@@ -87,54 +75,11 @@ const ListingDetail = (props) => {
 				</div>
 				<h2>{ad.title}</h2>
 				<div className="location">
-					<img src={img} />
+					<img src={marker} />
 					{ad.city}, {ad.neighborhood}
 				</div>
 				<div className="bottom_details">
-					<div className="grid-container">
-						<div className="grid-item">
-							<div className="grid-item-text">Bedrooms</div>
-							<div className="icons-text">
-								<img src={bed} alt="" />
-								<div className="icons-text-detail">{ad.rooms}</div>
-							</div>
-						</div>
-						<div className="grid-item">
-							<div className="grid-item-text">Bathrooms</div>
-							<div className="icons-text">
-								<img src={bathroom} alt="" />
-								<div className="icons-text-detail">{ad.bathrooms}</div>
-							</div>
-						</div>
-						<div className="grid-item">
-							<div className="grid-item-text">Animals allowed</div>
-							<div className="icons-text">
-								<img src={animals} alt="" />
-								<div className="icons-text-detail">{ad.pets}</div>
-							</div>
-						</div>
-						<div className="grid-item">
-							<div className="grid-item-text">Laundry</div>
-							<div className="icons-text">
-								<img src={laundry} alt="" />
-								<div className="icons-text-detail">In building</div>
-							</div>
-						</div>
-						<div className="grid-item">
-							<div className="grid-item-text">Parking</div>
-							<div className="icons-text">
-								<img src={parking} alt="" />
-								<div className="icons-text-detail">In building</div>
-							</div>
-						</div>
-						<div className="grid-item">
-							<div className="grid-item-text">Property type</div>
-							<div className="icons-text">
-								<img src={propertyType} alt="" />
-								<div className="icons-text-detail">Condo</div>
-							</div>
-						</div>
-					</div>
+					<Features listing={ad} />
 					<div className="description">
 						<h4>Description:</h4>
 						<span>{ad.description}</span>

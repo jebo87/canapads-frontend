@@ -1,11 +1,12 @@
 const dataLayerUnclustered = {
-	id: 'unclustered-point',
+	id: 'listings',
 	type: 'symbol',
 	source: 'listings',
 	filter: [ '!', [ 'has', 'point_count' ] ],
 	layout: {
 		'icon-image': 'canapads-pin',
-		'icon-size': 1
+		'icon-size': 1,
+		'icon-allow-overlap': true
 	},
 	paint: {
 		'icon-opacity': 1

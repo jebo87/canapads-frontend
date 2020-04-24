@@ -8,6 +8,7 @@ body {
 	background: #fff;
 	margin: 0;
 	padding: 0;
+	overflow: hidden;
 }
 
 button {
@@ -49,4 +50,15 @@ button:disabled {
 	background-color: #4591ed;
 	border: solid 2px lighten($color: #4591ed, $amount: 0.5);
 	box-shadow: $l1_shadow;
+}
+.location {
+	line-height: 18pt;
+	margin-bottom: 1.5rem;
+	text-transform: capitalize;
+
+	img {
+		width: 2rem;
+		height: 2rem;
+		margin-bottom: -0.4rem;
+	}
 }

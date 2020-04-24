@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Head from 'next/head';
-import { Ads } from '../components/Ads';
+import { Listings } from '../components/listings/Listings';
 import Filter from '../components/Filters';
 import { getAds } from '../backend_interface/api_if';
-import 'normalize-scss/sass/_normalize.scss';
 import '../styles/styles.scss';
+import 'normalize-scss/sass/_normalize.scss';
 import dynamic from 'next/dynamic';
 import Header from '../components/Header';
-import filter from '../images/icons8-filter.png';
 
-const MapNoSSR = dynamic(() => import('../components/MkMap'), {
+// const MapNoSSR = dynamic(() => import('../components/Map/MkMap'), {
+// 	ssr: false
+// });
+const MapCanapadsNoSSR = dynamic(() => import('../components/map/MapCanapads'), {
 	ssr: false
 });
 
-const defaultSize = 50;
+const defaultSize = 20;
 const defaultFrom = 0;
 const defaultPriceLow = 0;
 const defaultPriceHigh = 1000000;
@@ -90,6 +92,7 @@ const Home = (props) => {
 		await setShowFilters(!showFilters);
 	};
 	const search = async (search_filter) => {
+		setListings({});
 		const terms = search_filter.searchParam === undefined ? '' : search_filter.searchParam.value;
 		if (search_filter.size === undefined) {
 			search_filter.size.value = defaultSize;
@@ -114,6 +117,7 @@ const Home = (props) => {
 		}
 	};
 	const loadPage = async (old, page) => {
+		setListings({});
 		var filters = {
 			...filter,
 			from: { value: page * filter.size.value - filter.size.value }
@@ -121,11 +125,6 @@ const Home = (props) => {
 		setFilter(filters);
 		setSelectedPage(page);
 		setPaginationDirection(page - old > 0 ? 'right' : 'left');
-
-		// const loadedAds = await getAds(filters);
-		// const newListings = loadedAds;
-		// setSelectedPage(page);
-		// setListings(newListings);
 	};
 	const goToFirst = async () => {
 		loadPage(2, 1);
@@ -146,7 +145,7 @@ const Home = (props) => {
 	};
 
 	return (
-		<div>
+		<React.Fragment>
 			<Head>
 				<title>Home</title>
 				<link rel="icon" href="/favicon.ico" />
@@ -160,7 +159,12 @@ const Home = (props) => {
 				<div className="map_search">
 					{!showFilters && (
 						<div className="left_box">
-							<Ads ads={listings} listing={props.listing} count={count} toggleFilter={toggleFilter} />
+							<Listings
+								ads={listings}
+								listing={props.listing}
+								count={count}
+								toggleFilter={toggleFilter}
+							/>
 
 							<div className="pagination">
 								<button className="page" onClick={goToFirst}>
@@ -202,10 +206,11 @@ const Home = (props) => {
 							/>
 						</div>
 					)}
-					<MapNoSSR lat={45.527065} lon={-73.653534} ads={listings} />
+
+					<MapCanapadsNoSSR lat={45.527065} lon={-73.653534} data={listings} />
 				</div>
 			</div>
-		</div>
+		</React.Fragment>
 	);
 };
 Home.getInitialProps = async function({ query }) {

@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import SelectableItem from './custom_filters/SelectableItem';
 import PriceRange from './custom_filters/PriceRange';
-import gymSelected from '../images/selectable_items/icons8-dumbbell-selected.png';
-import gymUnset from '../images/selectable_items/icons8-dumbbell-unset.png';
-import parkingSelected from '../images/selectable_items/icons8-parking-selected.png';
-import parkingUnset from '../images/selectable_items/icons8-parking-unset.png';
-import poolSelected from '../images/selectable_items/icons8-pool-selected.png';
-import poolUnset from '../images/selectable_items/icons8-pool-unset.png';
-import dog from '../images/selectable_items/icons8-dog.png';
-import cat from '../images/selectable_items/icons8-cat.png';
-import pets from '../images/selectable_items/icons8-pets.png';
-import petsUnset from '../images/selectable_items/icons8-pets-unset.png';
-import house from '../images/selectable_items/icons8-house.png';
-import building from '../images/selectable_items/icons8-building.png';
-import residence from '../images/selectable_items/icons8-residence.png';
-import bungalow from '../images/selectable_items/icons8-bungalow.png';
+import gymSelected from '../images/filters/icons8-dumbbell-selected.png';
+import gymUnset from '../images/filters/icons8-dumbbell-unset.png';
+import parkingSelected from '../images/filters/icons8-parking-selected.png';
+import parkingUnset from '../images/filters/icons8-parking-unset.png';
+import poolSelected from '../images/filters/icons8-pool-selected.png';
+import poolUnset from '../images/filters/icons8-pool-unset.png';
+import dog from '../images/filters/icons8-dog.png';
+import cat from '../images/filters/icons8-cat.png';
+import pets from '../images/filters/icons8-pets.png';
+import petsUnset from '../images/filters/icons8-pets-unset.png';
+import house from '../images/filters/icons8-house.png';
+import building from '../images/filters/icons8-building.png';
+import residence from '../images/filters/icons8-residence.png';
+import bungalow from '../images/filters/icons8-bungalow.png';
 const defaults = {
 	gym: { states: [ false, true ] },
 	pets: { states: [ 0, 1, 2, 3 ] },
@@ -73,7 +73,6 @@ const Filter = (props) => {
 		var oldFilter = filter;
 		if (updatedAmenity.selectedState != 0) {
 			var newState = updatedAmenity.states[updatedAmenity.selectedState];
-
 			setFilter({
 				...filter,
 				[updatedAmenity.id]: { value: newState }
@@ -104,20 +103,15 @@ const Filter = (props) => {
 		<div className="filter">
 			<form action="">
 				<h3>Price</h3>
-
 				<PriceRange onPriceChange={handlePriceRangeChange} priceFilters={priceRange} />
-
 				<br />
-
 				<h3>Amenities</h3>
-
 				<div className="amenities">
 					{amenities.map((item) => {
 						return <SelectableItem updateAmenities={updateAmenities} key={item.name} info={item} />;
 					})}
 				</div>
 				<br />
-
 				<button
 					onClick={(e) => {
 						e.preventDefault();

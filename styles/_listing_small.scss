@@ -1,14 +1,15 @@
-//Map variables
+//Local variables
 $box_width: 31.5rem;
 $box_height: 20.4rem;
 
-.box {
+.listing_small {
 	position: relative;
 	display: flex;
 	box-sizing: border-box;
-	padding: 0.5rem 0.5rem 0 0;
+	padding: 0;
 	border: 0;
-	margin-right: 0.4rem;
+	height: $box_height;
+	width: $box_width;
 	cursor: pointer;
 
 	.box_image {
@@ -27,7 +28,7 @@ $box_height: 20.4rem;
 
 	.info_box {
 		position: absolute;
-		bottom: 0.4rem;
+		bottom: 0;
 		width: $box_width;
 
 		z-index: 1;
@@ -83,12 +84,11 @@ $box_height: 20.4rem;
 		border-color: transparent;
 		border-style: solid;
 		border-width: 1.6rem;
-		border-left-color: #fdce71;
+		border-left-color: $price_tag;
 		top: 0;
 		left: 100%;
 	}
 	.external {
-		padding: 0.7rem 0.2rem 0.7rem 0.5rem;
 		position: absolute;
 		top: 0.5rem;
 		right: 0.5rem;
@@ -97,6 +97,5 @@ $box_height: 20.4rem;
 	}
 	.external_img {
 		width: 3rem;
-		border-radius: 50%;
 	}
 }

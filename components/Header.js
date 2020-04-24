@@ -24,7 +24,6 @@ const Header = (props) => {
 				...filter,
 				searchParam: { value: e.target.value }
 			};
-			console.log(newFilter);
 			props.updateFilter(newFilter);
 		}
 	};

@@ -1,14 +1,15 @@
 import React, { useEffect, createContext, useState, useRef } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
-import { getAds } from '../backend_interface/api_if';
-import filter from '../images/icons8-filter.png';
+import { getAds } from '../../backend_interface/api_if';
+import filter from '../../images/filters/icons8-filter.png';
+import loadingImage from '../../images/loading.gif';
 
-import AdBox from './AdBox';
+import ListingSmall from './ListingSmall';
 import ListingDetail from './ListingDetail';
 
-const SelectedAdContext = createContext();
-const Ads = (props) => {
+const SelectedListingContext = createContext();
+const Listings = (props) => {
 	const [ selectedAd, setSelectedAd ] = useState(props.listing);
 	const [ adDetailVisibility, setAdDetailVisibility ] = useState(props.listing === undefined ? false : true);
 	const [ count, setCount ] = useState(props.count);
@@ -22,7 +23,7 @@ const Ads = (props) => {
 
 	useEffect(
 		() => {
-			resultsRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+			//resultsRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
 		},
 		[ props.ads ]
 	);
@@ -30,33 +31,48 @@ const Ads = (props) => {
 	const toggleDetailsVisibility = () => {
 		if (adDetailVisibility) {
 			//clear the searchbar
-			history.pushState({ hola: 1 }, '', '/');
+			history.pushState({ empty: 1 }, '', '/');
 		}
 		setAdDetailVisibility(!adDetailVisibility);
 	};
 
 	return (
 		<React.Fragment>
-			<SelectedAdContext.Provider value={{ selectedAd: selectedAd }}>
-				<div ref={resultsRef} className="box_ads">
-					<div className="results">
+			<SelectedListingContext.Provider value={{ selectedAd: selectedAd }}>
+				<div ref={resultsRef} className="listings">
+					<div className="results_text">
 						Your search returned {props.count} results:
 						<button className="filter_button" onClick={props.toggleFilter}>
 							<img src={filter} alt="" />
 						</button>
 					</div>
-					{props.ads.features &&
-						props.ads.features.map((feature) => {
-							return <AdBox setSelectedAd={updateAd} key={feature.properties.id} feature={feature} />;
-						})}
+					{!props.ads.features && (
+						<div className="loading_box">
+							<div className="loading">
+								<img src={loadingImage} alt="" />
+							</div>
+						</div>
+					)}
+					<div className="listing_results">
+						{props.ads.features &&
+							props.ads.features.map((feature) => {
+								return (
+									<ListingSmall
+										setSelectedAd={updateAd}
+										key={feature.properties.id}
+										feature={feature}
+									/>
+								);
+							})}
+					</div>
 				</div>
 				{
 					//adDetailVisibility && <AdDetail toggleVisibility={toggleDetailsVisibility} listingId={6} />
 				}
 				{adDetailVisibility && <ListingDetail toggleVisibility={toggleDetailsVisibility} />}
-			</SelectedAdContext.Provider>
+			</SelectedListingContext.Provider>
 		</React.Fragment>
 	);
 };
 
-export { Ads, SelectedAdContext };
+export { Listings, SelectedListingContext };

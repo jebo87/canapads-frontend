@@ -1,182 +1,170 @@
-$carousel_width:100vw;
+$carousel_width: 100vw;
 
 .carousel {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: fixed;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 100% !important;
-    height: 100% !important;
-    background-color: white;
-    color: #fff;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .showcase {
-      position: relative;
-      overflow-x: hidden;
-      width: $carousel_width;
-      margin: 5rem auto 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      max-height: 70vh;
-      height:100%;
-      object-fit: cover;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: fixed;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 100% !important;
+	height: 100% !important;
+	background-color: white;
+	color: #fff;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	.showcase {
+		position: relative;
+		overflow-x: hidden;
+		width: $carousel_width;
+		margin: 5rem auto 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		max-height: 70vh;
+		height: 100%;
+		object-fit: cover;
 
-      img {
-        margin: 0 auto;
-        height:100%;
-        border-radius: 1.4rem;
+		img {
+			margin: 0 auto;
+			height: 100%;
+			border-radius: 1.4rem;
+		}
+		.prev,
+		.next,
+		.close {
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			width: auto;
+			padding: 16px;
+			top: 0;
 
-      }
-      .prev,
-      .next,
-      .close {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        padding: 16px;
-        top:0;
-        
-        color: #333;
-        font-weight: bold;
-        font-size: 32px;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-        -webkit-user-select: none;
-        
-      }
-      /* Position the "next button" to the right */
-      .next {
-        right: 0;
-        margin-right: 5rem;
-        border-radius: 3px 0 0 3px;
-        height:100%;
-        width:40%;
-        text-align: end;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-      }
-      .prev {
-        left: 0;
-        margin-left: 5rem;
-        border-radius: 3px 0 0 3px;
-        height:100%;
-        width:50%;
-        text-align: end;
-        text-align: start;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-      }
-      .close {
-        display: block;
-        width: 3rem;
-        height: 3rem;
-        top: 0rem;
-        right: 5rem;
-        margin-right: 0;
-        border-radius: 3px 0 0 3px;
-        background-color: white;
-        font-weight: normal;
-        font-size: 15px;
-        z-index: 30;
-      }
-      .close::before{
-        content: "";
-        position: absolute;
-        margin: auto;
-        top:0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 30px;
-        height: 3px;
-        background: #333;
-        transform: rotate(45deg);
-        
-        
+			color: #333;
+			font-weight: bold;
+			font-size: 32px;
+			border-radius: 0 3px 3px 0;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		/* Position the "next button" to the right */
+		.next {
+			right: 0;
+			margin-right: 5rem;
+			border-radius: 3px 0 0 3px;
+			height: 100%;
+			width: 40%;
+			text-align: end;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+		.prev {
+			left: 0;
+			margin-left: 5rem;
+			border-radius: 3px 0 0 3px;
+			height: 100%;
+			width: 50%;
+			text-align: end;
+			text-align: start;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+		.close {
+			display: block;
+			width: 3rem;
+			height: 3rem;
+			top: 0rem;
+			right: 5rem;
+			margin-right: 0;
+			border-radius: 3px 0 0 3px;
+			background-color: white;
+			font-weight: normal;
+			font-size: 15px;
+			z-index: 30;
+		}
+		.close::before {
+			content: "";
+			position: absolute;
+			margin: auto;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 30px;
+			height: 3px;
+			background: #333;
+			transform: rotate(45deg);
+		}
+		.close::after {
+			content: "";
+			position: absolute;
+			margin: auto;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 30px;
+			height: 3px;
+			background: #333;
+			transform: rotate(-45deg);
+		}
+	}
+	.thumbnails {
+		margin: 0 auto;
+		text-align: center;
+		display: flex;
+		-webkit-flex-flow: row;
+		flex-flow: row;
+		justify-content: center;
+		width: 55rem;
+		overflow: hidden;
+		height: 7rem;
 
-      }
-      .close::after{
-        content: "";
-        position: absolute;
-        margin: auto;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 30px;
-        height: 3px;
-        background: #333;
-        transform: rotate(-45deg);
-        
-      }
-      
-    }
-    .thumbnails {
-      margin: 0 auto;
-      text-align: center;
-      display: flex;
-      -webkit-flex-flow: row;
-      flex-flow: row;
-      justify-content: center;
-      width: 55rem;
-      overflow: hidden;
-      height: 7rem;
-      
-      .small-image {
-        max-width: 100px;
-        height: 70px;
-        cursor: pointer;
-        opacity: 0.3;
-        margin: 0.1rem 0.3rem;
-        img {
-          width: 100px;
-          height: 7rem;
-          border-radius: 0.8rem;
-          z-index: 20;
-          
-        }
-        
-      }
-      .selected {
-        opacity: 1;
-      }
-      
-      
-    }
-  }
-  
-  @media only screen and (max-width: 600px) {
-    .carousel .showcase {
-      .prev,
-      .next,
-      .close {
-        font-size: 14px;
-      }
-    }
-    .carousel .showcase {
-      .close {
-        top: 3rem;
-      }
-    }
-  }
-  
-  @media only screen and (max-height:600px) {
-    .carousel .showcase {
-      margin-top: 1rem;
-      img {
-        max-height: 250px;
-      }
-    }
-  }
-  
+		.small-image {
+			max-width: 100px;
+			height: 70px;
+			cursor: pointer;
+			opacity: 0.3;
+			margin: 0.1rem 0.3rem;
+			img {
+				width: 100px;
+				height: 7rem;
+				border-radius: 0.8rem;
+				z-index: 20;
+			}
+		}
+		.selected {
+			opacity: 1;
+		}
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.carousel .showcase {
+		.prev,
+		.next,
+		.close {
+			font-size: 14px;
+		}
+	}
+	.carousel .showcase {
+		.close {
+			top: 3rem;
+		}
+	}
+}
+
+@media only screen and (max-height: 600px) {
+	.carousel .showcase {
+		margin-top: 1rem;
+		img {
+			max-height: 250px;
+		}
+	}
+}

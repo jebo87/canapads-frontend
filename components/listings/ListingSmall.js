@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import external from '../images/icons8-external_link.png';
-const AdBox = (props) => {
+import external from '../../images/external_link.png';
+const ListingSmall = (props) => {
 	//console.log(props);
 	const setSelectedAd = () => {
 		props.setSelectedAd(props.feature.properties.id);
@@ -16,7 +16,7 @@ const AdBox = (props) => {
 	//const cost = '$' + props.feature.properties.price.toFixed().replace(/\d(?=(\d{3}))/g, '$&,');
 	const cost = formatter.format(props.feature.properties.price);
 	return (
-		<div className="box">
+		<div className="listing_small">
 			<div className="price_tag">
 				<span className="cost">{cost}</span>
 			</div>
@@ -39,4 +39,4 @@ const AdBox = (props) => {
 	);
 };
 
-export default AdBox;
+export default ListingSmall;
