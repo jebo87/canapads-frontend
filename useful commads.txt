@@ -19,3 +19,5 @@ Look for OSM ID and copy it (control+c), example: 3532125
 
 paste the ID in http://polygons.openstreetmap.fr/index.py and download the polygon or https://global.mapit.mysociety.org/#api-by_area_id
 
+git lg1 > show logs with branches and graphs
+git lg2 > show logs with branches and graphs
