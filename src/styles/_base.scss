@@ -1,0 +1,70 @@
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1.6rem;
+	background: #fff;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+button {
+	cursor: pointer;
+	outline: none;
+	background: none;
+	border: none;
+}
+
+button:disabled {
+	cursor: default;
+}
+button {
+	outline: none;
+}
+
+.tooltip {
+	position: absolute;
+	padding: 4px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	max-width: 300px;
+	font-size: 10px;
+	z-index: 9;
+	pointer-events: none;
+}
+
+.rc-slider-track {
+	background-color: #4591ed;
+}
+
+.rc-slider-handle,
+.rc-slider-handle-dragging {
+	background-color: #4591ed;
+	border: solid 5px lighten($color: #4591ed, $amount: 0.5);
+	box-shadow: $l1_shadow;
+}
+.rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+	background-color: #4591ed;
+	border: solid 5px lighten($color: #4591ed, $amount: 0.5);
+	box-shadow: $l1_shadow;
+}
+
+.rc-slider-handle-click-focused:focus {
+	background-color: #4591ed;
+	border: solid 2px lighten($color: #4591ed, $amount: 0.5);
+	box-shadow: $l1_shadow;
+}
+.location {
+	line-height: 18pt;
+	margin-bottom: 1.5rem;
+	text-transform: capitalize;
+
+	img {
+		width: 2rem;
+		height: 2rem;
+		margin-bottom: -0.4rem;
+	}
+}

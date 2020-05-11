@@ -1,0 +1,51 @@
+.photo_grid {
+	display: block;
+	margin-top: 8rem;
+	max-height: 38rem;
+	width: 100%;
+	.grid_container {
+		display: grid;
+		grid-template-columns: repeat(6, auto);
+		grid-template-rows: repeat(3, 10rem);
+		grid-gap: 1rem;
+		max-height: 38rem;
+		width: 100%;
+
+		.listing_image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			cursor: pointer;
+		}
+		.image_item_0 {
+			grid-column-start: 1;
+			grid-column-end: 4;
+			grid-row-start: 1;
+			grid-row-end: 4;
+		}
+		.image_item_1 {
+			grid-column-start: 4;
+			grid-column-end: 6;
+			grid-row-start: 1;
+			grid-row-end: 2;
+		}
+		.image_item_2 {
+			grid-column-start: 4;
+			grid-column-end: 5;
+			grid-row-start: 2;
+			grid-row-end: 4;
+		}
+		.image_item_3 {
+			grid-column-start: 5;
+			grid-column-end: 6;
+			grid-row-start: 2;
+			grid-row-end: 4;
+		}
+		.image_item_4 {
+			grid-column-start: 6;
+			grid-column-end: 7;
+			grid-row-start: 1;
+			grid-row-end: 3;
+		}
+	}
+}
