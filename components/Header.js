@@ -69,7 +69,7 @@ const Header = (props) => {
 					className="search_box"
 					onKeyDown={handleKeyDown}
 					onChange={handleSearchChanged}
-					value={filter.searchParam.value}
+					//value={filter.searchParam.value}
 				/>
 			</div>
 			<button

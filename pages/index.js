@@ -1,13 +1,21 @@
+import '../styles/styles.scss';
+import 'normalize-scss/sass/_normalize.scss';
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Head from 'next/head';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
+import { setSelectedListing } from './../redux/actions/selectedListingActions';
+import { setListings } from './../redux/actions/listingsActions';
+import { setPageSelected, setPages, setPagesVisible } from './../redux/actions/paginationActions';
+import { setFilters } from './../redux/actions/filterActions';
+import { initStore } from '../redux/store';
 import { Listings } from '../components/listings/Listings';
 import Filter from '../components/Filters';
 import { getAds } from '../backend_interface/api_if';
-import '../styles/styles.scss';
-import 'normalize-scss/sass/_normalize.scss';
 import dynamic from 'next/dynamic';
 import Header from '../components/Header';
+import Pagination from '../components/pagination/Pagination';
 
 // const MapNoSSR = dynamic(() => import('../components/Map/MkMap'), {
 // 	ssr: false
@@ -21,126 +29,67 @@ const defaultFrom = 0;
 const defaultPriceLow = 0;
 const defaultPriceHigh = 1000000;
 
-const Home = (props) => {
-	const [ listings, setListings ] = useState(props.ads);
-	const [ selectedPage, setSelectedPage ] = useState(1);
-	const [ paginationDirection, setPaginationDirection ] = useState('');
-	const [ showFilters, setShowFilters ] = useState(false);
-	const [ count, setCount ] = useState(props.count);
-	const [ searchTerm, setSearchTerm ] = useState('');
-	const [ filter, setFilter ] = useState(props.filter);
-	const [ pages, setPages ] = useState([]);
-	const [ pagesVisible, setPagesVisible ] = useState([]);
+const Home = (state) => {
+	const dispatch = useDispatch();
 
+	//const [ listings, setListings ] = useState(props.listings);
+	const [ showFilters, setShowFilters ] = useState(false);
+	//const [ count, setCount ] = useState(props.count);
+	const [ searchTerm, setSearchTerm ] = useState('');
+	const pagination = useSelector((state) => state.pagination);
+	console.log(pagination);
+	//console.log(props);
+	//console.log(props);
 	const updateFilter = (newFilter) => {
 		setFilter(newFilter);
 	};
 
 	useEffect(
 		() => {
-			updatePages(count);
-			search(filter);
+			//updatePages(count);
+			search(state.filter);
+			//console.log(props.filter);
 		},
-		[ count, filter ]
+		[ state.count, state.filter ]
 	);
-	useEffect(
-		() => {
-			updatePagination(paginationDirection);
-		},
-		[ selectedPage ]
-	);
-
-	const updatePagination = (direction) => {
-		if (direction === 'right') {
-			if (selectedPage <= pages.length) {
-				//dont move the visible array if we are near the end of the page array
-				// or if we are in the first three items.
-				if (pages.length > 5) {
-					if (selectedPage < pages.length - 2 && selectedPage > 3) {
-						setPagesVisible(pages.slice(selectedPage - 3, selectedPage + 2));
-						//if we are in the last items we should not shrink the visible array
-					} else if (selectedPage >= pages.length - 2) {
-						setPagesVisible(pages.slice(pages.length - 5, pages.length));
-					}
-				}
-			}
-		} else {
-			if (selectedPage > 1) {
-				//we will keep moving back the visible array until we are in page 3
-				if (selectedPage - 1 > 2 && selectedPage < pages.length - 2) {
-					setPagesVisible(pages.slice(selectedPage - 3, selectedPage + 2));
-				} else if (selectedPage >= pages.length - 2) {
-					setPagesVisible(pages.slice(pages.length - 5, pages.length));
-				}
-			}
-		}
-	};
-
-	const updatePages = async (newCount) => {
-		const pages_array = [];
-		const pages = Math.ceil(newCount / filter.size.value);
-		for (i = 0; i < pages; i++) {
-			pages_array[i] = i + 1;
-		}
-		setPages(pages_array);
-		setPagesVisible(pages_array.slice(0, 5));
-	};
-
-	var i;
 
 	const toggleFilter = async () => {
 		await setShowFilters(!showFilters);
 	};
 	const search = async (search_filter) => {
-		setListings({});
 		const terms = search_filter.searchParam === undefined ? '' : search_filter.searchParam.value;
-		if (search_filter.size === undefined) {
-			search_filter.size.value = defaultSize;
-		}
+		// let new_filters = {};
+		// new_filters = Object.assign(search_filter, new_filters);
+		// if (new_filters.size === undefined) {
+		// 	new_filters.size.value = defaultSize;
+		// }
 
-		if (search_filter.from === undefined) {
-			search_filter.from.value = defaultFrom;
-		}
+		// if (new_filters.from === undefined) {
+		// 	new_filters.from.value = defaultFrom;
+		// }
 
-		const loadedAds = await getAds(search_filter);
-		const newListings = loadedAds;
+		const listings = await getAds(search_filter);
+		const newListings = listings;
 
-		setListings(newListings);
-		setSelectedPage((search_filter.from.value + search_filter.size.value) / search_filter.size.value);
-		setCount(newListings.count);
+		dispatch(setListings(newListings));
+		// const pages_array = [];
+		// const pages = Math.ceil(listings.count / defaultSize);
+		// var i;
+		// for (i = 0; i < pages; i++) {
+		// 	pages_array[i] = i + 1;
+		// }
+
+		// dispatch(setPageSelected({ selectedPage: 1 }));
+		// dispatch(setPages({ pages: pages_array }));
+		// dispatch(setPagesVisible({ pagesVisible: pages_array.slice(0, 5) }));
+		//setSelectedPage((search_filter.from.value + search_filter.size.value) / search_filter.size.value);
+		//setCount(newListings.count);
 		if (terms != '') {
 			//lo ideal seria tener un map en el cual tengamos todos los filtros a aplicar en la URL y tener una funcion que
 			//se encargue de ponerlos en la barra de acuerdo a lo que seleccione el usuario
-			Router.push(`/?search_term=${terms}`, `/?search_term=${terms}`, { shallow: false });
+			Router.push(`/?search_term=${terms}`, `/?search_term=${terms}`, { shallow: true });
 		} else {
-			Router.push(`/`, `/`, { shallow: false });
-		}
-	};
-	const loadPage = async (old, page) => {
-		setListings({});
-		var filters = {
-			...filter,
-			from: { value: page * filter.size.value - filter.size.value }
-		};
-		setFilter(filters);
-		setSelectedPage(page);
-		setPaginationDirection(page - old > 0 ? 'right' : 'left');
-	};
-	const goToFirst = async () => {
-		loadPage(2, 1);
-	};
-	const goToLast = async () => {
-		loadPage(1, pages.length);
-	};
-	const nextPage = async () => {
-		if (selectedPage < pages.length) {
-			loadPage(selectedPage, selectedPage + 1);
-		}
-	};
-
-	const previousPage = async () => {
-		if (selectedPage > 1) {
-			loadPage(selectedPage, selectedPage - 1);
+			Router.push(`/`, `/`, { shallow: true });
 		}
 	};
 
@@ -154,44 +103,18 @@ const Home = (props) => {
 			</Head>
 
 			<div className="home_page">
-				<Header updateFilter={updateFilter} filter={filter} />
+				<Header />
 
 				<div className="map_search">
 					{!showFilters && (
 						<div className="left_box">
 							<Listings
-								ads={listings}
-								listing={props.listing}
-								count={count}
+								ads={state.listings}
+								listing={state.listing}
+								count={state.count}
 								toggleFilter={toggleFilter}
 							/>
-
-							<div className="pagination">
-								<button className="page" onClick={goToFirst}>
-									|&#60;
-								</button>
-								<button className="page text_button" onClick={previousPage}>
-									Prev
-								</button>
-
-								{pagesVisible.map((page, index) => {
-									return (
-										<button
-											className={selectedPage == page ? 'page selected' : 'page'}
-											key={index}
-											onClick={() => loadPage(selectedPage, page)}
-										>
-											{page}
-										</button>
-									);
-								})}
-								<button className="page text_button" onClick={nextPage}>
-									Next
-								</button>
-								<button className="page" onClick={goToLast}>
-									&#62;|
-								</button>
-							</div>
+							<Pagination />
 						</div>
 					)}
 
@@ -207,14 +130,20 @@ const Home = (props) => {
 						</div>
 					)}
 
-					<MapCanapadsNoSSR lat={45.527065} lon={-73.653534} data={listings} />
+					<MapCanapadsNoSSR lat={45.527065} lon={-73.653534} data={state.listings} />
 				</div>
 			</div>
 		</React.Fragment>
 	);
 };
-Home.getInitialProps = async function({ query }) {
-	const id = query['listing'];
+Home.getInitialProps = async function({ store, isServer, pathname, query }) {
+	let id = query['listing'];
+	// if (id === undefined) {
+	// 	id = null;
+	// }
+	console.log('ejecutando getInitialProps');
+	console.log(id);
+	store.dispatch(setSelectedListing({ listing: id }));
 	const searchTerm = query['search_term'] === undefined ? '' : query['search_term'];
 	var filters = {
 		searchParam: {
@@ -234,16 +163,46 @@ Home.getInitialProps = async function({ query }) {
 		}
 	};
 	const loadAds = async () => {
-		// console.log('loading ads');
+		console.log('loading ads');
 
-		return await getAds(filters);
+		const listings = await getAds(filters);
+
+		return listings;
 	};
+	const listings = await loadAds();
+	const pages_array = [];
+	const pages = Math.ceil(listings.count / defaultSize);
+	var i;
+	for (i = 0; i < pages; i++) {
+		pages_array[i] = i + 1;
+	}
+	store.dispatch(setListings(listings));
+	store.dispatch(setPageSelected({ selectedPage: 1 }));
+	store.dispatch(setPages({ pages: pages_array }));
+	store.dispatch(setPagesVisible({ pagesVisible: pages_array.slice(0, 5) }));
 	if (typeof window === 'undefined') {
+		console.log('NO SE EST[A EJECUTANDO');
+
 		let ads = await loadAds();
 		//console.log(ads);
 		//const listingCount = async () => await getCount();
+		//store.dispatch(setFilters(filters));
+		store.dispatch(setListings(listings));
+		store.dispatch(setPageSelected({ selectedPage: 1 }));
+		store.dispatch(setPages({ pages: pages_array }));
+		store.dispatch(setPagesVisible({ pagesVisible: pages_array.slice(0, 5) }));
 		return { listing: id, count: ads.count, ads: ads, filter: filters };
 	}
-	return { listing: id, count: 0, ads: {}, filter: filters };
+
+	return { listing: id, count: listings.count, listings: listings, filter: filters };
 };
-export default Home;
+
+const mapStateToProps = (state, props) => {
+	return {
+		filter: state.filters,
+		listings: state.listings
+	};
+};
+export default connect(mapStateToProps)(Home);
+//export default connect((state) => state)(Home);
+//export default Home;

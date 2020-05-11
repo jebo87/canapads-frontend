@@ -1,10 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { setSelectedListing } from './../../redux/actions/selectedListingActions';
+
 import external from '../../images/external_link.png';
 const ListingSmall = (props) => {
+	const dispatch = useDispatch();
+
 	//console.log(props);
 	const setSelectedAd = () => {
-		props.setSelectedAd(props.feature.properties.id);
+		//props.setSelectedAd(props.feature.properties.id);
+		dispatch(setSelectedListing({ listing: props.feature.properties.id }));
 	};
 	var formatter = new Intl.NumberFormat('en-US', {
 		style: 'currency',

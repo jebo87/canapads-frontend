@@ -2,26 +2,33 @@ import React, { useState, useContext, useEffect } from 'react';
 import { getAd } from '../../backend_interface/api_if';
 import Link from 'next/link';
 import Router from 'next/router';
-
+import { useSelector } from 'react-redux';
 import HomeAd from '../../model/ads';
 import Carousel from './../carousel/Carousel';
 import marker from '../../images/listing_detail/icons8-marker.png';
 import SmallImage from './../carousel/SmallImage';
 import { SelectedListingContext } from './Listings';
 import Features from './Features';
+import { useDispatch } from 'react-redux';
+import { setSelectedListing } from './../../redux/actions/selectedListingActions';
 
 const ListingDetail = (props) => {
+	const dispatch = useDispatch();
+
 	const [ ad, setAd ] = useState();
 	// const [images, setImages] = useState([]);
 	const [ carouselVisibility, setCarouselVisibility ] = useState(false);
 	const [ selectedImg, setSelectedImg ] = useState(0);
-	const { selectedAd } = useContext(SelectedListingContext);
+	//const { selectedAd } = useContext(SelectedListingContext);
+	const selectedAd = useSelector((state) => state.global_state.listing);
+	console.log(selectedAd);
 	useEffect(
 		() => {
 			async function loadAd(id) {
 				const loadedAd = await getAd(id);
 				setAd(loadedAd);
 			}
+
 			if (selectedAd) {
 				loadAd(selectedAd);
 				Router.push(`/?listing=${selectedAd}`, `/?listing=${selectedAd}`, { shallow: true });
@@ -29,6 +36,10 @@ const ListingDetail = (props) => {
 		},
 		[ selectedAd ]
 	);
+
+	const close = () => {
+		dispatch(setSelectedListing({ listing: undefined }));
+	};
 
 	const toggleImages = () => {
 		setCarouselVisibility(!carouselVisibility);
@@ -49,7 +60,7 @@ const ListingDetail = (props) => {
 		return (
 			<div className="ad-detail">
 				<div className="go_back">
-					<a onClick={props.toggleVisibility}>⬅️Go back to search results</a>
+					<a onClick={close}>⬅️Go back to search results</a>
 				</div>
 				{carouselVisibility && (
 					<Carousel selected={selectedImg} images={ad.images} toggleCarousel={toggleImages} />
