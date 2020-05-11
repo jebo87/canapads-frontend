@@ -7,7 +7,7 @@ import LoginLogoutButton from './LoginLogoutButton';
 import { setFilters } from './../redux/actions/filterActions';
 import { defaultFilters } from './filters/defaultFilters';
 import { invalidateStore } from './../redux/actions/globalStateActions';
-
+import search_image from './../images/icons8-search.png';
 const Header = () => {
 	const dispatch = useDispatch();
 	const [ username, setUsername ] = useState(null);
@@ -79,8 +79,10 @@ const Header = () => {
 					onKeyDown={handleKeyDown}
 					onChange={handleSearchChanged}
 				/>
+				<button className="blue_button search_button " onClick={performSearch}>
+					<img src={search_image} alt="" />
+				</button>
 			</div>
-			<button onClick={performSearch}>Search</button>
 			<LoginLogoutButton />
 			<div className="header_name">
 				<img src="" alt="" />
