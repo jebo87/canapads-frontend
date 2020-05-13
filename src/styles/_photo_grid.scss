@@ -1,15 +1,18 @@
 .photo_grid {
-	display: block;
+	display: flex;
 	margin-top: 8rem;
 	max-height: 38rem;
 	width: 100%;
+	flex-direction: row;
+	justify-content: center;
+
 	.grid_container {
 		display: grid;
 		grid-template-columns: repeat(6, auto);
 		grid-template-rows: repeat(3, 10rem);
 		grid-gap: 1rem;
 		max-height: 38rem;
-		width: 100%;
+		width: 98%;
 
 		.listing_image {
 			width: 100%;
