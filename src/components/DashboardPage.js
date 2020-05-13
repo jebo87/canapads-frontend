@@ -14,7 +14,7 @@ const DashboardPage = () => {
 				<div className="header_title">
 					<img src={logo} alt="logo" />
 
-					<a href="https://www.canapads.ca/"> CANAPADS</a>
+					<a href="https://www.canapads.ca/">CANAPADS</a>
 				</div>
 				<div className="avatar">
 					<img src={default_avatar} alt="avatar" />
