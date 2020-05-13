@@ -95,6 +95,16 @@ const ListingDetail = () => {
 						<span>{selectedAd.description}</span>
 					</div>
 				</div>
+
+				<a
+					target="_blank"
+					className="more-details"
+					rel="noopener noreferrer"
+					href={`/details/${selectedAd.id}`}
+				>
+					More Details
+				</a>
+
 				<div className="card">
 					<h4>CONTACT FORM</h4>
 					<form className="contact-form">

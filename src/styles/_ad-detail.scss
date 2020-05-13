@@ -30,6 +30,20 @@
 			color: $main_color;
 		}
 	}
+	.more-details {
+		margin: 0 auto;
+		display: block;
+		box-shadow: $l1_shadow;
+		background-color: $main_color;
+		border-radius: 0.3rem;
+		text-align: center;
+		box-sizing: border-box;
+		height: 8rem;
+		width: 15rem;
+		text-decoration: none;
+		color: white;
+		line-height: 4rem;
+	}
 	.photos {
 		height: 38rem;
 		width: 62.2rem;
