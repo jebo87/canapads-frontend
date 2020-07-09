@@ -96,12 +96,12 @@ const Filter = (props) => {
 		setLocalFilter(obj);
 	};
 
-	useEffect(
-		() => {
-			console.log(localFilter);
-		},
-		[ localFilter ]
-	);
+	// useEffect(
+	// 	() => {
+	// 		console.log(localFilter);
+	// 	},
+	// 	[ localFilter ]
+	// );
 
 	return (
 		<div className="filter">

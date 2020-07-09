@@ -34,10 +34,7 @@ const HomePage = (state) => {
 	const [ searchTerm, setSearchTerm ] = useState('');
 
 	const initializeListings = async (newFilter) => {
-		console.log('loading ads');
-
 		const filters = { ...defaultFilters, ...newFilter };
-		console.log(filters);
 		const newListings = await getAds(filters);
 
 		updateStore(newListings);
@@ -68,10 +65,9 @@ const HomePage = (state) => {
 
 	useEffect(
 		() => {
-			if (listings.features === undefined) {
+			if (listings === {}) {
 				initializeListings();
 			} else {
-				console.log('reloading listings');
 				loadListings(filter);
 			}
 		}, // eslint-disable-next-line
