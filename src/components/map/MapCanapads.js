@@ -23,7 +23,7 @@ const MapCanapads = (props) => {
 		width: 'auto',
 		height: '100vh',
 		center: [ props.lon, props.lat ],
-		zoom: 11,
+		zoom: 10,
 		maxZoom: 16,
 		minZoom: 5
 	});
