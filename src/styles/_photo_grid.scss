@@ -1,10 +1,12 @@
 .photo_grid {
+	margin: 0 auto;
 	display: flex;
 	margin-top: 8rem;
 	max-height: 38rem;
-	width: 100%;
+	max-width: 128rem;
 	flex-direction: row;
 	justify-content: center;
+	padding-top: 1rem;
 
 	.grid_container {
 		display: grid;
@@ -12,7 +14,7 @@
 		grid-template-rows: repeat(3, 10rem);
 		grid-gap: 1rem;
 		max-height: 38rem;
-		width: 98%;
+		width: 100%;
 
 		.listing_image {
 			width: 100%;

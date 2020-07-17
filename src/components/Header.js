@@ -8,7 +8,7 @@ import { setFilters } from './../redux/actions/filterActions';
 import { defaultFilters } from './filters/defaultFilters';
 import { invalidateStore } from './../redux/actions/globalStateActions';
 import search_image from './../images/icons8-search.png';
-const Header = () => {
+const Header = (props) => {
 	const dispatch = useDispatch();
 	const [ username, setUsername ] = useState(null);
 	const filter = useSelector((state) => state.filter);
@@ -45,7 +45,7 @@ const Header = () => {
 	);
 
 	return (
-		<div className="header">
+		<div className={`header ${props.className}`}>
 			<div className="header_logo" />
 			<div className="header_title">
 				<img src={logo} alt="logo" />

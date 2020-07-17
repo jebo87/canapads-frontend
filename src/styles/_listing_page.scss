@@ -7,14 +7,18 @@
 	overflow-y: scroll;
 	box-sizing: border-box;
 	overscroll-behavior: contain;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	.content_listing {
+		max-width: 128rem;
 		padding: 0 3rem;
-
-		height: 100%;
+		margin: 0 auto;
+		padding-top: 3rem;
 		display: flex;
 		flex-direction: row;
 		.lp_left {
-			flex: 2;
+			width: 70%;
 			.title_price {
 				display: flex;
 				flex-direction: row;
@@ -26,6 +30,7 @@
 				}
 				.price {
 					flex: 1;
+					align-self: flex-end;
 				}
 			}
 			.description {
@@ -38,7 +43,7 @@
 			}
 		}
 		.lp_right {
-			flex: 1;
+			width: 30%;
 		}
 	}
 }

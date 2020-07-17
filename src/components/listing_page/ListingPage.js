@@ -12,6 +12,7 @@ import marker from '../../images/listing_detail/icons8-marker.png';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { startSetListingDetail } from './../../redux/actions/listingDetailActions';
+import styled from 'styled-components';
 
 var formatter = new Intl.NumberFormat('en-US', {
 	style: 'currency',
@@ -19,6 +20,17 @@ var formatter = new Intl.NumberFormat('en-US', {
 	minimumFractionDigits: 0,
 	maximumFractionDigits: 0
 });
+const StyledHeader = styled(Header)`
+		margin: 0 auto;
+		justify-content: center;
+		align-items: center;
+		width: 128rem;
+		padding: 1.5rem 0 1.5rem 0;
+		.search_area{
+			width:30rem;
+		}
+		
+	`;
 const ListingPage = () => {
 	const listing = useSelector((state) => state.listing_detail);
 
@@ -41,7 +53,7 @@ const ListingPage = () => {
 		return (
 			<React.Fragment>
 				<div className="listing_page">
-					<Header filter={{ searchParam: '' }} />
+					<StyledHeader filter={{ searchParam: '' }} />
 
 					<PhotoGrid images={listing.images} />
 					<div className="content_listing">
@@ -69,7 +81,9 @@ const ListingPage = () => {
 								</div>
 							</div>
 						</div>
-						<div className="lp_right" />
+						<div className="lp_right">
+							<button className="blue_button">Request more information</button>
+						</div>
 					</div>
 				</div>
 			</React.Fragment>
