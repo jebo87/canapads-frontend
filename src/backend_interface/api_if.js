@@ -114,6 +114,27 @@ const getLoggedInUser = async () => {
 	return null;
 };
 
+const loadUserListings = async (user_id) => {
+	const url = `${_API_}/${user_id}/listings`;
+	console.log(url);
+	console.log(localStorage.getItem('makako_token'));
+	const data = await fetch(url, {
+		mode: 'cors',
+		agent,
+		method: 'POST',
+		headers: {
+			'Access-Control-Request-Method': 'POST',
+
+			'Access-Control-Request-Headers': 'Authorization',
+			Authorization: 'Bearer ' + localStorage.getItem('makako_token')
+		},
+		body: user_id
+	});
+	const result = await data.json();
+	console.log(result);
+	return result;
+};
+
 // const getCount = async () => {
 // 	const url = `${_API_}/ad_count`;
 // 	const data = await fetch(url, {
@@ -236,4 +257,4 @@ const convertToGeoJSON = (ads, count) => {
 	return data;
 };
 
-export { getAds, getAd, getLoggedInUser };
+export { getAds, getAd, getLoggedInUser, loadUserListings };

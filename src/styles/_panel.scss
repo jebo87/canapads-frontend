@@ -1,6 +1,9 @@
 .panel {
 	display: flex;
 	flex-flow: row;
+	overflow-y: scroll;
+	overscroll-behavior: contain;
+
 	.panel_left {
 		width: 40rem;
 		height: 100vh;

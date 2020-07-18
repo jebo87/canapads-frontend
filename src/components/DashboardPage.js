@@ -6,7 +6,7 @@ import logo from '../images/logo.svg';
 import heart from '../images/icons8-heart_outline.png';
 import home from '../images/icons8-home.png';
 import default_avatar from '../images/icons8-user_male_circle_filled.png';
-import { getLoggedInUser } from '../backend_interface/api_if';
+import { getLoggedInUser, loadUserListings } from '../backend_interface/api_if';
 const DashboardPage = () => {
 	const getUser = async () => {
 		let user = await getLoggedInUser();
@@ -15,9 +15,25 @@ const DashboardPage = () => {
 	};
 
 	const [ user, setUser ] = useState(undefined);
+	const [ userListings, setUserListings ] = useState(undefined);
 	useEffect(() => {
-		getUser().then((currentUser) => setUser(currentUser));
+		getUser().then((currentUser) => {
+			setUser(currentUser);
+			loadListings(currentUser.sub);
+		});
 	}, []);
+
+	useEffect(
+		() => {
+			console.log(userListings);
+		},
+		[ userListings ]
+	);
+
+	const loadListings = async (currentUser) => {
+		let ul = await loadUserListings(currentUser);
+		setUserListings(ul);
+	};
 
 	if (user === null) {
 		return <div>Unauthorized</div>;
@@ -45,20 +61,15 @@ const DashboardPage = () => {
 					</a>
 					<a href="" className="menu_item">
 						<img src={home} alt="listings" />
-						My Listings
 					</a>
 				</div>
 			</div>
 			<div className="panel_right">
 				<h1>My Listings</h1>
-				<AdRows />
-				<AdRows />
-				<AdRows />
-				<AdRows />
-				<AdRows />
-				<AdRows />
-				<AdRows />
-				<AdRows />
+				{userListings &&
+					userListings.ads.map((listing) => {
+						return <AdRows key={listing.id} listing={listing} />;
+					})}
 			</div>
 		</div>
 	);
