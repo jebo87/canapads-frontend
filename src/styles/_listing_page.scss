@@ -4,8 +4,9 @@
 		top: 0;
 	}
 	height: 100vh;
-	overflow-y: scroll;
+
 	box-sizing: border-box;
+	overflow-y: scroll;
 	overscroll-behavior: contain;
 	display: flex;
 	flex-direction: column;

@@ -56,7 +56,7 @@ const Listings = (props) => {
 		<React.Fragment>
 			<div className="listings">
 				<div className="results_text">
-					Your search returned {listingList.count} results:
+					Your search returned {listingList.count || 0} results:
 					<button className="filter_button" onClick={props.toggleFilter}>
 						<img src={filter} alt="" />
 					</button>

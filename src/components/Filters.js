@@ -37,7 +37,7 @@ const Filter = (props) => {
 		{
 			images: [ gymUnset, gymSelected ],
 			...defaults.gym,
-			name: 'Gym',
+			name: [ '', 'Gym' ],
 			id: 'gym',
 			selectedState: localFilter.gym === undefined ? 0 : defaults.gym.states.indexOf(localFilter.gym.value)
 		},
@@ -45,14 +45,14 @@ const Filter = (props) => {
 		{
 			images: [ petsUnset, dog, cat, pets ],
 			...defaults.pets,
-			name: 'Pets',
+			name: [ '', 'Dogs', 'Cats', 'Cat / Dogs' ],
 			id: 'pets',
 			selectedState: localFilter.pets === undefined ? 0 : defaults.pets.states.indexOf(localFilter.pets.value)
 		},
 		{
 			images: [ parkingUnset, parkingSelected, parkingSelected, parkingSelected ],
 			...defaults.garages,
-			name: 'Parking',
+			name: [ '', '1 Parking spot', '2 Parking spot', '3 parking spots' ],
 			id: 'garages',
 			selectedState:
 				localFilter.garages === undefined ? 0 : defaults.garages.states.indexOf(localFilter.garages.value)
@@ -60,14 +60,14 @@ const Filter = (props) => {
 		{
 			images: [ poolUnset, poolSelected ],
 			...defaults.pool,
-			name: 'Pool',
+			name: [ ' ', 'Pool' ],
 			id: 'pool',
 			selectedState: localFilter.pool === undefined ? 0 : defaults.pool.states.indexOf(localFilter.pool.value)
 		},
 		{
 			images: [ bungalow, house, building, residence ],
 			...defaults.property_type,
-			name: 'Type',
+			name: [ 'Residence type', 'Townhouse', 'Appartment', 'wtf' ],
 			id: 'property_type',
 			selectedState:
 				localFilter.property_type === undefined

@@ -21,7 +21,7 @@ const SelectableItem = (props) => {
 			{itemState && (
 				<button className="selectable_item_button" id={itemState.caption} onClick={handleClick}>
 					<img src={itemState.images[itemState.selectedState]} alt="" />
-					<span>{itemState.name}</span>
+					<span>{itemState.name[itemState.selectedState]}</span>
 				</button>
 			)}
 		</div>
