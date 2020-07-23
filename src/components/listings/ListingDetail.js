@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from './../carousel/Carousel';
@@ -92,29 +93,17 @@ const ListingDetail = () => {
 					<Features listing={selectedAd} />
 					<div className="description">
 						<h4>Description:</h4>
-						<span>{selectedAd.description}</span>
+						<ReactMarkdown source={selectedAd.description} />
 					</div>
-				</div>
 
-				<a
-					target="_blank"
-					className="more-details"
-					rel="noopener noreferrer"
-					href={`/details/${selectedAd.id}`}
-				>
-					More Details
-				</a>
-
-				<div className="card">
-					<h4>CONTACT FORM</h4>
-					<form className="contact-form">
-						<input id="name" type="text" placeholder="Name" />
-						<span className="bar" />
-						<textarea id="message" className="form-control" rows="10" placeholder="Message" />
-						<input id="email" type="text" placeholder="Email" />
-						<span className="bar" />
-						<button className="form-control blue_button">Send message</button>
-					</form>
+					<a
+						target="_blank"
+						className="more-details"
+						rel="noopener noreferrer"
+						href={`/details/${selectedAd.id}`}
+					>
+						More Details
+					</a>
 				</div>
 			</div>
 		);

@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'normalize-scss/sass/_normalize.scss';
+import 'rc-slider/assets/index.css';
+import 'rc-tooltip/assets/bootstrap.css';
 import './styles/styles.scss';
 ReactDOM.render(
 	<React.StrictMode>

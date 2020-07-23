@@ -1,6 +1,7 @@
-import 'rc-slider/assets/index.css';
-import 'rc-tooltip/assets/bootstrap.css';
+import { CustomHandle } from './Handle';
+
 import React, { useState } from 'react';
+
 import Slider from 'rc-slider';
 
 // const styles = {
@@ -27,7 +28,7 @@ const PriceRange = (props) => {
 	};
 
 	return (
-		<div style={wrapperStyle}>
+		<div className="price_range">
 			{priceValues && (
 				<div>
 					<Slider.Range
@@ -37,10 +38,11 @@ const PriceRange = (props) => {
 						defaultValue={priceValues}
 						onChange={handleChange}
 						onAfterChange={handleAfterChange}
+						handle={CustomHandle}
 					/>
-					<span>
-						Price between {priceValues[0]} and {priceValues[1] === 1000000 ? '4000+' : priceValues[1]}
-					</span>
+					<div className="pricetag">
+						${priceValues[0]} - ${priceValues[1] === 1000000 ? '4000+' : priceValues[1]}
+					</div>
 				</div>
 			)}
 		</div>
