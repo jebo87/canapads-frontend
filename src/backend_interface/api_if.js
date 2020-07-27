@@ -6,8 +6,7 @@ import Filter from '../model/filters';
 const https = require('https');
 //const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
-//const _API_ = publicRuntimeConfig.REACT_APP_API_URL;
-const _API_ = 'https://gw.canapads.ca';
+const _API_ = process.env.REACT_APP_API_URL;
 const agent = new https.Agent({
 	rejectUnauthorized: false
 });

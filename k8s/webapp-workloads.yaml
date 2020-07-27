@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-ads
+spec:
+  #minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: react-ads
+  replicas: 1
+  template: #template for the pods
+    metadata:
+      labels:
+        app: react-ads
+    spec:
+      containers:
+        - name: react-ads
+          image: registry.gitlab.com/jebo87/react-ads:test
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: react-ads-config
+      imagePullSecrets:
+        - name: regcred #this uses docker config login information to be able to pull the image
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: canapads-react-ads
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: react-ads
+
+  ports:
+    - name: http
+      port: 3000
+
+  type: ClusterIP
