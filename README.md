@@ -10,4 +10,4 @@ This is a work in progress in early stages and I am currently working in what yo
 
 
 
-![network](https://jorgebautista.dev/images/canapads/canapads2.png)
+![network](https://gofullstack.dev/images/canapads/canapads2.png)
