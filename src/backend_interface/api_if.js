@@ -69,11 +69,8 @@ const isUserLoggedIn = async () => {
 			.then((data) => data.json())
 			.then((data) => {
 				if (data.error) {
-					// console.log('token_expired', data);
 					return false;
 				} else {
-					// console.log('token_active', data);
-
 					return true;
 				}
 			})
@@ -100,8 +97,6 @@ const getLoggedInUser = async () => {
 					if (data.error) {
 						return null;
 					} else {
-						// console.log('token_active', data);
-
 						return data;
 					}
 				})
@@ -111,6 +106,25 @@ const getLoggedInUser = async () => {
 		}
 	}
 	return null;
+};
+
+const loadUserListings = async (user_id) => {
+	const url = `${_API_}/${user_id}/listings`;
+
+	const data = await fetch(url, {
+		mode: 'cors',
+		agent,
+		method: 'POST',
+		headers: {
+			'Access-Control-Request-Method': 'POST',
+
+			'Access-Control-Request-Headers': 'Authorization',
+			Authorization: 'Bearer ' + localStorage.getItem('makako_token')
+		},
+		body: user_id
+	});
+	const result = await data.json();
+	return result;
 };
 
 // const getCount = async () => {
@@ -235,4 +249,4 @@ const convertToGeoJSON = (ads, count) => {
 	return data;
 };
 
-export { getAds, getAd, getLoggedInUser };
+export { getAds, getAd, getLoggedInUser, loadUserListings };

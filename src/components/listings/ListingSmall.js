@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 ///import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { startSetListingDetail } from './../../redux/actions/listingDetailActions';
@@ -13,6 +13,7 @@ const ListingSmall = (props) => {
 		//props.setSelectedAd(props.feature.properties.id);
 		dispatch(startSetListingDetail(props.feature.properties.id));
 	};
+	const [ listing ] = useState(props);
 	var formatter = new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency: 'USD',
@@ -22,7 +23,7 @@ const ListingSmall = (props) => {
 
 	useEffect(
 		() => {
-			if (selectedId === props.feature.properties.id) {
+			if (selectedId === listing.feature.properties.id) {
 				ref.current.scrollIntoView(false);
 			}
 		},

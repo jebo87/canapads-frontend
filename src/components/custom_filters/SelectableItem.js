@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 const SelectableItem = (props) => {
 	const [ itemState, setItemState ] = useState(props.info);
+	// const updateAmenities = useState(props.updateAmenities);
+
 	const handleClick = (e) => {
 		e.preventDefault();
 
