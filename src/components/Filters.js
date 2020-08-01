@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { setFilters } from './../redux/actions/filterActions';
 
@@ -33,7 +33,7 @@ const Filter = (props) => {
 	const dispatch = useDispatch();
 	const [ localFilter, setLocalFilter ] = useState(props.localFilter);
 	const [ priceRange ] = useState([ props.localFilter.price_low.value, props.localFilter.price_high.value ]);
-	const [ amenities, setAmenities ] = useState([
+	const [ amenities ] = useState([
 		{
 			images: [ gymUnset, gymSelected ],
 			...defaults.gym,

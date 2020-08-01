@@ -70,11 +70,8 @@ const isUserLoggedIn = async () => {
 			.then((data) => data.json())
 			.then((data) => {
 				if (data.error) {
-					// console.log('token_expired', data);
 					return false;
 				} else {
-					// console.log('token_active', data);
-
 					return true;
 				}
 			})
@@ -101,8 +98,6 @@ const getLoggedInUser = async () => {
 					if (data.error) {
 						return null;
 					} else {
-						// console.log('token_active', data);
-
 						return data;
 					}
 				})
@@ -116,8 +111,7 @@ const getLoggedInUser = async () => {
 
 const loadUserListings = async (user_id) => {
 	const url = `${_API_}/${user_id}/listings`;
-	console.log(url);
-	console.log(localStorage.getItem('makako_token'));
+
 	const data = await fetch(url, {
 		mode: 'cors',
 		agent,
@@ -131,7 +125,6 @@ const loadUserListings = async (user_id) => {
 		body: user_id
 	});
 	const result = await data.json();
-	console.log(result);
 	return result;
 };
 
