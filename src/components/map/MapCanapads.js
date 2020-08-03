@@ -5,8 +5,7 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { dataLayerUnclustered } from './layer_data/layer_data';
 //import AdPopup from './AdPopup';
 import { setSelectedListing } from './../../redux/actions/globalStateActions';
-
-mapboxgl.accessToken = 'pk.eyJ1IjoiamVibzg3IiwiYSI6ImNqbG9tMHp1NDF2ZWszd29zcnE0NDJlbWUifQ.72FOq2s1Hw_u9fJ2EBzViA';
+const token = process.env.REACT_APP_MAPBOX_TOKEN;
 const useListings = () => {
 	return useSelector(
 		(state) => ({
@@ -18,6 +17,8 @@ const useListings = () => {
 const MapCanapads = (props) => {
 	const dispatch = useDispatch();
 	const mapRef = useRef(null);
+	mapboxgl.accessToken = token;
+	console.log(token);
 	// eslint-disable-next-line
 	const [ viewPort, setViewPort ] = useState({
 		width: 'auto',
