@@ -5,12 +5,13 @@
 	// overscroll-behavior: contain;
 
 	.panel_left {
-		width: 40rem;
+		width: 10rem;
 		height: 100vh;
 		background-color: #fff;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		margin-top: 1rem;
 		.header_title {
 			margin-top: 3rem;
 			a {
@@ -56,17 +57,24 @@
 		}
 	}
 	.panel_right {
+		margin: 0 auto;
 		padding: 2rem 4rem 3rem 3rem;
-		display: flex;
-		flex-direction: column;
+
 		width: 100%;
 		overflow-y: scroll;
 		overscroll-behavior: contain;
 		height: 100vh;
-		align-items: center;
+
 		.panel_listings {
-			display: flex;
-			flex-wrap: wrap;
+			// AUTO GRID
+			// Set the minimum item size with `--auto-grid-min-size` and you'll
+			// get a fully responsive grid with no media queries.
+
+			--auto-grid-min-size: 35rem;
+
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+			grid-gap: 1rem;
 		}
 	}
 }

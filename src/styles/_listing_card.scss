@@ -1,14 +1,14 @@
 .listing_card {
-	width: 38rem;
-	height: 39rem;
+	width: 35rem;
+	height: 40rem;
 	box-shadow: $l1_shadow;
 	display: flex;
 	flex-direction: column;
 	border-radius: 0.3rem;
-	margin: 2rem;
+	margin: 2rem 1rem;
 
 	img {
-		width: 38rem;
+		width: 35rem;
 		height: 24rem;
 		border-radius: 0.3rem 0.3rem 0 0;
 		object-fit: cover;
@@ -18,7 +18,7 @@
 		.title {
 			max-width: 80%;
 			padding: 0.5rem 0 1rem 0;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			font-weight: bold;
 		}
 	}
