@@ -65,6 +65,7 @@ const DashboardPage = () => {
 					</center>
 					<ul className="panel_listings">
 						{userListings &&
+							userListings.ads &&
 							userListings.ads.map((listing) => {
 								return <ListingCard key={listing.id} listing={listing} />;
 							})}
