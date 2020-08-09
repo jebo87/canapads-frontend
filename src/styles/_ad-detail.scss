@@ -3,7 +3,7 @@
 
 	top: 8rem;
 	bottom: 0;
-	padding-bottom: 8rem;
+
 	padding-left: 2rem;
 	left: 0;
 	width: $left_panel_size;
@@ -17,7 +17,7 @@
 	flex-direction: column;
 
 	display: inline-block;
-	height: 100%;
+
 	overflow: auto;
 	overscroll-behavior: contain;
 
@@ -77,7 +77,6 @@
 		}
 	}
 	.bottom_details {
-		height: 100%;
 		margin-bottom: 3rem;
 		.description {
 			padding: 3rem;
