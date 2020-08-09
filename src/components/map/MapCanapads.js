@@ -5,7 +5,6 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { dataLayerUnclustered } from './layer_data/layer_data';
 //import AdPopup from './AdPopup';
 import { setSelectedListing } from './../../redux/actions/globalStateActions';
-
 const token = process.env.REACT_APP_MAPBOX_TOKEN;
 const useListings = () => {
 	return useSelector(
