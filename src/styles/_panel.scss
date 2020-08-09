@@ -5,28 +5,19 @@
 	// overscroll-behavior: contain;
 
 	.panel_left {
-		width: 10rem;
+		width: 15rem;
 		height: 100vh;
 		background-color: #fff;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		margin-top: 1rem;
-		.header_title {
-			margin-top: 3rem;
-			a {
-				text-decoration: none;
-				font-family: $font_ruda;
-				font-size: 28pt;
-				color: $main_color;
-			}
-		}
+		border-right: 1px solid darken($light_gray_nt, 5%);
+
 		.avatar {
 			margin-top: 3rem;
 		}
 		.name {
-			margin-top: 1rem;
-			font-size: 16pt;
 			font-family: $font_roboto;
 			padding: 0 0 2rem 0;
 		}
@@ -58,8 +49,7 @@
 	}
 	.panel_right {
 		margin: 0 auto;
-		padding: 2rem 4rem 3rem 3rem;
-
+		padding: 3rem 0rem;
 		width: 100%;
 		overflow-y: scroll;
 		overscroll-behavior: contain;
