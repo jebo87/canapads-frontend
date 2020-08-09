@@ -1,7 +1,7 @@
 import React from 'react';
 const ListingCard = (props) => {
 	return (
-		<div className="listing_card">
+		<li className="listing_card">
 			<div className="image">
 				<img src={props.listing.images[0]} alt="" />
 			</div>
@@ -9,7 +9,7 @@ const ListingCard = (props) => {
 				<div className="title">{props.listing.title}</div>
 				<div className="description">{props.listing.description.substring(1, 150)}</div>
 			</div>
-		</div>
+		</li>
 	);
 };
 export default ListingCard;

@@ -5,27 +5,19 @@
 	// overscroll-behavior: contain;
 
 	.panel_left {
-		width: 40rem;
+		width: 15rem;
 		height: 100vh;
 		background-color: #fff;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		.header_title {
-			margin-top: 3rem;
-			a {
-				text-decoration: none;
-				font-family: $font_ruda;
-				font-size: 28pt;
-				color: $main_color;
-			}
-		}
+		margin-top: 1rem;
+		border-right: 1px solid darken($light_gray_nt, 5%);
+
 		.avatar {
 			margin-top: 3rem;
 		}
 		.name {
-			margin-top: 1rem;
-			font-size: 16pt;
 			font-family: $font_roboto;
 			padding: 0 0 2rem 0;
 		}
@@ -56,17 +48,23 @@
 		}
 	}
 	.panel_right {
-		padding: 2rem 4rem 3rem 3rem;
-		display: flex;
-		flex-direction: column;
+		margin: 0 auto;
+		padding: 3rem 0rem;
 		width: 100%;
 		overflow-y: scroll;
 		overscroll-behavior: contain;
 		height: 100vh;
-		align-items: center;
+
 		.panel_listings {
-			display: flex;
-			flex-wrap: wrap;
+			// AUTO GRID
+			// Set the minimum item size with `--auto-grid-min-size` and you'll
+			// get a fully responsive grid with no media queries.
+
+			--auto-grid-min-size: 35rem;
+
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+			grid-gap: 1rem;
 		}
 	}
 }

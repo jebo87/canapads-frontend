@@ -18,7 +18,6 @@ const MapCanapads = (props) => {
 	const dispatch = useDispatch();
 	const mapRef = useRef(null);
 	mapboxgl.accessToken = token;
-	console.log(token);
 	// eslint-disable-next-line
 	const [ viewPort, setViewPort ] = useState({
 		width: 'auto',

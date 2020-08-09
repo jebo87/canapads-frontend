@@ -235,11 +235,13 @@ const convertToGeoJSON = (ads, count) => {
 				image: ad['images'][0],
 				bedrooms: ad['rooms'],
 				bathrooms: ad['bathrooms'],
-				neighborhood: ad['neighborhood']
+				neighborhood: ad['neighborhood'],
+				lon: ad['lon'],
+				lat: ad['lat']
 			},
 			geometry: {
 				type: 'Point',
-				coordinates: ad['coordinates']
+				coordinates: [ ad['lon'], ad['lat'] ]
 			}
 		};
 		data.features.push(myAd);
