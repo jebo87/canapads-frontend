@@ -7,6 +7,7 @@ const SmallImage = (props) => {
 	return (
 		<div
 			style={{
+				transform: `translateX(${props.xCoord}px)`,
 				transition: 'transform .5s'
 			}}
 			className={`small-image ${props.selected ? 'selected' : ''}`}
