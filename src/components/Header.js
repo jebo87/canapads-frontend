@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import authConfig from '../backend_interface/auth_config';
+import { Link, useRouteMatch } from 'react-router-dom';
+
 import { getLoggedInUser } from '../backend_interface/api_if';
 import logo from '../images/logo.svg';
 import LoginLogoutButton from './LoginLogoutButton';
@@ -44,6 +46,11 @@ const Header = (props) => {
 		[ filter ]
 	);
 
+	let match = useRouteMatch({
+		path: `/dashboard`,
+		exact: true
+	});
+
 	return (
 		<div className={`header ${props.className}`}>
 			<div className="header_logo" />
@@ -53,23 +60,11 @@ const Header = (props) => {
 				<a href="https://www.canapads.ca/"> CANAPADS</a>
 			</div>
 			<div className="menu">
-				<ul>
-					<li>
-						{' '}
-						<button className="active" href="#">
-							listings
-						</button>{' '}
-					</li>
-
-					<li>
-						{' '}
-						<button href="">messages</button>{' '}
-					</li>
-					<li>
-						{' '}
-						<button href="">dashboard</button>{' '}
-					</li>
-				</ul>
+				{username && (
+					<Link to={`/dashboard`} className={match ? 'active' : ''}>
+						Dashboard
+					</Link>
+				)}
 			</div>
 			<div className="search_area">
 				<input

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ListingCard from '../components/panel/ListingCard';
 import Header from './Header';
-
+import { Link } from 'react-router-dom';
 import 'normalize-scss/sass/_normalize.scss';
 import '../styles/styles.scss';
-import logo from '../images/logo.svg';
 import heart from '../images/icons8-heart_outline.png';
 import home from '../images/icons8-home.png';
 import default_avatar from '../images/icons8-user_male_circle_filled.png';
 import { getLoggedInUser, loadUserListings } from '../backend_interface/api_if';
+import LoginLogoutButton from './LoginLogoutButton';
 
 const DashboardPage = () => {
 	const getUser = async () => {
@@ -16,8 +16,8 @@ const DashboardPage = () => {
 		return user;
 	};
 
-	const [ user, setUser ] = useState({});
 	const [ userListings, setUserListings ] = useState(undefined);
+	const [ user, setUser ] = useState({});
 	useEffect(() => {
 		getUser().then((currentUser) => {
 			setUser(currentUser);
@@ -33,7 +33,11 @@ const DashboardPage = () => {
 	};
 
 	if (user === null || user === undefined) {
-		return <div>Unauthorized</div>;
+		return (
+			<div>
+				Unauthorized, please login <LoginLogoutButton />
+			</div>
+		);
 	}
 	if (user === {}) {
 		console.log(user);
@@ -63,6 +67,9 @@ const DashboardPage = () => {
 					<center>
 						<h1>My Listings</h1>
 					</center>
+					<Link to={`/new`} className="blue_button" style={{ width: '15rem', height: '4rem' }}>
+						Post a listing
+					</Link>
 					<ul className="panel_listings">
 						{userListings &&
 							userListings.ads &&
