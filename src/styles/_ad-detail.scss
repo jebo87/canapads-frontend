@@ -1,25 +1,22 @@
 .ad-detail {
 	position: fixed;
-
 	top: 8rem;
 	bottom: 0;
-
 	padding-left: 2rem;
 	left: 0;
 	width: $left_panel_size;
-	max-width: $left_panel_size;
+	//max-width: $left_panel_size;
 	background-color: $light_gray;
 	font-family: $font_franklin;
 	color: #333;
-
 	z-index: 20;
 	display: flex;
 	flex-direction: column;
-
 	display: inline-block;
-
-	overflow: auto;
+	overflow-y: scroll;
 	overscroll-behavior: contain;
+	height: calc(100% - 8rem);
+	overflow-x: hidden;
 
 	.go_back {
 		margin: 1rem 1rem;
@@ -32,13 +29,14 @@
 	}
 
 	.photos {
-		height: 38rem;
-		width: 62.2rem;
+		height: 31rem;
+
 		display: flex;
 		flex-direction: row;
+
 		.photo-big {
-			width: 53.5rem;
-			height: 100%;
+			width: 80%;
+
 			button {
 				background: none;
 				border: none;
@@ -52,6 +50,7 @@
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+				border-radius: 0.5rem;
 			}
 		}
 		.small-photos {
@@ -60,6 +59,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
+			overflow-y: scroll;
 			overflow-x: hidden;
 			img {
 				margin-bottom: 1rem;
@@ -67,6 +67,7 @@
 				height: 8rem;
 				object-fit: cover;
 				cursor: pointer;
+				border-radius: 0.5rem;
 			}
 			.small-image {
 				opacity: 0.6;
@@ -94,6 +95,58 @@
 			text-decoration: none;
 			color: white;
 			line-height: 4rem;
+		}
+	}
+}
+
+@media screen and (max-width: $mobile_wide) {
+	.ad-detail {
+		width: 100%;
+
+		.photos {
+			flex-direction: row;
+
+			.photo-big {
+				img {
+					height: 31rem;
+				}
+			}
+			.small-photos {
+				flex-direction: column;
+				height: 90%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: $mobile_portrait) {
+	.ad-detail {
+		width: 100%;
+
+		padding-left: 0px;
+		.go_back {
+			margin: 0;
+			padding: 0.5rem 2rem;
+		}
+		.photos {
+			width: 100%;
+			flex-direction: column;
+			height: fit-content;
+			.photo-big {
+				width: 100%;
+			}
+			.small-photos {
+				flex-direction: row;
+				width: 90%;
+				overflow-x: scroll;
+				overflow-y: hidden;
+				padding: 0.5 2rem;
+				img {
+					margin-right: 1rem;
+				}
+			}
 		}
 	}
 }

@@ -1,6 +1,13 @@
 .map {
 	background-color: #ededed;
-	width: calc(100vw - 67.9rem);
-
+	width: calc(100vw - 50rem);
 	height: 100vh;
+	overflow: hidden;
+}
+
+@media screen and (max-width: $mobile_wide) {
+	.map {
+		width: 0;
+		visibility: hidden;
+	}
 }

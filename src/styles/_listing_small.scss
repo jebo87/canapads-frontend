@@ -1,43 +1,40 @@
 //Local variables
-$box_width: 31.5rem;
-$box_height: 20.4rem;
-
+// $box_width: 31.5rem;
+// $box_height: 20.4rem;
+$box_width: 24rem;
+$box_height: 19rem;
 .listing_small {
 	position: relative;
 	display: flex;
-	box-sizing: border-box;
 	padding: 0;
 	border: 0;
-	height: $box_height;
+
 	width: $box_width;
+	margin: 1rem 0.5rem;
 
 	cursor: pointer;
 	button {
 		border: 0;
 		background: none;
+		padding: 0;
 	}
 
 	.box_image {
-		height: $box_height;
 		width: $box_width;
-		min-width: $box_width;
 
-		img {
-			object-fit: cover;
-		}
+		object-fit: cover;
 
-		box-sizing: border-box;
 		border-radius: 0.5rem;
 		box-shadow: $l1_shadow;
 	}
 
 	.info_box {
 		position: absolute;
-		bottom: 0;
-		width: $box_width;
+		bottom: 0rem;
+		width: 100%;
 
 		z-index: 1;
-		height: $box_height/3;
+		height: 33%;
 		color: #fff;
 		background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 9%, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.65) 100%);
 		/* FF3.6-15 */
@@ -55,6 +52,7 @@ $box_height: 20.4rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
+		align-self: flex-end;
 
 		border-radius: 0.5rem;
 	}
@@ -75,7 +73,7 @@ $box_height: 20.4rem;
 		padding: 0.7rem 0.2rem 0.7rem 0.5rem;
 		position: absolute;
 		top: 3rem;
-		left: 0.4rem;
+		left: -0.3rem;
 		display: block;
 		background: $price_tag;
 		z-index: 1;
@@ -103,5 +101,32 @@ $box_height: 20.4rem;
 	}
 	.external_img {
 		width: 3rem;
+	}
+}
+
+@media screen and (max-width: $mobile_wide) {
+	$box_width: 24rem;
+	$box_height: 19rem;
+	.listing_small {
+		height: $box_height;
+		width: $box_width;
+		.box_image {
+			width: $box_width;
+			height: $box_height;
+			object-fit: cover;
+		}
+	}
+}
+@media screen and (max-width: $mobile_portrait) {
+	$box_width: 100%;
+	$box_height: 20rem;
+	.listing_small {
+		height: $box_height;
+		width: $box_width;
+		.box_image {
+			width: $box_width;
+			height: $box_height;
+			object-fit: cover;
+		}
 	}
 }

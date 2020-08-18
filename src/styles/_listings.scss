@@ -1,16 +1,21 @@
 .listings {
 	align-self: flex-start;
-	overflow-y: scroll;
+	position: relative;
+	//  overflow-y: scroll;
 	overscroll-behavior: contain;
 
-	overflow-x: hidden;
+	overflow: hidden;
 	height: calc(100vh - 13rem); //check if this can be done differently
 	width: $left_panel_size;
+
 	.listing_results {
-		display: grid;
-		grid-gap: 0.5rem;
-		grid-template-columns: auto auto;
-		padding: 0 1rem;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+
+		overflow-y: scroll;
+		height: 100%;
 	}
 	.results_text {
 		padding-left: 2rem;
@@ -26,5 +31,15 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+	}
+}
+
+@media screen and (max-width: $mobile_wide) {
+	.listings {
+		width: 100%;
+		margin: 0 0 5rem 0;
+		height: calc(100vh - 19rem);
+
+		padding-bottom: 19rem;
 	}
 }

@@ -6,21 +6,33 @@
 	height: 8rem !important;
 	justify-content: flex-start;
 	background: #fff;
-	padding: 1.5rem 3rem 0 3rem;
+	padding: 1rem 2rem;
 	box-sizing: border-box;
 	box-shadow: $l0_shadow;
 	border-bottom: 2px solid $light_gray_nt;
 	z-index: 40;
+	align-items: center;
+	.header_icon {
+		text-decoration: none;
+		color: $main_color;
+		font-size: 22pt;
+		transform: translateY(-5%);
+	}
 	.header_title {
+		margin-left: 2rem;
 		a {
 			text-decoration: none;
 			font-family: $font_ruda;
-			font-size: 36pt;
+			font-size: 22pt;
 			color: $main_color;
+		}
+
+		img {
+			width: 2rem;
 		}
 		display: block;
 		width: 30rem;
-		min-width: 30rem;
+		//min-width: 30rem;
 		justify-self: flex-start;
 	}
 
@@ -36,9 +48,12 @@
 			height: 5.3rem;
 			text-decoration: none;
 			line-height: 5.3rem;
+			color: gray;
 		}
 		.active {
+			text-decoration: none;
 			border-bottom: 0.5rem solid $main_color;
+			color: $main_color;
 		}
 		a > active {
 			border-bottom: 0.5rem solid $main_color;
