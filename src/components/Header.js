@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import authConfig from '../backend_interface/auth_config';
 import { Link, useRouteMatch } from 'react-router-dom';
+import SideNav from './navigation/SideNav';
 
 import { getLoggedInUser } from '../backend_interface/api_if';
 import logo from '../images/logo.svg';
@@ -15,6 +16,7 @@ const Header = (props) => {
 	const [ username, setUsername ] = useState(null);
 	const filter = useSelector((state) => state.filter);
 	const [ localFilter, setLocalFilter ] = useState(defaultFilters);
+	const [ showSideNav, setShowSideNav ] = useState(false);
 
 	const handleSearchChanged = (e) => {
 		setLocalFilter({
@@ -46,44 +48,40 @@ const Header = (props) => {
 		[ filter ]
 	);
 
-	let match = useRouteMatch({
-		path: `/dashboard`,
-		exact: true
-	});
+	const showNav = () => {
+		setShowSideNav(!showSideNav);
+	};
 
 	return (
-		<div className={`header ${props.className}`}>
-			<div className="header_logo" />
-			<div className="header_title">
-				<img src={logo} alt="logo" />
-
-				<a href="https://www.canapads.ca/"> CANAPADS</a>
-			</div>
-			<div className="menu">
-				{username && (
-					<Link to={`/dashboard`} className={match ? 'active' : ''}>
-						Dashboard
-					</Link>
-				)}
-			</div>
-			<div className="search_area">
-				<input
-					placeholder="Search..."
-					type="text"
-					className="search_box"
-					onKeyDown={handleKeyDown}
-					onChange={handleSearchChanged}
-				/>
-				<button className="blue_button search_button " onClick={performSearch}>
-					<img src={search_image} alt="" />
+		<React.Fragment>
+			{showSideNav && <SideNav logo={logo} showNav={showNav} />
+			// <SideNav logo={logo} toggleNav={showSideNav} showNav={showNav} />
+			}
+			<div className={`header ${props.className}`}>
+				<button className="header_icon" onClick={showNav}>
+					☰
 				</button>
+				<div className="header_logo" />
+				<div className="header_title">
+					<img src={logo} alt="logo" />
+
+					<a href="https://www.canapads.ca/"> CANAPADS</a>
+				</div>
+
+				<div className="search_area">
+					<input
+						placeholder="Search..."
+						type="text"
+						className="search_box"
+						onKeyDown={handleKeyDown}
+						onChange={handleSearchChanged}
+					/>
+					<button className="blue_button search_button " onClick={performSearch}>
+						<img src={search_image} alt="" />
+					</button>
+				</div>
 			</div>
-			<LoginLogoutButton />
-			<div className="header_name">
-				<img src="" alt="" />
-				{username && username.name}
-			</div>
-		</div>
+		</React.Fragment>
 	);
 };
 export default Header;
