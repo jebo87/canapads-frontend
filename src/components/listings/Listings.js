@@ -54,13 +54,13 @@ const Listings = (props) => {
 
 	return (
 		<React.Fragment>
+			<div className="results_text">
+				Your search returned {listingList.count || 0} results:
+				<button className="filter_button" onClick={props.toggleFilter}>
+					<img src={filter} alt="" />
+				</button>
+			</div>
 			<div className="listings">
-				<div className="results_text">
-					Your search returned {listingList.count || 0} results:
-					<button className="filter_button" onClick={props.toggleFilter}>
-						<img src={filter} alt="" />
-					</button>
-				</div>
 				{!listingList && (
 					<div className="loading_box">
 						<div className="loading">

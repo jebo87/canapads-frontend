@@ -38,49 +38,49 @@ const DashboardPage = () => {
 				Unauthorized, please login <LoginLogoutButton />
 			</div>
 		);
-	}
-	if (user === {}) {
+	} else if (user === {}) {
 		console.log(user);
 		return <div>Loading...</div>;
+	} else {
+		return (
+			<React.Fragment>
+				<Header filter={{ searchParam: '' }} />
+				<div className="panel">
+					<div className="panel_left">
+						<div className="avatar">
+							<img src={default_avatar} alt="avatar" />
+						</div>
+						<div className="name">{user && user.name}</div>
+						<div className="menu">
+							<button className="menu_item">
+								<img src={heart} alt="favorites" />
+								Favorites
+							</button>
+							<button className="menu_item">
+								<img src={home} alt="listings" />
+								Listings
+							</button>
+						</div>
+					</div>
+					<div className="panel_right">
+						<center>
+							<h1>My Listings</h1>
+						</center>
+						<Link to={`/new`} className="blue_button" style={{ width: '15rem', height: '4rem' }}>
+							Post a listing
+						</Link>
+						<ul className="panel_listings">
+							{userListings &&
+								userListings.ads &&
+								userListings.ads.map((listing) => {
+									return <ListingCard key={listing.id} listing={listing} />;
+								})}
+						</ul>
+					</div>
+				</div>
+			</React.Fragment>
+		);
 	}
-	return (
-		<React.Fragment>
-			<Header filter={{ searchParam: '' }} />
-			<div className="panel">
-				<div className="panel_left">
-					<div className="avatar">
-						<img src={default_avatar} alt="avatar" />
-					</div>
-					<div className="name">{user && user.name}</div>
-					<div className="menu">
-						<button className="menu_item">
-							<img src={heart} alt="favorites" />
-							Favorites
-						</button>
-						<button className="menu_item">
-							<img src={home} alt="listings" />
-							Listings
-						</button>
-					</div>
-				</div>
-				<div className="panel_right">
-					<center>
-						<h1>My Listings</h1>
-					</center>
-					<Link to={`/new`} className="blue_button" style={{ width: '15rem', height: '4rem' }}>
-						Post a listing
-					</Link>
-					<ul className="panel_listings">
-						{userListings &&
-							userListings.ads &&
-							userListings.ads.map((listing) => {
-								return <ListingCard key={listing.id} listing={listing} />;
-							})}
-					</ul>
-				</div>
-			</div>
-		</React.Fragment>
-	);
 };
 
 export default DashboardPage;
