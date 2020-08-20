@@ -5,6 +5,7 @@ import LoginLogoutButton from './../LoginLogoutButton';
 import icon_plus from './../../images/menu/icons8-plus.png';
 import icon_about from './../../images/menu/icons8-about.png';
 import icon_home from './../../images/menu/icons8-home.png';
+import icon_dashboard from './../../images/menu/icons8-dashboard.png';
 import icon_logout from './../../images/menu/icons8-logout.png';
 import icon_messages from './../../images/menu/icons8-messages.png';
 import icon_phone from './../../images/menu/icons8-phone.png';
@@ -56,6 +57,10 @@ const SideNav = (props) => {
 						<LoginLogoutButton type="login" />
 					</div>
 				)}
+				<Link to={`/`} className={(match === '/' ? 'active' : '') + ' side_nav_link'}>
+					<img src={icon_home} alt="" />
+					Home
+				</Link>
 				<Link to={`/new`} className={(match === '/new' ? 'active' : '') + ' side_nav_link'}>
 					<img src={icon_plus} alt="" />
 					Post a listing
@@ -64,7 +69,7 @@ const SideNav = (props) => {
 				{user && (
 					<section className="user_links">
 						<Link to={`/dashboard`} className={(match === '/dashboard' ? 'active' : '') + ' side_nav_link'}>
-							<img src={icon_home} alt="" />
+							<img src={icon_dashboard} alt="" />
 							Dashboard
 						</Link>
 						<Link to={`/favorites`} className={(match === '/favorites' ? 'active' : '') + ' side_nav_link'}>

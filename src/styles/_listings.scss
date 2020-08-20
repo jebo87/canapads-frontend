@@ -41,7 +41,9 @@
 		width: 100%;
 		margin: 0 0 5rem 0;
 		height: calc(100vh - 15.3rem);
-
+		.listing_results {
+			gap: 1rem;
+		}
 		//padding-bottom: 19rem;
 		.listing_results::after {
 			height: 0;

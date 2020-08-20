@@ -89,7 +89,7 @@
 			align-items: center;
 			text-decoration: none;
 			color: $main_color;
-			line-height: 4rem;
+			line-height: 6rem;
 			padding: 0 0 0 4rem;
 			color: $light_gray_menu;
 			img {
@@ -106,6 +106,7 @@
 		}
 		button {
 			font-size: 13pt;
+			width: 100%;
 		}
 		.login_logout_buttons::before,
 		.login_logout_buttons::after {
@@ -122,7 +123,7 @@
 
 	@keyframes sidenav_fadein {
 		to {
-			background-color: transparentize($color: black, $amount: 0.3);
+			background-color: transparentize($color: darken(gray, 30%), $amount: 0.2);
 		}
 	}
 	@keyframes sidenav_slidein {
