@@ -1,6 +1,6 @@
 .ad-detail {
 	position: fixed;
-	top: 8rem;
+	top: 5rem;
 	bottom: 0;
 	padding-left: 2rem;
 	left: 0;
@@ -15,7 +15,7 @@
 	display: inline-block;
 	overflow-y: scroll;
 	overscroll-behavior: contain;
-	height: calc(100% - 8rem);
+	height: calc(100% - 5rem);
 	overflow-x: hidden;
 
 	.go_back {

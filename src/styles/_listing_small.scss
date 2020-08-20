@@ -1,7 +1,7 @@
 //Local variables
 // $box_width: 31.5rem;
 // $box_height: 20.4rem;
-$box_width: 24rem;
+$box_width: 26.5rem;
 $box_height: 19rem;
 .listing_small {
 	position: relative;
@@ -10,7 +10,8 @@ $box_height: 19rem;
 	border: 0;
 
 	width: $box_width;
-	margin: 1rem 0.5rem;
+	height: $box_height;
+	margin: 1rem 0.3rem;
 
 	cursor: pointer;
 	button {
@@ -21,6 +22,7 @@ $box_height: 19rem;
 
 	.box_image {
 		width: $box_width;
+		height: $box_height;
 
 		object-fit: cover;
 
@@ -106,7 +108,6 @@ $box_height: 19rem;
 
 @media screen and (max-width: $mobile_wide) {
 	$box_width: 24rem;
-	$box_height: 19rem;
 	.listing_small {
 		height: $box_height;
 		width: $box_width;
@@ -119,7 +120,6 @@ $box_height: 19rem;
 }
 @media screen and (max-width: $mobile_portrait) {
 	$box_width: 100%;
-	$box_height: 20rem;
 	.listing_small {
 		height: $box_height;
 		width: $box_width;

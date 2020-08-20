@@ -4,9 +4,7 @@ import Header from './Header';
 import { Link } from 'react-router-dom';
 import 'normalize-scss/sass/_normalize.scss';
 import '../styles/styles.scss';
-import heart from '../images/icons8-heart_outline.png';
-import home from '../images/icons8-home.png';
-import default_avatar from '../images/icons8-user_male_circle_filled.png';
+
 import { getLoggedInUser, loadUserListings } from '../backend_interface/api_if';
 import LoginLogoutButton from './LoginLogoutButton';
 
