@@ -8,11 +8,11 @@ import { invalidateStore } from './../redux/actions/globalStateActions';
 //import { initStore } from '../redux/store';
 import { Listings } from './listings/Listings';
 import Filter from './Filters';
+import { defaultFilters, defaultSize } from './filters/defaultFilters';
 import { getAds } from '../backend_interface/api_if';
 import Header from './Header';
 import Pagination from './pagination/Pagination';
 import MapCanapads from './map/MapCanapads';
-import { defaultFilters, defaultSize } from './filters/defaultFilters';
 
 const useHomePage = () => {
 	return useSelector(

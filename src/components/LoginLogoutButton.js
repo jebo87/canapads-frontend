@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Oidc, { WebStorageStateStore } from 'oidc-client';
 import authConfig from '../backend_interface/auth_config';
-const LoginLogoutButton = () => {
+import icon_login from './../images/menu/icons8-login.png';
+import icon_logout from './../images/menu/icons8-logout.png';
+
+const LoginLogoutButton = (props) => {
 	const [ config ] = useState(authConfig);
 	const [ user, setUser ] = useState(null);
 	const [ manager, setManager ] = useState(null);
@@ -65,13 +68,15 @@ const LoginLogoutButton = () => {
 
 	return (
 		<React.Fragment>
-			{user === null ? (
-				<button className="blue_button" onClick={login}>
+			{props.type === 'login' ? (
+				<button onClick={login} className="side_nav_link">
+					<img src={icon_login} alt="" />
 					Login
 				</button>
 			) : (
-				<button className="blue_button" onClick={logout}>
-					logout
+				<button className="side_nav_link" onClick={logout}>
+					<img src={icon_logout} alt="" />
+					Logout
 				</button>
 			)}
 		</React.Fragment>

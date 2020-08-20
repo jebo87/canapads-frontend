@@ -3,15 +3,15 @@
 	width: 100vw;
 	display: flex;
 	flex-direction: row;
-	height: 8rem !important;
-	justify-content: flex-start;
+	height: 5.8rem;
+	//justify-content: flex-start;
 	background: #fff;
-	padding: 1rem 2rem;
-	box-sizing: border-box;
+	padding: 0rem 2rem;
 	box-shadow: $l0_shadow;
 	border-bottom: 2px solid $light_gray_nt;
 	z-index: 40;
 	align-items: center;
+	line-height: 8rem;
 	.header_icon {
 		text-decoration: none;
 		color: $main_color;
@@ -31,34 +31,35 @@
 			width: 2rem;
 		}
 		display: block;
-		width: 30rem;
-		//min-width: 30rem;
+		//width: 30rem;
+		display: flex;
+		flex-direction: row;
 		justify-self: flex-start;
 	}
 
-	.menu {
-		display: flex;
-		flex-direction: row;
-		align-items: flex-end;
-		height: 100%;
-		button {
-			line-height: 5rem;
-		}
-		a {
-			height: 5.3rem;
-			text-decoration: none;
-			line-height: 5.3rem;
-			color: gray;
-		}
-		.active {
-			text-decoration: none;
-			border-bottom: 0.5rem solid $main_color;
-			color: $main_color;
-		}
-		a > active {
-			border-bottom: 0.5rem solid $main_color;
-		}
-	}
+	// .menu {
+	// 	display: flex;
+	// 	flex-direction: row;
+	// 	align-items: flex-end;
+	// 	height: 100%;
+	// 	button {
+	// 		line-height: 5rem;
+	// 	}
+	// 	a {
+	// 		height: 5.3rem;
+	// 		text-decoration: none;
+	// 		line-height: 5.3rem;
+	// 		color: gray;
+	// 	}
+	// 	.active {
+	// 		text-decoration: none;
+	// 		border-bottom: 0.5rem solid $main_color;
+	// 		color: $main_color;
+	// 	}
+	// 	a > active {
+	// 		border-bottom: 0.5rem solid $main_color;
+	// 	}
+	// }
 
 	.search_area {
 		width: 60rem;
@@ -99,26 +100,5 @@
 			border: 0.1rem solid$main_color;
 			width: 100%;
 		}
-	}
-
-	.header_name {
-		display: block;
-		width: 15rem;
-		text-transform: capitalize;
-	}
-	.blue_button {
-		box-shadow: $l1_shadow;
-		box-sizing: border-box;
-		background: $main_color;
-		width: 10rem;
-		height: 4rem;
-
-		border: none;
-		text-align: center;
-		border-radius: 0.3em;
-		color: #fff;
-		float: right;
-		justify-self: flex-end;
-		margin-right: 0;
 	}
 }
