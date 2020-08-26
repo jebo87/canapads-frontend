@@ -2,7 +2,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	height: 100vh;
+	height: 100%;
 	width: 100vw;
 	z-index: 100;
 	display: flex;
@@ -12,10 +12,14 @@
 	animation-name: sidenav_fadein;
 	animation-duration: 300ms;
 	animation-fill-mode: forwards;
+	section {
+		background-color: #fdfdfd;
+	}
 	.side_nav_left {
 		background: #fdfdfd;
 		//background: linear-gradient(207deg, #fdfdfd 0%, #efefef 100%);
 		width: 30rem;
+		height: 100%;
 		background-color: $light_gray;
 		animation-name: sidenav_slidein;
 		animation-duration: 300ms;

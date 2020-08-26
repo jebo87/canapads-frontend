@@ -1,8 +1,7 @@
 .ad-detail {
 	position: fixed;
-	top: 5rem;
+	top: 6rem;
 	bottom: 0;
-	padding-left: 2rem;
 	left: 0;
 	width: $left_panel_size;
 	//max-width: $left_panel_size;
@@ -20,7 +19,7 @@
 
 	.go_back {
 		margin: 1rem 1rem;
-		padding: 1rem 2rem;
+
 		a {
 			cursor: pointer;
 			text-decoration: none;
@@ -35,11 +34,12 @@
 		flex-direction: row;
 
 		.photo-big {
-			width: 80%;
+			width: calc(100% - 8rem);
 
 			button {
 				background: none;
 				border: none;
+				margin: 0 0.5rem;
 			}
 			button:focus {
 				outline: 0;
@@ -55,7 +55,7 @@
 		}
 		.small-photos {
 			width: 8rem;
-			padding: 1rem;
+			margin: 0 1rem;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
@@ -78,7 +78,8 @@
 		}
 	}
 	.bottom_details {
-		margin-bottom: 3rem;
+		margin: 3rem 1rem;
+
 		.description {
 			padding: 3rem;
 		}
@@ -139,10 +140,11 @@
 			}
 			.small-photos {
 				flex-direction: row;
-				width: 90%;
+				width: calc(100% - 1rem);
 				overflow-x: scroll;
 				overflow-y: hidden;
-				padding: 0.5 2rem;
+				margin: 0.5rem 0.5rem;
+				padding: 0;
 				img {
 					margin-right: 1rem;
 				}

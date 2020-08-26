@@ -76,6 +76,7 @@
 			background: #fff;
 			border: 0.1rem solid #e6e6e6;
 			height: 100%;
+			visibility: visible;
 		}
 		.search_button {
 			background-color: $main_color;
@@ -100,5 +101,11 @@
 			border: 0.1rem solid$main_color;
 			width: 100%;
 		}
+	}
+}
+
+@media screen and (max-width: $mobile_wide) {
+	.header .search_area .search_box {
+		visibility: hidden;
 	}
 }

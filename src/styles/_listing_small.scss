@@ -109,6 +109,7 @@ $box_height: 19rem;
 @media screen and (max-width: $mobile_wide) {
 	$box_width: 24rem;
 	.listing_small {
+		margin: 0.5rem 1rem;
 		height: $box_height;
 		width: $box_width;
 		.box_image {
@@ -121,8 +122,12 @@ $box_height: 19rem;
 @media screen and (max-width: $mobile_portrait) {
 	$box_width: 100%;
 	.listing_small {
-		height: $box_height;
+		margin: 0.5rem 1rem;
 		width: $box_width;
+		height: $box_height;
+		.info_box {
+			width: $box_width;
+		}
 		.box_image {
 			width: $box_width;
 			height: $box_height;

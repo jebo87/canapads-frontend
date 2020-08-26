@@ -49,11 +49,7 @@ const ListingDetail = () => {
 		return (
 			<div className="ad-detail">
 				<div className="go_back">
-					<button onClick={close}>
-						<span aria-label="back" role="img">
-							⬅️Go back to search results
-						</span>
-					</button>
+					<button onClick={close}>⬅️ Go back to search results</button>
 				</div>
 				{carouselVisibility && (
 					<Carousel
@@ -82,14 +78,14 @@ const ListingDetail = () => {
 						))}
 					</div>
 				</div>
-				<h2>
-					{selectedAd.title} {cost}
-				</h2>
-				<div className="location">
-					<img alt="" src={marker} />
-					{selectedAd.city}, {selectedAd.neighborhood}
-				</div>
 				<div className="bottom_details">
+					<h2>
+						{selectedAd.title} {cost}
+					</h2>
+					<div className="location">
+						<img alt="" src={marker} />
+						{selectedAd.city}, {selectedAd.neighborhood}
+					</div>
 					<Features listing={selectedAd} />
 					<div className="description">
 						<h4>Description:</h4>
