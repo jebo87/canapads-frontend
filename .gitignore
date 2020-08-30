@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /internal
+set_env.sh
 
 
 # testing
