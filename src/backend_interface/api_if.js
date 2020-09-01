@@ -39,8 +39,7 @@ const getAd = async (id) => {
 		ad['rentByOwner'],
 		ad['last_updated'],
 		ad['featured'],
-		ad['lat'],
-		ad['lon'],
+		ad['location'],
 		ad['bathrooms'],
 		ad['view_count'],
 		ad['street'],
@@ -150,8 +149,10 @@ const getAds = async (filters) => {
 	//if (loggedIn) {
 
 	const url = `${_API_}/ads`;
-	console.log(url);
 	var filter = new Filter({ ...filters });
+	console.log(filters);
+	console.log(JSON.stringify(filter.toJSON()));
+
 	const data = await fetch(url, {
 		mode: 'cors',
 		agent,
@@ -192,8 +193,7 @@ const getAds = async (filters) => {
 			ad['rentByOwner'],
 			ad['last_updated'],
 			ad['featured'],
-			ad['lat'],
-			ad['lon'],
+			ad['location'],
 			ad['bathrooms'],
 			ad['view_count'],
 			ad['street'],
@@ -218,6 +218,7 @@ const getAds = async (filters) => {
 };
 
 const convertToGeoJSON = (ads, count) => {
+	console.log(ads);
 	let data = {
 		count: count,
 		type: 'FeatureCollection',
@@ -236,15 +237,16 @@ const convertToGeoJSON = (ads, count) => {
 				bedrooms: ad['rooms'],
 				bathrooms: ad['bathrooms'],
 				neighborhood: ad['neighborhood'],
-				lon: ad['lon'],
-				lat: ad['lat']
+				lon: ad['location']['lon'],
+				lat: ad['location']['lat']
 			},
 			geometry: {
 				type: 'Point',
-				coordinates: [ ad['lon'], ad['lat'] ]
+				coordinates: [ ad['location']['lon'], ad['location']['lat'] ]
 			}
 		};
 		data.features.push(myAd);
+
 		return myAd;
 	});
 

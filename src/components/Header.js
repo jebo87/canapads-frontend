@@ -7,8 +7,8 @@ import SideNav from './navigation/SideNav';
 import { getLoggedInUser } from '../backend_interface/api_if';
 import logo from '../images/logo.svg';
 import LoginLogoutButton from './LoginLogoutButton';
-import { setFilters } from './../redux/actions/filterActions';
 import { defaultFilters } from './filters/defaultFilters';
+import { setFilters } from './../redux/actions/filterActions';
 import { invalidateStore } from './../redux/actions/globalStateActions';
 import search_image from './../images/icons8-search.png';
 const Header = (props) => {
@@ -24,6 +24,7 @@ const Header = (props) => {
 			searchParam: { value: e.target.value }
 		});
 	};
+	let proceed_search = false;
 
 	const handleKeyDown = async (e) => {
 		if (e.key === 'Enter') {
@@ -31,8 +32,9 @@ const Header = (props) => {
 				...localFilter,
 				searchParam: { value: e.target.value }
 			};
-			await setLocalFilter(newFilter);
-			performSearch();
+
+			proceed_search = true;
+			setLocalFilter(newFilter);
 		}
 	};
 	const performSearch = async () => {
@@ -40,6 +42,15 @@ const Header = (props) => {
 
 		dispatch(setFilters({ ...localFilter, ...filter }));
 	};
+
+	useEffect(
+		() => {
+			if (proceed_search) {
+				performSearch();
+			}
+		},
+		[ localFilter ]
+	);
 
 	useEffect(
 		() => {

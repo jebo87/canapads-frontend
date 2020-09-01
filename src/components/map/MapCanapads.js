@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import mapboxgl from 'mapbox-gl';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+
+import mapboxgl from 'mapbox-gl';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import { setFilters } from './../../redux/actions/filterActions';
+import { invalidateStore } from './../../redux/actions/globalStateActions';
+import { defaultFilters } from './../filters/defaultFilters';
+
 // import { dataLayerClusterCount, dataLayerClusters, dataLayerUnclustered } from './layer_data/layer_data';
 import { dataLayerUnclustered } from './layer_data/layer_data';
 //import AdPopup from './AdPopup';
@@ -14,8 +20,11 @@ const useListings = () => {
 		shallowEqual
 	);
 };
+
 const MapCanapads = (props) => {
+	const [ localFilter, setLocalFilter ] = useState(defaultFilters);
 	const dispatch = useDispatch();
+	const filter = useSelector((state) => state.filter);
 	const mapRef = useRef(null);
 	mapboxgl.accessToken = token;
 	// eslint-disable-next-line
@@ -27,9 +36,22 @@ const MapCanapads = (props) => {
 		maxZoom: 16,
 		minZoom: 5
 	});
+	var draw = new MapboxDraw({
+		displayControlsDefault: false,
+		controls: {
+			polygon: true,
+			trash: true
+		}
+	});
 	// eslint-disable-next-line
 	const { listings } = useListings();
 	const [ myMap, setMap ] = useState(null);
+
+	const performSearch = async () => {
+		await dispatch(invalidateStore({ store_invalid: true }));
+		dispatch(setFilters({ ...filter, ...localFilter }));
+	};
+
 	const initializeMap = ({ setMap, mapRef }) => {
 		const map = new mapboxgl.Map({
 			container: mapRef.current,
@@ -42,6 +64,7 @@ const MapCanapads = (props) => {
 				zoom: 14
 			});
 		};
+
 		map.on('load', () => {
 			map.addSource('listings', {
 				type: 'geojson',
@@ -59,7 +82,6 @@ const MapCanapads = (props) => {
 			});
 			setMap(map);
 			map.on('click', (e) => {
-				console.log('entro al handler');
 				var features = map.queryRenderedFeatures(e.point, {
 					layers: [ 'listings' ]
 				});
@@ -87,6 +109,29 @@ const MapCanapads = (props) => {
 				}
 			});
 		});
+
+		map.addControl(draw);
+
+		map.on('draw.create', searchFromMap);
+		map.on('draw.delete', searchFromMap);
+		map.on('draw.update', searchFromMap);
+	};
+
+	const searchFromMap = async (e) => {
+		var data = draw.getAll();
+		let geo_search = {
+			polygon: { points: [] }
+		};
+
+		var coords = data.features[0].geometry.coordinates[0];
+		coords.forEach((element) => {
+			geo_search.polygon.points.push({ lon: element[0], lat: element[1] });
+		});
+		var newFilter = {
+			...localFilter,
+			...geo_search
+		};
+		setLocalFilter(newFilter);
 	};
 
 	useEffect(
@@ -95,6 +140,13 @@ const MapCanapads = (props) => {
 		},
 		// eslint-disable-next-line
 		[ myMap ]
+	);
+
+	useEffect(
+		() => {
+			performSearch();
+		},
+		[ localFilter ]
 	);
 
 	useEffect(

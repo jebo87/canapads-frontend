@@ -41,6 +41,7 @@ const HomePage = (state) => {
 	};
 
 	const loadListings = async (filters) => {
+		console.log(filters);
 		const newListings = await getAds(filters);
 		updateStore(newListings);
 	};
