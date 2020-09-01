@@ -16,13 +16,12 @@ const NewListingPage = () => {
 	return (
 		<React.Fragment>
 			<Header />
-			<div className="panel">
-				<div className="panel_right">
-					<center>
-						<h1>New Listing</h1>
-					</center>
-				</div>
-			</div>
+			<main className="new_listing">
+				<center>
+					<h1>New Listing</h1>
+				</center>
+				<section />
+			</main>
 		</React.Fragment>
 	);
 };

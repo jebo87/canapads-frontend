@@ -25,6 +25,7 @@ export default class Filter {
 		this.from = obj.from;
 		this.size = obj.size;
 		this.searchParam = obj.searchParam;
+		this.polygon = obj.polygon;
 	}
 
 	toJSON() {
@@ -53,7 +54,8 @@ export default class Filter {
 			hasImages: this.hasImages,
 			from: this.from,
 			size: this.size,
-			searchParam: this.searchParam
+			searchParam: this.searchParam,
+			polygon: this.polygon
 		};
 	}
 }

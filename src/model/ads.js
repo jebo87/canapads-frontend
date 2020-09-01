@@ -32,8 +32,7 @@ export default class HomeAd extends BaseAd {
 		rentOwner,
 		last_updated,
 		featured,
-		lat,
-		lon,
+		location,
 		bathrooms,
 		view_count,
 		street,
@@ -56,9 +55,7 @@ export default class HomeAd extends BaseAd {
 		this.rentOwner = rentOwner;
 		this.last_updated = last_updated;
 		this.featured = featured;
-		this.lat = lat;
-		this.lon = lon;
-		this.coordinates = [ lon, lat ];
+		this.location = location;
 		this.bathrooms = bathrooms;
 		this.view_count = view_count;
 		this.street = street;
