@@ -150,8 +150,6 @@ const getAds = async (filters) => {
 
 	const url = `${_API_}/ads`;
 	var filter = new Filter({ ...filters });
-	console.log(filters);
-	console.log(JSON.stringify(filter.toJSON()));
 
 	const data = await fetch(url, {
 		mode: 'cors',
@@ -218,7 +216,6 @@ const getAds = async (filters) => {
 };
 
 const convertToGeoJSON = (ads, count) => {
-	console.log(ads);
 	let data = {
 		count: count,
 		type: 'FeatureCollection',
