@@ -4,6 +4,7 @@ This is the frontend for Canapads.ca.  This is a website being created to provid
 Frontend is being built using ReactJS and the backend is composed of microservices written in Go and NodeJS
 
 ![network](https://gofullstack.dev/images/canapads/canapads_view.jpg)
+![canapads_search](https://gofullstack.dev/images/canapads/canapads_polygon.gif)
 
 We also use ElasticSearch for searching, Postgres as a Database, Mongo DB for user storage, ORY Hydra as authorization server. The whole application is being built to be deployed in Kubernetes 
 
