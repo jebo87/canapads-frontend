@@ -27,33 +27,7 @@ const Pagination = (props) => {
 		// eslint-disable-next-line
 		[ selectedPage, paginationDirection ]
 	);
-	const updatePagination = (direction) => {
-		if (direction === 'right') {
-			if (selectedPage <= pages.length) {
-				//dont move the visible array if we are near the end of the page array
-				// or if we are in the first three items.
-				if (pages.length > 5) {
-					if (selectedPage < pages.length - 2 && selectedPage > 3) {
-						dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 3, selectedPage + 2) }));
-						//if we are in the last items we should not shrink the visible array
-					} else if (selectedPage >= pages.length - 2) {
-						dispatch(setPagesVisible({ pagesVisible: pages.slice(pages.length - 5, pages.length) }));
-					}
-				}
-			}
-		} else {
-			if (selectedPage > 1) {
-				//we will keep moving back the visible array until we are in page 3
-				if (selectedPage - 1 >= 2 && selectedPage < pages.length - 2) {
-					dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 3, selectedPage + 2) }));
-				} else if (selectedPage >= pages.length - 2) {
-					dispatch(setPagesVisible({ pagesVisible: pages.slice(pages.length - 5, pages.length) }));
-				}
-			} else {
-				dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 1, selectedPage + 4) }));
-			}
-		}
-	};
+
 	const loadPage = async (old, page) => {
 		//setListings({});
 		var filters = {
@@ -81,6 +55,35 @@ const Pagination = (props) => {
 	const previousPage = async () => {
 		if (selectedPage > 1) {
 			loadPage(selectedPage, selectedPage - 1);
+		}
+	};
+	const updatePagination = (direction) => {
+		if (direction === 'right') {
+			if (selectedPage <= pages.length) {
+				//dont move the visible array if we are near the end of the page array
+				// or if we are in the first three items.
+				if (pages.length > 5) {
+					if (selectedPage < pages.length - 2 && selectedPage > 3) {
+						dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 3, selectedPage + 2) }));
+						//if we are in the last items we should not shrink the visible array
+					} else if (selectedPage >= pages.length - 2) {
+						dispatch(setPagesVisible({ pagesVisible: pages.slice(pages.length - 5, pages.length) }));
+					}
+				}
+			}
+		} else {
+			if (pages.length > 5) {
+				if (selectedPage > 1) {
+					//we will keep moving back the visible array until we are in page 3
+					if (selectedPage - 1 >= 2 && selectedPage < pages.length - 2) {
+						dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 3, selectedPage + 2) }));
+					} else if (selectedPage >= pages.length - 2) {
+						dispatch(setPagesVisible({ pagesVisible: pages.slice(pages.length - 5, pages.length) }));
+					}
+				} else {
+					dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 1, selectedPage + 4) }));
+				}
+			}
 		}
 	};
 	return (

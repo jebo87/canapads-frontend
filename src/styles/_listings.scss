@@ -17,11 +17,9 @@
 	width: $left_panel_size;
 
 	.listing_results {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: space-evenly;
-
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		align-content: start;
 		overflow-y: scroll;
 		height: 100%;
 	}
@@ -42,12 +40,15 @@
 		margin: 0 0 5rem 0;
 		height: calc(100vh - 15.3rem);
 		.listing_results {
-			gap: 0rem;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
 		}
 		//padding-bottom: 19rem;
 		.listing_results::after {
 			height: 0;
-			width: 33%;
+			width: $box_width;
 			content: "";
 		}
 	}

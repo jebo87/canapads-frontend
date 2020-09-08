@@ -1,8 +1,7 @@
 //Local variables
 // $box_width: 31.5rem;
 // $box_height: 20.4rem;
-$box_width: 26.5rem;
-$box_height: 19rem;
+
 .listing_small {
 	position: relative;
 	display: flex;
@@ -12,6 +11,7 @@ $box_height: 19rem;
 	width: $box_width;
 	height: $box_height;
 	margin: 1rem 0.3rem;
+	align-self: center;
 
 	cursor: pointer;
 	button {
