@@ -72,15 +72,17 @@ const Pagination = (props) => {
 				}
 			}
 		} else {
-			if (selectedPage > 1) {
-				//we will keep moving back the visible array until we are in page 3
-				if (selectedPage - 1 >= 2 && selectedPage < pages.length - 2) {
-					dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 3, selectedPage + 2) }));
-				} else if (selectedPage >= pages.length - 2) {
-					dispatch(setPagesVisible({ pagesVisible: pages.slice(pages.length - 5, pages.length) }));
+			if (pages.length > 5) {
+				if (selectedPage > 1) {
+					//we will keep moving back the visible array until we are in page 3
+					if (selectedPage - 1 >= 2 && selectedPage < pages.length - 2) {
+						dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 3, selectedPage + 2) }));
+					} else if (selectedPage >= pages.length - 2) {
+						dispatch(setPagesVisible({ pagesVisible: pages.slice(pages.length - 5, pages.length) }));
+					}
+				} else {
+					dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 1, selectedPage + 4) }));
 				}
-			} else {
-				dispatch(setPagesVisible({ pagesVisible: pages.slice(selectedPage - 1, selectedPage + 4) }));
 			}
 		}
 	};
