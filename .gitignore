@@ -6,6 +6,7 @@
 .pnp.js
 /internal
 set_env.sh
+.vscode/
 
 
 # testing
