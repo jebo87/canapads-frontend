@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { ThemeProvider } from '@chakra-ui/core';
+import customTheme from './components/themes/theme';
 import * as serviceWorker from './serviceWorker';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
@@ -9,7 +11,9 @@ import './styles/styles.scss';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<ThemeProvider theme={customTheme}>
+			<App />
+		</ThemeProvider>;
 	</React.StrictMode>,
 	document.getElementById('root')
 );
