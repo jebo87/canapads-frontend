@@ -1,6 +1,6 @@
 import { CustomHandle } from './Handle';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Slider from 'rc-slider';
 
@@ -11,7 +11,7 @@ const wrapperStyle = { width: 400, margin: 50 };
 const maxValue = 4050;
 
 const PriceRange = (props) => {
-	const [ priceValues, setPriceValues ] = useState(props.priceFilters);
+	const [ priceValues, setPriceValues ] = useState([ ...props.priceFilters ]);
 	// eslint-disable-next-line
 	const [ lowerBound, setLowerBound ] = useState(0);
 	// eslint-disable-next-line
@@ -27,6 +27,11 @@ const PriceRange = (props) => {
 		props.onPriceChange(priceValues);
 	};
 
+	useEffect(() => {
+		handleChange(props.priceFilters);
+		props.onPriceChange(props.priceFilters);
+	}, props.priceFilters);
+
 	return (
 		<div className="price_range">
 			{priceValues && (
@@ -35,7 +40,8 @@ const PriceRange = (props) => {
 						min={lowerBound}
 						max={upperBound}
 						step={50}
-						defaultValue={priceValues}
+						defaultValue={props.priceFilters}
+						value={priceValues}
 						onChange={handleChange}
 						onAfterChange={handleAfterChange}
 						handle={CustomHandle}

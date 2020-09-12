@@ -17,7 +17,7 @@ import MapCanapads from './map/MapCanapads';
 const useHomePage = () => {
 	return useSelector(
 		(state) => ({
-			filter: state.filters,
+			filters: state.filters,
 			listings: state.listings,
 			storeInvalid: state.global_state.store_invalid
 		}),
@@ -26,7 +26,7 @@ const useHomePage = () => {
 };
 const HomePage = (state) => {
 	const dispatch = useDispatch();
-	const { filter, listings, storeInvalid } = useHomePage();
+	const { filters, listings, storeInvalid } = useHomePage();
 
 	const [ showFilters, setShowFilters ] = useState(false);
 
@@ -68,10 +68,10 @@ const HomePage = (state) => {
 			if (listings === {}) {
 				initializeListings();
 			} else {
-				loadListings(filter);
+				loadListings(filters);
 			}
 		}, // eslint-disable-next-line
-		[ filter ]
+		[ filters ]
 	);
 
 	const toggleFilter = async () => {
@@ -118,7 +118,7 @@ const HomePage = (state) => {
 
 					{showFilters && (
 						<div className="left_box">
-							<Filter toggleFilter={toggleFilter} localFilter={filter} />
+							<Filter toggleFilter={toggleFilter} />
 						</div>
 					)}
 					<MapCanapads lat={45.527065} lon={-73.653534} />
