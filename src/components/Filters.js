@@ -22,7 +22,7 @@ const Filter = (props) => {
 	//local state management for amenities. Called everytime the user
 	//clicks on one of the amtenities images.
 	const updateAmenities = (updatedAmenity) => {
-		var modified = amenities;
+		var modified = { ...amenities };
 		modified[updatedAmenity.id] = updatedAmenity;
 		setAmenities({ ...modified });
 	};
@@ -40,6 +40,7 @@ const Filter = (props) => {
 	//triggers a new search
 	const applyFilter = (e) => {
 		e.preventDefault();
+		resetAmenities();
 		dispatch(
 			setFilters({
 				...localFilter,
@@ -70,7 +71,7 @@ const Filter = (props) => {
 
 	//clear the values for the amenities. resets the images and updates state.
 	const resetAmenities = () => {
-		var modified = amenities;
+		var modified = { ...amenities };
 		Object.entries(modified).map(([ key, item ]) => {
 			item.selectedState = 0;
 			return item;
@@ -83,9 +84,49 @@ const Filter = (props) => {
 		handlePriceRangeChange(resetPrice);
 	};
 
+	const syncActiveAmenities = (tempAmenities, filter) => {
+		let tempPriceRange = [];
+		if (filter !== undefined) {
+			//iterate over the filters and find all the active filters
+			//this is needed to display the filters as active when the filters panel is loaded
+			Object.entries(filter).map(([ key, item ]) => {
+				//if one of the filters was selected, we need to restore its state
+				//to show the right image on screen
+				if (key in tempAmenities) {
+					tempAmenities[key].selectedState = tempAmenities[key].states.indexOf(item.value);
+				} else {
+					//same applies for the price selection
+					//we need to show the values previously selected by the user.
+					if (key === 'price_low') {
+						tempPriceRange[0] = item.value;
+					} else {
+						if (key === 'price_high') {
+							tempPriceRange[1] = item.value;
+						}
+					}
+				}
+			});
+			//this updates the local state for the price range
+			handlePriceRangeChange(tempPriceRange);
+		}
+		return tempAmenities;
+	};
+
+	const syncDeletedAmenities = (tempAmenities) => {
+		// we have to iterate over amenities and unselect the ones that were active before
+		//but now are removed from the filter
+		Object.entries(amenities).map(([ key, item ]) => {
+			if (!(key in filters) && item.selectedState === 1) {
+				tempAmenities[key].selectedState = 0;
+			}
+		});
+
+		return tempAmenities;
+	};
+
 	//Everytime a filter is selected (from the amenities area) the localFilter
 	//needs to be updated so the right state can be dispatched to redux when
-	//the apply filter button is pressed
+	//the apply-filter button is pressed
 	useEffect(
 		() => {
 			var oldFilter = localFilter;
@@ -110,31 +151,11 @@ const Filter = (props) => {
 	//to show the active filters.
 	useEffect(
 		() => {
-			let tempAmenities = amenities;
-			let tempPriceRange = [];
-			if (filters !== undefined) {
-				Object.entries(filters).map(([ key, item ]) => {
-					//if one of the filters was selected, we need to restore its state
-					//to show the right image on screen
-					if (key in tempAmenities) {
-						tempAmenities[key].selectedState = tempAmenities[key].states.indexOf(item.value);
-					} else {
-						//same applies for the price selection
-						//we need to show the values previously selected by the user.
-						if (key === 'price_low') {
-							tempPriceRange[0] = item.value;
-						} else {
-							if (key === 'price_high') {
-								tempPriceRange[1] = item.value;
-							}
-						}
-					}
-				});
-				//this updates the local state for the price range
-				handlePriceRangeChange(tempPriceRange);
-				//update local state for amenities.
-				setAmenities({ ...tempAmenities });
-			}
+			//iterate over filters and amenities to sync the filters with the UI
+			let partialSyncedAmenities = syncActiveAmenities({ ...defaultAmenities }, filters);
+			let fullySyncedAmenities = syncDeletedAmenities(partialSyncedAmenities);
+			//update local state for amenities.
+			setAmenities({ ...fullySyncedAmenities });
 		},
 		[ filters ]
 	);

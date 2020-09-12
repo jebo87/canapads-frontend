@@ -21,7 +21,7 @@ const SelectableItem = (props) => {
 				props.updateAmenities(itemState);
 			}
 		},
-		[ itemState ]
+		[ props.info, itemState ]
 	);
 	return (
 		<div className="selectable_item">
