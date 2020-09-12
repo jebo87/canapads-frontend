@@ -14,7 +14,12 @@ const SelectableItem = (props) => {
 
 	useEffect(
 		() => {
-			props.updateAmenities(itemState);
+			//This validation is required to prevent
+			//unnecessary re-renders in Filter.js while SelectableItem's are being
+			//loaded
+			if (itemState.selectedState !== props.info.selectedState) {
+				props.updateAmenities(itemState);
+			}
 		},
 		[ itemState ]
 	);

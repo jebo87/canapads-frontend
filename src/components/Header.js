@@ -14,7 +14,7 @@ import search_image from './../images/icons8-search.png';
 const Header = (props) => {
 	const dispatch = useDispatch();
 	const [ username, setUsername ] = useState(null);
-	const filter = useSelector((state) => state.filter);
+	const filter = useSelector((state) => state.filters);
 	const [ localFilter, setLocalFilter ] = useState(defaultFilters);
 	const [ showSideNav, setShowSideNav ] = useState(false);
 
