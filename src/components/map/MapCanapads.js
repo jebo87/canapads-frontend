@@ -5,7 +5,7 @@ import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { setFilters } from './../../redux/actions/filterActions';
 import { invalidateStore } from './../../redux/actions/globalStateActions';
-import { defaultFilters } from './../filters/defaultFilters';
+import { defaultParamsMap } from './../filters/defaultFilters';
 
 // import { dataLayerClusterCount, dataLayerClusters, dataLayerUnclustered } from './layer_data/layer_data';
 import { dataLayerUnclustered } from './layer_data/layer_data';
@@ -22,9 +22,9 @@ const useListings = () => {
 };
 
 const MapCanapads = (props) => {
-	const [ localFilter, setLocalFilter ] = useState(defaultFilters);
 	const dispatch = useDispatch();
-	const filter = useSelector((state) => state.filter);
+	const filter = useSelector((state) => state.filters);
+	const [ localFilter, setLocalFilter ] = useState({ ...defaultParamsMap, ...filter });
 	const mapRef = useRef(null);
 	mapboxgl.accessToken = token;
 	// eslint-disable-next-line
@@ -47,9 +47,11 @@ const MapCanapads = (props) => {
 	const { listings } = useListings();
 	const [ myMap, setMap ] = useState(null);
 
-	const performSearch = async () => {
-		await dispatch(invalidateStore({ store_invalid: true }));
+	const performSearch = () => {
+		console.log(filter);
+		console.log(localFilter);
 		dispatch(setFilters({ ...filter, ...localFilter }));
+		dispatch(invalidateStore({ store_invalid: true }));
 	};
 
 	const initializeMap = ({ setMap, mapRef }) => {

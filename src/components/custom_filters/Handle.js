@@ -4,12 +4,14 @@ import { Handle } from 'rc-slider';
 
 const CustomHandle = (props) => {
 	const { value, dragging, index, ...rest } = props;
+	return <FlexHandle key={index} value={value} {...rest} />;
 
-	return (
-		<FlexHandle key={index} value={value} {...rest}>
-			<div className="range_values"> {dragging && '$' + value}</div>
-		</FlexHandle>
-	);
+	//In case we want to show the value on top of the handle
+	// return (
+	// 	<FlexHandle key={index} value={value} {...rest}>
+	// 		<div className="range_values"> {dragging && '$' + value}</div>
+	// 	</FlexHandle>
+	// );
 };
 
 // If you want to center the text with the handle

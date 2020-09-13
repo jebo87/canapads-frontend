@@ -8,4 +8,13 @@
 		display: flex;
 		flex-direction: row;
 	}
+	.filter_actions {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.clear_button {
+		background: darken($light_gray, 5);
+		color: $dark_gray_2;
+	}
 }

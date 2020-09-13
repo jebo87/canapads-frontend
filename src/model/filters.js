@@ -6,8 +6,8 @@ export default class Filter {
 		this.price_high = obj.price_high;
 		this.published_date_low = obj.published_date_low;
 		this.published_date_high = obj.published_date_high;
-		this.rooms_low = obj.rooms_low;
-		this.rooms_high = obj.rooms_high;
+		this.rooms = obj.bedrooms;
+
 		this.property_type = obj.property_type;
 		this.pets = obj.pets;
 		this.furnished = obj.furnished;
@@ -36,8 +36,7 @@ export default class Filter {
 			price_high: this.price_high,
 			published_date_low: this.published_date_low,
 			published_date_high: this.published_date_high,
-			rooms_low: this.rooms_low,
-			rooms_high: this.rooms_high,
+			rooms: this.rooms,
 			property_type: this.property_type,
 			pets: this.pets,
 			furnished: this.furnished,
