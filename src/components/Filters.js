@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
-import { Button } from '@chakra-ui/core';
 import { setFilters } from './../redux/actions/filterActions';
 
 import SelectableItem from './custom_filters/SelectableItem';
 import PriceRange from './custom_filters/PriceRange';
 
 import { invalidateStore } from './../redux/actions/globalStateActions';
-import { defaultFilters, defaultSize, defaultAmenities } from './filters/defaultFilters';
+import { defaultParamsFilters, defaultSize, defaultAmenities } from './filters/defaultFilters';
 const Filter = (props) => {
 	const dispatch = useDispatch();
 	const filters = useSelector((state) => state.filters, shallowEqual);
-	const [ localFilter, setLocalFilter ] = useState({ ...defaultFilters });
-	const [ amenities, setAmenities ] = useState(defaultAmenities);
+	const [ localFilter, setLocalFilter ] = useState({ ...filters });
+	const [ amenities, setAmenities ] = useState({ ...defaultAmenities });
 	const [ priceRange, setPriceRange ] = useState([
-		defaultFilters['price_low'].value,
-		defaultFilters['price_high'].value
+		defaultParamsFilters['price_low'].value,
+		defaultParamsFilters['price_high'].value
 	]);
 
 	//local state management for amenities. Called everytime the user
@@ -24,7 +23,7 @@ const Filter = (props) => {
 	const updateAmenities = (updatedAmenity) => {
 		var modified = { ...amenities };
 		modified[updatedAmenity.id] = updatedAmenity;
-		setAmenities({ ...modified });
+		setAmenities(modified);
 	};
 
 	//updates the localFilter state with the current values for price_low and price_high
@@ -40,7 +39,6 @@ const Filter = (props) => {
 	//triggers a new search
 	const applyFilter = (e) => {
 		e.preventDefault();
-		resetAmenities();
 		dispatch(
 			setFilters({
 				...localFilter,
@@ -59,14 +57,27 @@ const Filter = (props) => {
 		e.preventDefault();
 		resetAmenities();
 		resetPriceRange();
-		dispatch(
-			setFilters({
-				...defaultFilters
-			})
-		);
+		resetLocalFilter();
+		props.toggleFilter();
+	};
+
+	const resetLocalFilter = () => {
+		let tempLocalFilter = { ...localFilter };
+		let tempFilters = { ...filters };
+		Object.entries(amenities).map(([ key, item ]) => {
+			if (key in tempLocalFilter) {
+				delete tempLocalFilter[key];
+			}
+			if (key in tempFilters) {
+				delete tempFilters[key];
+			}
+		});
+
+		setLocalFilter({ ...tempFilters, ...tempLocalFilter });
+		dispatch(setFilters({ ...tempFilters, ...tempLocalFilter }));
+		console.log({ ...tempFilters, ...tempLocalFilter });
 		//needed to trigger new search.
 		dispatch(invalidateStore({ store_invalid: true }));
-		props.toggleFilter();
 	};
 
 	//clear the values for the amenities. resets the images and updates state.
@@ -76,11 +87,11 @@ const Filter = (props) => {
 			item.selectedState = 0;
 			return item;
 		});
-		setAmenities({ ...modified });
+		setAmenities(modified);
 	};
 
 	const resetPriceRange = () => {
-		let resetPrice = [ defaultFilters['price_low'].value, defaultFilters['price_high'].value ];
+		let resetPrice = [ defaultParamsFilters['price_low'].value, defaultParamsFilters['price_high'].value ];
 		handlePriceRangeChange(resetPrice);
 	};
 
@@ -116,7 +127,7 @@ const Filter = (props) => {
 		// we have to iterate over amenities and unselect the ones that were active before
 		//but now are removed from the filter
 		Object.entries(amenities).map(([ key, item ]) => {
-			if (!(key in filters) && item.selectedState === 1) {
+			if (!(key in filters) && item.selectedState !== 0) {
 				tempAmenities[key].selectedState = 0;
 			}
 		});
@@ -160,25 +171,52 @@ const Filter = (props) => {
 		[ filters ]
 	);
 
+	// useEffect(
+	// 	() => {
+	// 		console.log(localFilter);
+	// 	},
+	// 	[ localFilter ]
+	// );
 	return (
 		<div className="filter">
 			<h3>Price</h3>
 			<PriceRange onPriceChange={handlePriceRangeChange} priceFilters={priceRange} />
 			<br />
-			<h3>Amenities</h3>
+
+			<h3>Property Type</h3>
 			<div className="amenities">
-				{Object.entries(amenities).map(([ key, value ]) => (
-					<SelectableItem updateAmenities={updateAmenities} key={key} info={value} />
-				))}
+				{Object.entries(amenities).map(([ key, value ]) => {
+					if (value.type === 'property') {
+						return <SelectableItem updateAmenities={updateAmenities} key={key} info={value} />;
+					}
+				})}
+			</div>
+			<h3>Animals</h3>
+			<div className="amenities">
+				{Object.entries(amenities).map(([ key, value ]) => {
+					if (value.type === 'animals') {
+						return <SelectableItem updateAmenities={updateAmenities} key={key} info={value} />;
+					}
+				})}
+			</div>
+			<h3>Extras</h3>
+			<div className="amenities">
+				{Object.entries(amenities).map(([ key, value ]) => {
+					if (value.type === 'feature') {
+						return <SelectableItem updateAmenities={updateAmenities} key={key} info={value} />;
+					}
+				})}
 			</div>
 
 			<br />
-			<Button onClick={applyFilter} variantColor="blue" variant="outline">
-				Apply Filter
-			</Button>
-			<Button onClick={clearFilter} variantColor="blue" variant="outline">
-				Clear Filter
-			</Button>
+			<div className="filter_actions">
+				<button className="default_button" onClick={applyFilter}>
+					Apply Filter
+				</button>
+				<button className="default_button clear_button" onClick={clearFilter}>
+					Clear filters
+				</button>
+			</div>
 		</div>
 	);
 };

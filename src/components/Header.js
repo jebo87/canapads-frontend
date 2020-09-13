@@ -7,7 +7,7 @@ import SideNav from './navigation/SideNav';
 import { getLoggedInUser } from '../backend_interface/api_if';
 import logo from '../images/logo.svg';
 import LoginLogoutButton from './LoginLogoutButton';
-import { defaultFilters } from './filters/defaultFilters';
+import { defaultParamsSearch } from './filters/defaultFilters';
 import { setFilters } from './../redux/actions/filterActions';
 import { invalidateStore } from './../redux/actions/globalStateActions';
 import search_image from './../images/icons8-search.png';
@@ -15,7 +15,7 @@ const Header = (props) => {
 	const dispatch = useDispatch();
 	const [ username, setUsername ] = useState(null);
 	const filter = useSelector((state) => state.filters);
-	const [ localFilter, setLocalFilter ] = useState(defaultFilters);
+	const [ localFilter, setLocalFilter ] = useState({ ...defaultParamsSearch.searchParam });
 	const [ showSideNav, setShowSideNav ] = useState(false);
 
 	const handleSearchChanged = (e) => {
@@ -26,7 +26,7 @@ const Header = (props) => {
 	};
 	let proceed_search = false;
 
-	const handleKeyDown = async (e) => {
+	const handleKeyDown = (e) => {
 		if (e.key === 'Enter') {
 			var newFilter = {
 				...localFilter,
@@ -37,10 +37,9 @@ const Header = (props) => {
 			setLocalFilter(newFilter);
 		}
 	};
-	const performSearch = async () => {
-		await dispatch(invalidateStore({ store_invalid: true }));
-
-		dispatch(setFilters({ ...localFilter, ...filter }));
+	const performSearch = () => {
+		dispatch(setFilters({ ...filter, ...localFilter }));
+		dispatch(invalidateStore({ store_invalid: true }));
 	};
 
 	useEffect(
@@ -50,13 +49,6 @@ const Header = (props) => {
 			}
 		},
 		[ localFilter ]
-	);
-
-	useEffect(
-		() => {
-			getLoggedInUser().then((data) => setUsername(data));
-		},
-		[ filter ]
 	);
 
 	const showNav = () => {
