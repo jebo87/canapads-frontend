@@ -25,12 +25,12 @@ const SelectableItem = (props) => {
 	);
 	return (
 		<div className="selectable_item">
-			{itemState && (
-				<button className="selectable_item_button" id={itemState.caption} onClick={handleClick}>
-					<img src={itemState.images[itemState.selectedState]} alt="" />
-					<span>{itemState.name[itemState.selectedState]}</span>
-				</button>
-			)}
+			<button id={itemState.caption} onClick={handleClick}>
+				<img src={itemState.images[itemState.selectedState]} alt={itemState.caption} />
+			</button>
+			<label className="info" htmlFor={itemState.caption}>
+				{itemState.name[itemState.selectedState]}
+			</label>
 		</div>
 	);
 };

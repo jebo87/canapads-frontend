@@ -1,7 +1,8 @@
 .price_range {
 	display: flex;
 	flex-direction: row;
-	width: 100%;
+	width: 50rem;
+
 	justify-content: center;
 	.range_values {
 		margin-top: -28px !important;
@@ -12,10 +13,19 @@
 	}
 	.pricetag {
 		text-align: center;
-		width: 50rem;
+		margin: 0 2rem;
+		width: 5rem;
+		align-self: center;
+	}
+	.pricetag_left {
+		left: 0;
+	}
+	.pricetag_right {
+		right: 0;
 	}
 	.rc-slider {
-		width: 50rem;
+		width: 30rem;
+		align-self: center;
 	}
 	.rc-slider-handle {
 		position: absolute;

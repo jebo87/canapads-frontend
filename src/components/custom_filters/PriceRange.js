@@ -34,23 +34,20 @@ const PriceRange = (props) => {
 
 	return (
 		<div className="price_range">
+			<div className="pricetag pricetag_left">${priceValues[0]} Min. </div>
 			{priceValues && (
-				<div>
-					<Slider.Range
-						min={lowerBound}
-						max={upperBound}
-						step={50}
-						defaultValue={props.priceFilters}
-						value={priceValues}
-						onChange={handleChange}
-						onAfterChange={handleAfterChange}
-						handle={CustomHandle}
-					/>
-					<div className="pricetag">
-						${priceValues[0]} - ${priceValues[1] === 1000000 ? '4000+' : priceValues[1]}
-					</div>
-				</div>
+				<Slider.Range
+					min={lowerBound}
+					max={upperBound}
+					step={50}
+					defaultValue={props.priceFilters}
+					value={priceValues}
+					onChange={handleChange}
+					onAfterChange={handleAfterChange}
+					handle={CustomHandle}
+				/>
 			)}
+			<div className="pricetag pricetag_right">${priceValues[1] === 1000000 ? '4000+' : priceValues[1]} Max.</div>
 		</div>
 	);
 };

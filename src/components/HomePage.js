@@ -8,7 +8,7 @@ import { invalidateStore } from './../redux/actions/globalStateActions';
 //import { initStore } from '../redux/store';
 import { Listings } from './listings/Listings';
 import Filter from './Filters';
-import { defaultFilters, defaultSize } from './filters/defaultFilters';
+import { defaultParamsMap, defaultSize } from './filters/defaultFilters';
 import { getAds } from '../backend_interface/api_if';
 import Header from './Header';
 import Pagination from './pagination/Pagination';
@@ -34,7 +34,7 @@ const HomePage = (state) => {
 	const [ searchTerm, setSearchTerm ] = useState('');
 
 	const initializeListings = async (newFilter) => {
-		const filters = { ...defaultFilters, ...newFilter };
+		const filters = { ...defaultParamsMap, ...newFilter };
 		const newListings = await getAds(filters);
 
 		updateStore(newListings);
