@@ -37,6 +37,18 @@ const defaultParamsFilters = {
 const defaultParamsSearch = {
 	searchParam: {
 		value: ''
+	},
+	from: {
+		value: defaultFrom
+	},
+	size: {
+		value: defaultSize
+	},
+	price_low: {
+		value: defaultPriceLow
+	},
+	price_high: {
+		value: defaultPriceHigh
 	}
 };
 const defaultParamsMap = {

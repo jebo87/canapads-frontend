@@ -15,7 +15,7 @@ const Header = (props) => {
 	const dispatch = useDispatch();
 	const [ username, setUsername ] = useState(null);
 	const filter = useSelector((state) => state.filters);
-	const [ localFilter, setLocalFilter ] = useState({ ...defaultParamsSearch.searchParam });
+	const [ localFilter, setLocalFilter ] = useState({ ...defaultParamsSearch });
 	const [ showSideNav, setShowSideNav ] = useState(false);
 
 	const handleSearchChanged = (e) => {
@@ -38,7 +38,7 @@ const Header = (props) => {
 		}
 	};
 	const performSearch = () => {
-		dispatch(setFilters({ ...filter, ...localFilter }));
+		dispatch(setFilters({ ...localFilter }));
 		dispatch(invalidateStore({ store_invalid: true }));
 	};
 
