@@ -22,9 +22,9 @@ var formatter = new Intl.NumberFormat('en-US', {
 });
 const StyledHeader = styled(Header)`
 		margin: 0 auto;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: center;
-		width: 128rem;
+		max-width: 128rem;
 		padding: 1.5rem 0 1.5rem 0;
 		.search_area{
 			width:30rem;
@@ -53,7 +53,7 @@ const ListingPage = () => {
 		return (
 			<React.Fragment>
 				<div className="listing_page">
-					<StyledHeader filter={{ searchParam: '' }} />
+					<StyledHeader filter={{ searchParam: '' }} showSearch={false} />
 
 					<PhotoGrid images={listing.images} />
 					<div className="content_listing">
