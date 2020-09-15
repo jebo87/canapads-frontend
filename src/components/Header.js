@@ -14,6 +14,7 @@ import search_image from './../images/icons8-search.png';
 const Header = (props) => {
 	const dispatch = useDispatch();
 	const [ username, setUsername ] = useState(null);
+	const [ showSearch, setShowSearch ] = useState(props.showSearch);
 	const filter = useSelector((state) => state.filters);
 	const [ localFilter, setLocalFilter ] = useState({ ...defaultParamsSearch });
 	const [ showSideNav, setShowSideNav ] = useState(false);
@@ -71,18 +72,20 @@ const Header = (props) => {
 					<a href="https://www.canapads.ca/"> CANAPADS</a>
 				</div>
 
-				<div className="search_area">
-					<input
-						placeholder="Search..."
-						type="text"
-						className="search_box"
-						onKeyDown={handleKeyDown}
-						onChange={handleSearchChanged}
-					/>
-					<button className="blue_button search_button " onClick={performSearch}>
-						<img src={search_image} alt="" />
-					</button>
-				</div>
+				{showSearch && (
+					<div className="search_area">
+						<input
+							placeholder="Search..."
+							type="text"
+							className="search_box"
+							onKeyDown={handleKeyDown}
+							onChange={handleSearchChanged}
+						/>
+						<button className="blue_button search_button " onClick={performSearch}>
+							<img src={search_image} alt="" />
+						</button>
+					</div>
+				)}
 			</div>
 		</React.Fragment>
 	);

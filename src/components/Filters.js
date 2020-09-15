@@ -179,11 +179,10 @@ const Filter = (props) => {
 	// );
 	return (
 		<div className="filter">
-			<h3>Price</h3>
+			<h4>Price</h4>
 			<PriceRange onPriceChange={handlePriceRangeChange} priceFilters={priceRange} />
-			<br />
 
-			<h3>Property Type</h3>
+			<h4>Property Type</h4>
 			<div className="amenities">
 				{Object.entries(amenities).map(([ key, value ]) => {
 					if (value.type === 'property') {
@@ -191,7 +190,8 @@ const Filter = (props) => {
 					}
 				})}
 			</div>
-			<h3>Animals</h3>
+
+			<h4>Animals</h4>
 			<div className="amenities">
 				{Object.entries(amenities).map(([ key, value ]) => {
 					if (value.type === 'animals') {
@@ -199,7 +199,8 @@ const Filter = (props) => {
 					}
 				})}
 			</div>
-			<h3>Extras</h3>
+
+			<h4>Extras</h4>
 			<div className="amenities">
 				{Object.entries(amenities).map(([ key, value ]) => {
 					if (value.type === 'feature') {
@@ -208,7 +209,6 @@ const Filter = (props) => {
 				})}
 			</div>
 
-			<br />
 			<div className="filter_actions">
 				<button className="default_button" onClick={applyFilter}>
 					Apply Filter

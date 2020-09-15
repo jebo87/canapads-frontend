@@ -6,7 +6,7 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { setFilters } from './../../redux/actions/filterActions';
 import { invalidateStore } from './../../redux/actions/globalStateActions';
 import { defaultParamsMap } from './../filters/defaultFilters';
-
+import FreeDraw from 'mapbox-gl-draw-freehand-mode';
 // import { dataLayerClusterCount, dataLayerClusters, dataLayerUnclustered } from './layer_data/layer_data';
 import { dataLayerUnclustered } from './layer_data/layer_data';
 //import AdPopup from './AdPopup';
@@ -26,6 +26,7 @@ const MapCanapads = (props) => {
 	const filter = useSelector((state) => state.filters);
 	const [ localFilter, setLocalFilter ] = useState({ ...defaultParamsMap, ...filter });
 	const mapRef = useRef(null);
+	const [ reset, setReset ] = useState(false);
 	mapboxgl.accessToken = token;
 	// eslint-disable-next-line
 	const [ viewPort, setViewPort ] = useState({
@@ -37,6 +38,9 @@ const MapCanapads = (props) => {
 		minZoom: 5
 	});
 	var draw = new MapboxDraw({
+		modes: Object.assign(MapboxDraw.modes, {
+			draw_polygon: FreeDraw
+		}),
 		displayControlsDefault: false,
 		controls: {
 			polygon: true,
@@ -48,9 +52,13 @@ const MapCanapads = (props) => {
 	const [ myMap, setMap ] = useState(null);
 
 	const performSearch = () => {
-		console.log(filter);
-		console.log(localFilter);
-		dispatch(setFilters({ ...filter, ...localFilter }));
+		if (!reset) {
+			dispatch(setFilters({ ...filter, ...localFilter }));
+		} else {
+			let tempFilter = filter;
+			delete tempFilter.polygon;
+			dispatch(setFilters({ ...tempFilter }));
+		}
 		dispatch(invalidateStore({ store_invalid: true }));
 	};
 
@@ -112,7 +120,7 @@ const MapCanapads = (props) => {
 			});
 		});
 
-		map.addControl(draw);
+		map.addControl(draw, 'top-left');
 
 		map.on('draw.create', searchFromMap);
 		map.on('draw.delete', searchFromMap);
@@ -120,20 +128,40 @@ const MapCanapads = (props) => {
 	};
 
 	const searchFromMap = async (e) => {
+		console.log(e);
 		var data = draw.getAll();
+
 		let geo_search = {
 			polygon: { points: [] }
 		};
 
-		var coords = data.features[0].geometry.coordinates[0];
-		coords.forEach((element) => {
-			geo_search.polygon.points.push({ lon: element[0], lat: element[1] });
-		});
-		var newFilter = {
-			...localFilter,
-			...geo_search
-		};
-		setLocalFilter(newFilter);
+		if (data.features.length > 0) {
+			var coords = data.features[0].geometry.coordinates[0];
+			coords.forEach((element) => {
+				geo_search.polygon.points.push({ lon: element[0], lat: element[1] });
+			});
+			var newFilter = {
+				...localFilter,
+				...geo_search
+			};
+			setReset(false);
+			setLocalFilter(newFilter);
+			//In case a new polygon is being created, we need to delete the previous one
+			//to have only one polygon available on screen.
+			let pids = [];
+			const lid = data.features[data.features.length - 1].id;
+			data.features.forEach((f) => {
+				//make sure you are deleting all the other polygons
+				//different to the one that was just drawn
+				if (f.geometry.type === 'Polygon' && f.id !== lid) {
+					pids.push(f.id);
+				}
+			});
+			draw.delete(pids);
+		} else {
+			setReset(true);
+			setLocalFilter({ ...localFilter });
+		}
 	};
 
 	useEffect(

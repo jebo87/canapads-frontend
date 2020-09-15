@@ -101,7 +101,7 @@ const HomePage = (state) => {
 	return (
 		<React.Fragment>
 			<div className="home_page">
-				<Header />
+				<Header showSearch={true} />
 
 				<div className="map_search">
 					{!showFilters && (

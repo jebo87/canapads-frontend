@@ -5,9 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import 'normalize-scss/sass/_normalize.scss';
 import './styles/styles.scss';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 ReactDOM.render(
 	<React.StrictMode>
 		<App />
