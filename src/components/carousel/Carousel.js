@@ -47,17 +47,12 @@ const Carousel = (props) => {
 			className="modal"
 		>
 			<div className="carousel">
+				<button className="close" onClick={props.toggleCarousel}>
+					<span />
+				</button>
+				<button className="prev" onClick={moveLeft} />
+				<button className="next" href="#" onClick={moveRight} />
 				<div className="showcase img-fluid">
-					<button className="close" onClick={props.toggleCarousel}>
-						<span />
-					</button>
-					<button className="prev" onClick={moveLeft}>
-						<div>&#10094;</div>
-					</button>
-					<button className="next" href="#" onClick={moveRight}>
-						&#10095;
-					</button>
-
 					<img className="img-fluid" src={props.images[selectedImg]} alt="" />
 				</div>
 				<div className="thumbnails">

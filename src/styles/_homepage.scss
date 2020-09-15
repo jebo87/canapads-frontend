@@ -16,18 +16,18 @@
 
 	.left_box {
 		margin: 0;
-		width: $left_panel_size;
-		//max-width: $left_panel_size;
+		display: block;
+		min-width: $left_panel_size;
 		background: $light_gray;
-		display: flex;
-		flex-direction: column;
+		height: calc(100vh - 6rem);
+		overflow-x: hidden;
 	}
 }
 
 @media screen and (max-width: $mobile_wide) {
 	.home_page {
 		.left_box {
-			width: 100%;
+			min-width: 100%;
 			max-width: 100%;
 		}
 	}
