@@ -28,7 +28,7 @@ const Carousel = (props) => {
 	};
 	const moveLeft = () => {
 		let newIndex = imageCount - 1;
-		newIndex = selectedImg - 1 > 0 ? selectedImg - 1 : newIndex;
+		newIndex = selectedImg - 1 >= 0 ? selectedImg - 1 : newIndex;
 		setSelectedImg(newIndex);
 		calculateCoorX(newIndex);
 	};
