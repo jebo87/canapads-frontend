@@ -10,4 +10,4 @@ We also use ElasticSearch for searching, Postgres as a Database, Mongo DB for us
 
 ![network](https://gofullstack.dev/images/canapads/canapads2.png)
 
-This is a work in progress in early stages and I am currently working in what you see in the diagram below, however more micro services will be added in the future.
+This is a work in progress in early stages and I am currently working in what you see in the above below, however more micro services will be added in the future.
